@@ -64,6 +64,11 @@ def main():
          '白石・厚別の雪を対象。東部融雪槽・東米里雪堆積場との接続を比較。',
          '豊平川等の洪水・内水と道路冠水を確認。',
          SOURCES['city_land_sale']),
+        ('maruyama', '札幌市中央区 円山・宮の森方面（参考）', '参考・用地未発見',
+         'OSMの土地利用では半径3.5km内にまとまった工業・遊休地がなく、大きな区画は競技場・公園・駐車場・市電車両センター（約1ha）・藻岩浄水場・中央卸売市場・札幌競馬場。いずれも売地ではない。',
+         '中央区西部の雪を近距離で処理する仮説。変電所・IXの近さと用地の無さを同じ表で比較するために残す。',
+         '住宅密集地への搬入、円山公園・北海道神宮周辺の景観・交通、藻岩山側の斜面を確認。',
+         'https://www.openstreetmap.org/copyright'),
     ]
     candidates = [dict(id=i, name=n, verdict=v, land=l, rationale=r, hazard=h, source_url=u,
                        municipality='札幌市',

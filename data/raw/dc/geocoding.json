@@ -103,5 +103,47 @@
     ],
     "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E7%99%BD%E7%9F%B3%E5%8C%BA%E6%B5%81%E9%80%9A%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC",
     "retrieved_at": "2026-09-08T06:14:55.507601+00:00"
+  },
+  "札幌市中央区宮ケ丘": {
+    "query": "札幌市中央区宮ケ丘",
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.306641,
+            43.051479
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市中央区宮ケ丘"
+        }
+      }
+    ],
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%AE%AE%E3%82%B1%E4%B8%98",
+    "retrieved_at": "2026-09-08T10:32:27.620566+00:00"
+  },
+  "札幌市中央区大通東3丁目4": {
+    "query": "札幌市中央区大通東3丁目4",
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.361526,
+            43.061996
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市中央区大通東三丁目４番地"
+        }
+      }
+    ],
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%A4%A7%E9%80%9A%E6%9D%B13%E4%B8%81%E7%9B%AE4",
+    "retrieved_at": "2026-09-08T10:32:54.949322+00:00"
   }
 }

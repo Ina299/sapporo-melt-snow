@@ -19,7 +19,82 @@
       "map_address": "札幌市手稲区手稲山口",
       "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E6%89%8B%E7%A8%B2%E5%8C%BA%E6%89%8B%E7%A8%B2%E5%B1%B1%E5%8F%A3",
       "location_status": "調査地区の代表点。売地区画・敷地境界・入口を示すものではありません。",
-      "geocoded_title": "北海道札幌市手稲区手稲山口"
+      "geocoded_title": "北海道札幌市手稲区手稲山口",
+      "grid_ix": {
+        "nearest_substation_187kv": {
+          "name": "西札幌",
+          "distance_km": 6.02,
+          "primary_kv": 187,
+          "secondary_kv": 66.0,
+          "capacity_label": "50～99MW",
+          "capacity_code": 100
+        },
+        "nearest_substation_66kv": {
+          "name": "手稲",
+          "distance_km": 2.4,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会",
+          "capacity_code": 0
+        },
+        "substations_within_3km": [
+          {
+            "name": "手稲",
+            "distance_km": 2.4,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          }
+        ],
+        "nearest_lines": {
+          "66": {
+            "name": "西部スラッジセンター地中線",
+            "distance_km": 0.83,
+            "capacity_label": "要照会",
+            "ord_cur": 0.0
+          },
+          "187": {
+            "name": "187kV 室蘭西幹線",
+            "distance_km": 6.07,
+            "capacity_label": "50～99MW",
+            "ord_cur": 100.0
+          },
+          "275": {
+            "name": "275kV 石狩火力幹線",
+            "distance_km": 5.83,
+            "capacity_label": "300～499MW",
+            "ord_cur": 500.0
+          }
+        },
+        "nearest_osm_substation": {
+          "name": "手稲変電所",
+          "voltage": "66000",
+          "distance_km": 2.4,
+          "osm_id": "way/169214806"
+        },
+        "ix": [
+          {
+            "id": "hix",
+            "name": "H-IXデータセンター（北海道インターネット・エクスチェンジ）",
+            "distance_km": 15.07,
+            "note": "ほくでん情報テクノロジー運営。住所は公式サイトで公開。ポート空き・料金・接続条件は未照会。"
+          },
+          {
+            "id": "jpnap_sapporo",
+            "name": "JPNAP札幌（NTT東日本 北海道第2データセンター内）",
+            "distance_km": null,
+            "note": "POP所在ビルの住所は非公開。距離は算出しない。100G/10G/1G掲載、400Gは要照会。"
+          }
+        ],
+        "nearest_industrial_park": {
+          "name": "手稲山口軽工業",
+          "municipality": "札幌市手稲区",
+          "distance_km": 1.68,
+          "area_ha": "20",
+          "sold_ha": "13.4",
+          "year": "1988"
+        }
+      }
     },
     {
       "id": "makomanai_ishiyama",
@@ -39,7 +114,89 @@
       "map_address": "札幌市南区石山1条1丁目",
       "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8D%97%E5%8C%BA%E7%9F%B3%E5%B1%B11%E6%9D%A11%E4%B8%81%E7%9B%AE",
       "location_status": "調査地区の代表点。売地区画・敷地境界・入口を示すものではありません。",
-      "geocoded_title": "北海道札幌市南区石山一条一丁目"
+      "geocoded_title": "北海道札幌市南区石山一条一丁目",
+      "grid_ix": {
+        "nearest_substation_187kv": {
+          "name": "南九条",
+          "distance_km": 7.71,
+          "primary_kv": 187,
+          "secondary_kv": 66.0,
+          "capacity_label": "要照会",
+          "capacity_code": 0
+        },
+        "nearest_substation_66kv": {
+          "name": "川沿",
+          "distance_km": 1.14,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会",
+          "capacity_code": 0
+        },
+        "substations_within_3km": [
+          {
+            "name": "川沿",
+            "distance_km": 1.14,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "真駒内",
+            "distance_km": 2.79,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          }
+        ],
+        "nearest_lines": {
+          "66": {
+            "name": "川沿地中支線",
+            "distance_km": 1.15,
+            "capacity_label": "要照会",
+            "ord_cur": 0.0
+          },
+          "187": {
+            "name": "187kV 南九条線",
+            "distance_km": 6.9,
+            "capacity_label": "要照会",
+            "ord_cur": 0.0
+          },
+          "275": {
+            "name": "275kV 道央北幹線",
+            "distance_km": 12.34,
+            "capacity_label": "300～499MW",
+            "ord_cur": 500.0
+          }
+        },
+        "nearest_osm_substation": {
+          "name": "南札幌変電所",
+          "voltage": "187000;66000",
+          "distance_km": 7.8,
+          "osm_id": "relation/12927262"
+        },
+        "ix": [
+          {
+            "id": "hix",
+            "name": "H-IXデータセンター（北海道インターネット・エクスチェンジ）",
+            "distance_km": 9.35,
+            "note": "ほくでん情報テクノロジー運営。住所は公式サイトで公開。ポート空き・料金・接続条件は未照会。"
+          },
+          {
+            "id": "jpnap_sapporo",
+            "name": "JPNAP札幌（NTT東日本 北海道第2データセンター内）",
+            "distance_km": null,
+            "note": "POP所在ビルの住所は非公開。距離は算出しない。100G/10G/1G掲載、400Gは要照会。"
+          }
+        ],
+        "nearest_industrial_park": {
+          "name": "札幌ハイテクヒル真栄",
+          "municipality": "札幌市清田区",
+          "distance_km": 7.31,
+          "area_ha": "42.7",
+          "sold_ha": "13.5",
+          "year": null
+        }
+      }
     },
     {
       "id": "oyachi_kitano",
@@ -59,7 +216,110 @@
       "map_address": "札幌市白石区流通センター",
       "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E7%99%BD%E7%9F%B3%E5%8C%BA%E6%B5%81%E9%80%9A%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC",
       "location_status": "調査地区の代表点。売地区画・敷地境界・入口を示すものではありません。",
-      "geocoded_title": "北海道札幌市白石区流通センター"
+      "geocoded_title": "北海道札幌市白石区流通センター",
+      "grid_ix": {
+        "nearest_substation_187kv": {
+          "name": "南札幌",
+          "distance_km": 2.46,
+          "primary_kv": 187,
+          "secondary_kv": 66.0,
+          "capacity_label": "50～99MW",
+          "capacity_code": 100
+        },
+        "nearest_substation_66kv": {
+          "name": "大谷地",
+          "distance_km": 1.42,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会",
+          "capacity_code": 0
+        },
+        "substations_within_3km": [
+          {
+            "name": "大谷地",
+            "distance_km": 1.42,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "北郷",
+            "distance_km": 1.68,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "月寒",
+            "distance_km": 2.35,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "南札幌",
+            "distance_km": 2.46,
+            "primary_kv": 187,
+            "secondary_kv": 66.0,
+            "capacity_label": "50～99MW"
+          },
+          {
+            "name": "厚別",
+            "distance_km": 2.97,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          }
+        ],
+        "nearest_lines": {
+          "66": {
+            "name": "新札幌地中線",
+            "distance_km": 0.9,
+            "capacity_label": "要照会",
+            "ord_cur": 0.0
+          },
+          "187": {
+            "name": "187kV 南札幌幹線",
+            "distance_km": 0.16,
+            "capacity_label": "50～99MW",
+            "ord_cur": 100.0
+          },
+          "275": {
+            "name": "275kV 道央東幹線",
+            "distance_km": 14.47,
+            "capacity_label": "300～499MW",
+            "ord_cur": 500.0
+          }
+        },
+        "nearest_osm_substation": {
+          "name": "札幌市交通局　高速電車大谷地変電所",
+          "voltage": null,
+          "distance_km": 1.42,
+          "osm_id": "way/453334929"
+        },
+        "ix": [
+          {
+            "id": "hix",
+            "name": "H-IXデータセンター（北海道インターネット・エクスチェンジ）",
+            "distance_km": 7.01,
+            "note": "ほくでん情報テクノロジー運営。住所は公式サイトで公開。ポート空き・料金・接続条件は未照会。"
+          },
+          {
+            "id": "jpnap_sapporo",
+            "name": "JPNAP札幌（NTT東日本 北海道第2データセンター内）",
+            "distance_km": null,
+            "note": "POP所在ビルの住所は非公開。距離は算出しない。100G/10G/1G掲載、400Gは要照会。"
+          }
+        ],
+        "nearest_industrial_park": {
+          "name": "札幌テクノパーク",
+          "municipality": "札幌市厚別区",
+          "distance_km": 4.95,
+          "area_ha": "28.2",
+          "sold_ha": "12.6",
+          "year": "1997"
+        }
+      }
     },
     {
       "id": "shinkawa",
@@ -79,7 +339,89 @@
       "map_address": "札幌市北区新川西1条1丁目",
       "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8C%97%E5%8C%BA%E6%96%B0%E5%B7%9D%E8%A5%BF1%E6%9D%A11%E4%B8%81%E7%9B%AE",
       "location_status": "調査地区の代表点。売地区画・敷地境界・入口を示すものではありません。",
-      "geocoded_title": "北海道札幌市北区新川西一条一丁目"
+      "geocoded_title": "北海道札幌市北区新川西一条一丁目",
+      "grid_ix": {
+        "nearest_substation_187kv": {
+          "name": "西札幌",
+          "distance_km": 0.34,
+          "primary_kv": 187,
+          "secondary_kv": 66.0,
+          "capacity_label": "50～99MW",
+          "capacity_code": 100
+        },
+        "nearest_substation_66kv": {
+          "name": "宮の沢",
+          "distance_km": 2.24,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会",
+          "capacity_code": 0
+        },
+        "substations_within_3km": [
+          {
+            "name": "西札幌",
+            "distance_km": 0.34,
+            "primary_kv": 187,
+            "secondary_kv": 66.0,
+            "capacity_label": "50～99MW"
+          },
+          {
+            "name": "宮の沢",
+            "distance_km": 2.24,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          }
+        ],
+        "nearest_lines": {
+          "66": {
+            "name": "茨戸線",
+            "distance_km": 0.14,
+            "capacity_label": "要照会",
+            "ord_cur": 0.0
+          },
+          "187": {
+            "name": "187kV 室蘭西幹線",
+            "distance_km": 0.16,
+            "capacity_label": "50～99MW",
+            "ord_cur": 100.0
+          },
+          "275": {
+            "name": "275kV 道央北幹線",
+            "distance_km": 0.16,
+            "capacity_label": "300～499MW",
+            "ord_cur": 500.0
+          }
+        },
+        "nearest_osm_substation": {
+          "name": "西札幌変電所",
+          "voltage": "187000;66000",
+          "distance_km": 0.32,
+          "osm_id": "way/179863075"
+        },
+        "ix": [
+          {
+            "id": "hix",
+            "name": "H-IXデータセンター（北海道インターネット・エクスチェンジ）",
+            "distance_km": 8.84,
+            "note": "ほくでん情報テクノロジー運営。住所は公式サイトで公開。ポート空き・料金・接続条件は未照会。"
+          },
+          {
+            "id": "jpnap_sapporo",
+            "name": "JPNAP札幌（NTT東日本 北海道第2データセンター内）",
+            "distance_km": null,
+            "note": "POP所在ビルの住所は非公開。距離は算出しない。100G/10G/1G掲載、400Gは要照会。"
+          }
+        ],
+        "nearest_industrial_park": {
+          "name": "新川地区",
+          "municipality": "札幌市北区",
+          "distance_km": 0.39,
+          "area_ha": "14.3",
+          "sold_ha": "11.1",
+          "year": null
+        }
+      }
     },
     {
       "id": "yonesato",
@@ -99,7 +441,190 @@
       "map_address": "札幌市白石区東米里",
       "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E7%99%BD%E7%9F%B3%E5%8C%BA%E6%9D%B1%E7%B1%B3%E9%87%8C",
       "location_status": "調査地区の代表点。売地区画・敷地境界・入口を示すものではありません。",
-      "geocoded_title": "北海道札幌市白石区東米里"
+      "geocoded_title": "北海道札幌市白石区東米里",
+      "grid_ix": {
+        "nearest_substation_187kv": {
+          "name": "苗穂",
+          "distance_km": 3.91,
+          "primary_kv": 187,
+          "secondary_kv": 66.0,
+          "capacity_label": "50～99MW",
+          "capacity_code": 100
+        },
+        "nearest_substation_66kv": {
+          "name": "大麻",
+          "distance_km": 3.46,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会",
+          "capacity_code": 0
+        },
+        "substations_within_3km": [],
+        "nearest_lines": {
+          "66": {
+            "name": "66kV 白石清掃工場支線",
+            "distance_km": 0.2,
+            "capacity_label": "要照会",
+            "ord_cur": 0.0
+          },
+          "187": {
+            "name": "187kV 南札幌幹線",
+            "distance_km": 2.36,
+            "capacity_label": "50～99MW",
+            "ord_cur": 100.0
+          },
+          "275": {
+            "name": "275kV 道央東幹線",
+            "distance_km": 8.86,
+            "capacity_label": "300～499MW",
+            "ord_cur": 500.0
+          }
+        },
+        "nearest_osm_substation": {
+          "name": "大麻変電所",
+          "voltage": "66000",
+          "distance_km": 3.46,
+          "osm_id": "way/182551910"
+        },
+        "ix": [
+          {
+            "id": "hix",
+            "name": "H-IXデータセンター（北海道インターネット・エクスチェンジ）",
+            "distance_km": 7.89,
+            "note": "ほくでん情報テクノロジー運営。住所は公式サイトで公開。ポート空き・料金・接続条件は未照会。"
+          },
+          {
+            "id": "jpnap_sapporo",
+            "name": "JPNAP札幌（NTT東日本 北海道第2データセンター内）",
+            "distance_km": null,
+            "note": "POP所在ビルの住所は非公開。距離は算出しない。100G/10G/1G掲載、400Gは要照会。"
+          }
+        ],
+        "nearest_industrial_park": {
+          "name": "丘珠鉄工",
+          "municipality": "札幌市東区",
+          "distance_km": 5.44,
+          "area_ha": "33.9",
+          "sold_ha": "23.7",
+          "year": "1972"
+        }
+      }
+    },
+    {
+      "id": "maruyama",
+      "name": "札幌市中央区 円山・宮の森方面（参考）",
+      "verdict": "参考・用地未発見",
+      "land": "OSMの土地利用では半径3.5km内にまとまった工業・遊休地がなく、大きな区画は競技場・公園・駐車場・市電車両センター（約1ha）・藻岩浄水場・中央卸売市場・札幌競馬場。いずれも売地ではない。",
+      "rationale": "中央区西部の雪を近距離で処理する仮説。変電所・IXの近さと用地の無さを同じ表で比較するために残す。",
+      "hazard": "住宅密集地への搬入、円山公園・北海道神宮周辺の景観・交通、藻岩山側の斜面を確認。",
+      "source_url": "https://www.openstreetmap.org/copyright",
+      "municipality": "札幌市",
+      "buildable_confirmed": false,
+      "grid_connection_confirmed": false,
+      "network_routes_confirmed": false,
+      "parcel_flood_depth_m": null,
+      "latitude": 43.051479,
+      "longitude": 141.306641,
+      "map_address": "札幌市中央区宮ケ丘",
+      "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%AE%AE%E3%82%B1%E4%B8%98",
+      "location_status": "調査地区の代表点。売地区画・敷地境界・入口を示すものではありません。",
+      "geocoded_title": "北海道札幌市中央区宮ケ丘",
+      "grid_ix": {
+        "nearest_substation_187kv": {
+          "name": "南九条",
+          "distance_km": 3.33,
+          "primary_kv": 187,
+          "secondary_kv": 66.0,
+          "capacity_label": "要照会",
+          "capacity_code": 0
+        },
+        "nearest_substation_66kv": {
+          "name": "円山",
+          "distance_km": 1.8,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会",
+          "capacity_code": 0
+        },
+        "substations_within_3km": [
+          {
+            "name": "円山",
+            "distance_km": 1.8,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "桑園",
+            "distance_km": 2.38,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "山の手",
+            "distance_km": 2.51,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "二十四軒",
+            "distance_km": 2.97,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          }
+        ],
+        "nearest_lines": {
+          "66": {
+            "name": "円山地中線",
+            "distance_km": 1.74,
+            "capacity_label": "要照会",
+            "ord_cur": 0.0
+          },
+          "187": {
+            "name": "南九条線",
+            "distance_km": 0.98,
+            "capacity_label": "要照会",
+            "ord_cur": 0.0
+          },
+          "275": {
+            "name": "275kV 道央北幹線",
+            "distance_km": 4.72,
+            "capacity_label": "300～499MW",
+            "ord_cur": 500.0
+          }
+        },
+        "nearest_osm_substation": {
+          "name": "円山変電所",
+          "voltage": "66000",
+          "distance_km": 1.8,
+          "osm_id": "way/166967538"
+        },
+        "ix": [
+          {
+            "id": "hix",
+            "name": "H-IXデータセンター（北海道インターネット・エクスチェンジ）",
+            "distance_km": 4.61,
+            "note": "ほくでん情報テクノロジー運営。住所は公式サイトで公開。ポート空き・料金・接続条件は未照会。"
+          },
+          {
+            "id": "jpnap_sapporo",
+            "name": "JPNAP札幌（NTT東日本 北海道第2データセンター内）",
+            "distance_km": null,
+            "note": "POP所在ビルの住所は非公開。距離は算出しない。100G/10G/1G掲載、400Gは要照会。"
+          }
+        ],
+        "nearest_industrial_park": {
+          "name": "発寒木工",
+          "municipality": "札幌市西区",
+          "distance_km": 5.5,
+          "area_ha": "17.8",
+          "sold_ha": "13.4",
+          "year": "1973"
+        }
+      }
     }
   ],
   "scenarios": [
@@ -181,5 +706,6 @@
     "poc": "SapporoIX PoC協定は2023年。商用サービスのSLA・参加AS・帯域保証とは別。",
     "proposal": "異経路の2回線と既存IX接続を基本とし、需要に応じ既存IXの現地POPを誘致。"
   },
-  "assumptions": "稼働率90%、IT熱回収80%、雪-5℃・400kg/m³、排水2℃、24時間。補機・搬入は仮定。熱交換器実性能・雪到着量・排水許可で制限される。"
+  "assumptions": "稼働率90%、IT熱回収80%、雪-5℃・400kg/m³、排水2℃、24時間。補機・搬入は仮定。熱交換器実性能・雪到着量・排水許可で制限される。",
+  "grid_ix_method": "直線距離による一律評価。変電所・送電線はほくでんネットワーク公開マップの2026年版レイヤー、IXは公開住所、工業団地は国土数値情報L05。容量表示は公開マップの区分（要照会＝公開値なし）で、接続可否・供給枠・工事費・引込み経路ではない。公開マップ上の変電所は全て要照会表示のため、変電所の区分はデータ内コードの参考値。"
 }

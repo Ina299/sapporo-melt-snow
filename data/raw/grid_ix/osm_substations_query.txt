@@ -1,0 +1,1 @@
+[out:json][timeout:120];(node["power"="substation"](42.9,141.1,43.3,141.65);way["power"="substation"](42.9,141.1,43.3,141.65);relation["power"="substation"](42.9,141.1,43.3,141.65););out center;

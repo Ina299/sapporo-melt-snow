@@ -29,7 +29,7 @@
       <div class="stats" id="top-stats"></div>
       <div class="panel map-panel">
         <div class="panel-heading"><div><span class="eyebrow">SPATIAL OVERVIEW</span><h2>札幌の拠点と広域配車</h2></div><div class="segmented"><button id="city-view" class="selected">全社の仮定割当</button><button id="company-view">選択事業者の経路</button></div></div>
-        <div class="dc-map-controls"><label><input id="dc-layer" type="checkbox" checked> <i class="legend-dot dc-color"></i>DC候補地区（代表点）</label><label><input id="melt-layer" type="checkbox" checked> <i class="legend-dot green"></i>既存融雪施設</label><button id="dc-view" class="text-button">DC候補5地区を表示</button><span>区画・敷地境界は未確定</span></div>
+        <div class="dc-map-controls"><label><input id="dc-layer" type="checkbox" checked> <i class="legend-dot dc-color"></i>DC候補地区（代表点）</label><label><input id="melt-layer" type="checkbox" checked> <i class="legend-dot green"></i>既存融雪施設</label><button id="dc-view" class="text-button">DC候補地区を表示</button><label><input id="grid-layer" type="checkbox"> <i class="legend-dot" style="background:#7a4fb8"></i>変電所・送電線・IX</label><span>区画・敷地境界は未確定</span></div>
         <p id="depot-evidence-note" class="explanation">出動拠点・配備数の組合せを確認できた地点は0件（配備が0台という意味ではありません）。業1〜業4は公開住所の地番代表点です。経路は、ここに10・13・4・3台を集中配備すると仮定した試算です。実際の担当範囲・出動経路ではありません。<a href="#fleet">所在地と台数の照合表 ↓</a></p>
         <div id="map" aria-label="札幌と近郊のDC候補地区、既存融雪施設、業者所在地、広域の車両別経路を表示する地図"></div>
         <div class="map-footer"><span><i class="legend-dot green"></i>既存融雪施設</span><span><i class="legend-dot blue"></i>事業者の公開所在地</span><span><i class="legend-line" style="background:#82988d"></i>取得道路の下図</span><span><i class="legend-line" style="background:#d13932"></i>往復到達できず未割当</span><label><input type="checkbox" id="base-map" checked> 地理院背景地図</label></div>
@@ -111,6 +111,7 @@
         <p><a href="../docs/regional_melting.md">配置案の根拠・探索条件・集中と分散の比較を読む ↗</a></p>
       </div>
       <div id="dc-sites" class="site-grid"></div>
+      <div class="panel" id="grid-panel"><div class="panel-heading"><div><span class="eyebrow">POWER / IX SCREENING</span><h3>受電・IXの一律評価（全候補、直線距離）</h3></div><button id="grid-view" class="text-button">変電所・送電線・IXを地図で見る ↑</button></div><p class="section-intro" id="grid-method" style="padding:0 24px"></p><div class="table-scroll"><table><thead><tr><th>候補</th><th>最寄り187kV変電所</th><th>最寄り66kV変電所</th><th>3km内の変電所</th><th>最寄り187kV系送電線（区分）</th><th>最寄り66kV送電線（区分）</th><th>H-IXまで</th><th>最寄り工業団地</th></tr></thead><tbody id="dc-grid-table"></tbody></table></div><p class="fineprint">距離は代表点からの直線距離で、ケーブル経路・引込み費・供給枠ではありません。区分はほくでんネットワーク公開マップの表示区分（要照会＝公開値なし）。公開マップ上の変電所は全て要照会表示で、ここに示す変電所区分はデータ内コードの参考値です。二次側6.6kVのみの配電用変電所から特高受電はできません。JPNAP札幌のPOP所在ビルは非公開のため距離を出していません。10MW超は需要側接続の事前相談が必要で、相談は未送信です。<a href="../data/processed/dc_grid_ix.json">評価データ</a> · <a href="../data/grid_ix_sources.json">出典とハッシュ</a></p></div>
       <div class="panel"><h3>DC規模別の融雪と搬入</h3><p id="dc-assumptions" class="fineprint"></p><div class="table-scroll"><table><thead><tr><th>IT容量</th><th>融雪 t/日</th><th>雪 m³/日</th><th>8t積み 便/日</th><th>投雪レーン数</th></tr></thead><tbody id="dc-scenarios"></tbody></table></div><p class="fineprint">レーン数：搬入16時間、1便8分、稼働率70%の仮定。融雪は24時間。敷地内の雪の一時貯留が必要です。</p><h3>IX・回線を立地条件にする</h3><p id="dc-network"></p><p><a href="../docs/dc_feasibility.md">候補地の検証・受電条件・IX誘致案を読む ↗</a></p></div>
       <h3>比較対象：既存の融雪施設</h3>
       <p class="section-intro">調査順は既存設備との接続を重視した設計判断です。全候補で、用地確保・受電余力・通信冗長性・敷地別浸水深は未確認です。建設適地の認定や経済性の順位ではありません。</p>
@@ -130,6 +131,6 @@
     </section>
     <footer>SAPPORO SNOW LAB <span>雪と暮らす都市のための、検討用ワークスペース。</span></footer>
   </main>
-  <script src="vendor/leaflet.js"></script><script src="data.js"></script><script src="city-data.js"></script><script src="boundary-data.js"></script><script src="joint-dispatch-data.js"></script><script src="app.js"></script><script src="city.js"></script><script src="contractors.js"></script><script src="snow-data.js"></script><script src="snow-model.js"></script><script src="snow-ui.js"></script>
+  <script src="vendor/leaflet.js"></script><script src="data.js"></script><script src="city-data.js"></script><script src="boundary-data.js"></script><script src="grid-data.js"></script><script src="joint-dispatch-data.js"></script><script src="app.js"></script><script src="city.js"></script><script src="contractors.js"></script><script src="snow-data.js"></script><script src="snow-model.js"></script><script src="snow-ui.js"></script>
 </body>
 </html>

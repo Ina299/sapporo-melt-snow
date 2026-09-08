@@ -56,3 +56,11 @@ label.vehicle-chip input{margin:0}
 .trip-scroll{max-height:360px;border-bottom:1px solid var(--line);margin-bottom:12px}
 #trip-table tr[data-seq]{cursor:pointer}
 tr.faded-row td{opacity:.4}
+
+/* Grid / IX layer */
+.grid-ss span{display:block;background:#fff;border:1.5px solid #7a4fb8;color:#5b2a86;border-radius:3px;font:bold 9px/13px Arial;text-align:center}
+.grid-ss-hv span{background:#5b2a86;color:#fff;border-color:#5b2a86}
+.grid-ix{background:#e0a100;color:#fff;border:2px solid #fff;border-radius:4px;font:bold 10px/16px Arial;text-align:center;box-shadow:0 1px 4px #0005}
+#grid-panel{margin-top:16px}
+#dc-grid-table td{white-space:normal;vertical-align:top;min-width:120px}
+#dc-grid-table small{color:var(--muted)}

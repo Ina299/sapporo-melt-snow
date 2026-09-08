@@ -1,0 +1,1664 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-07-24T11:04:51Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 2057913015,
+  "lat": 43.0603718,
+  "lon": 141.3446338,
+  "tags": {
+    "frequency": "50",
+    "location": "indoor",
+    "name": "北海道電力 大通変電所",
+    "name:en": "Odori Substation",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "substation": "distribution",
+    "voltage": "66000",
+    "website": "https://www.hepco.co.jp/"
+  }
+},
+{
+  "type": "way",
+  "id": 166967538,
+  "center": {
+    "lat": 43.0511813,
+    "lon": 141.3288117
+  },
+  "nodes": [
+    1783566214,
+    1783566130,
+    1783566175,
+    1783566174,
+    1783566214
+  ],
+  "tags": {
+    "frequency": "50",
+    "location": "outdoor",
+    "name": "円山変電所",
+    "name:en": "Maruyama Substation",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "ref": "円山",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 168524732,
+  "center": {
+    "lat": 43.0572198,
+    "lon": 141.2225523
+  },
+  "nodes": [
+    1797770316,
+    1797770432,
+    12850034419,
+    12850034420,
+    12850034421,
+    12850034422,
+    12850034423,
+    1797770292,
+    1797770534,
+    12850034424,
+    12025070883,
+    1797770482,
+    1797770285,
+    1797770345,
+    12850034425,
+    12850034426,
+    12850034427,
+    12850034428,
+    12850034429,
+    12850034430,
+    12850034431,
+    12850034432,
+    12850034436,
+    1797770289,
+    12850034438,
+    1797770359,
+    12850034439,
+    12850034440,
+    12850034441,
+    1797770316
+  ],
+  "tags": {
+    "frequency": "50",
+    "location": "outdoor",
+    "name": "西野変電所",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "substation": "transmission",
+    "voltage": "275000;187000"
+  }
+},
+{
+  "type": "way",
+  "id": 169214806,
+  "center": {
+    "lat": 43.1307018,
+    "lon": 141.2045304
+  },
+  "nodes": [
+    1803753314,
+    1803753267,
+    1803753456,
+    1803753404,
+    1803753187,
+    1803753405,
+    1803753384,
+    1803753473,
+    2026206138,
+    2026206136,
+    2026206137,
+    2026206143,
+    1803753314
+  ],
+  "tags": {
+    "barrier": "fence",
+    "frequency": "50",
+    "location": "outdoor",
+    "name": "手稲変電所",
+    "name:en": "Teine substation",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 176450618,
+  "center": {
+    "lat": 43.1200274,
+    "lon": 141.5374970
+  },
+  "nodes": [
+    1869867051,
+    5848309930,
+    5848309931,
+    5848309917,
+    1869867053,
+    5848309919,
+    5848309921,
+    1869867059,
+    1869867049,
+    12244294324,
+    1869867061,
+    1869867055,
+    1869867065,
+    1869867057,
+    1869867063,
+    1869867048,
+    1869867051
+  ],
+  "tags": {
+    "frequency": "50",
+    "location": "outdoor",
+    "name": "北海道電力　総合研究所",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "substation": "transmission",
+    "voltage": "187000;66000"
+  }
+},
+{
+  "type": "way",
+  "id": 179863071,
+  "center": {
+    "lat": 43.1563350,
+    "lon": 141.3458376
+  },
+  "nodes": [
+    1902955839,
+    1902955869,
+    1902955889,
+    1902955887,
+    1902955882,
+    1902955878,
+    1902955880,
+    1902955875,
+    1902955872,
+    1902955839
+  ],
+  "tags": {
+    "barrier": "fence",
+    "frequency": "50",
+    "name": "茨戸変電所",
+    "name:en": "Ibarato Substation",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "transmission",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 179863075,
+  "center": {
+    "lat": 43.1213988,
+    "lon": 141.2834476
+  },
+  "nodes": [
+    1902955061,
+    1902955051,
+    1902955047,
+    1902955030,
+    1902955037,
+    1902955039,
+    1902955006,
+    1902954986,
+    1902954936,
+    1902955018,
+    1902955061
+  ],
+  "tags": {
+    "barrier": "fence",
+    "frequency": "50",
+    "location": "outdoor",
+    "name": "西札幌変電所",
+    "name:en": "West Sapporo Substation",
+    "name:ja": "西札幌変電所",
+    "name:ja_rm": "Nishi-Sapporo Hendensho",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "ref": "西札幌",
+    "source": "Bing",
+    "substation": "transmission",
+    "voltage": "187000;66000"
+  }
+},
+{
+  "type": "way",
+  "id": 179863079,
+  "center": {
+    "lat": 43.2342512,
+    "lon": 141.4512702
+  },
+  "nodes": [
+    1902959209,
+    1902959207,
+    1902959181,
+    1902959173,
+    1902959174,
+    1902959162,
+    1902959158,
+    1902959155,
+    1902959149,
+    1902959132,
+    1902959116,
+    1902959118,
+    1902959165,
+    1902959170,
+    1902959209
+  ],
+  "tags": {
+    "barrier": "fence",
+    "frequency": "50",
+    "location": "outdoor",
+    "name": "西当別変電所",
+    "name:en": "West Tōbetsu Substation",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "transmission",
+    "voltage": "275000;187000"
+  }
+},
+{
+  "type": "way",
+  "id": 179863093,
+  "center": {
+    "lat": 43.1514363,
+    "lon": 141.4113895
+  },
+  "nodes": [
+    1902955774,
+    1902955767,
+    1902955779,
+    1902955781,
+    1902955774
+  ],
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 179863109,
+  "center": {
+    "lat": 43.1385750,
+    "lon": 141.3744326
+  },
+  "nodes": [
+    1902955422,
+    1902955385,
+    1902955420,
+    1902955439,
+    1902955437,
+    1902955436,
+    1902955427,
+    1902955429,
+    1902955422
+  ],
+  "tags": {
+    "barrier": "fence",
+    "name": "篠路変電所",
+    "power": "substation",
+    "source": "Bing",
+    "voltage": "187000"
+  }
+},
+{
+  "type": "way",
+  "id": 179882283,
+  "center": {
+    "lat": 43.1533648,
+    "lon": 141.6453598
+  },
+  "nodes": [
+    1903125876,
+    13633583710,
+    1903125882,
+    1903125893,
+    1903125884,
+    1903125876
+  ],
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "name": "幌向変電所",
+    "name:en": "Horomukai substation",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 179882298,
+  "center": {
+    "lat": 42.9314770,
+    "lon": 141.6019543
+  },
+  "nodes": [
+    1903124846,
+    1903124839,
+    1903124835,
+    1903124841,
+    1903124846
+  ],
+  "tags": {
+    "barrier": "fence",
+    "frequency": "50",
+    "name": "恵庭変電所",
+    "operator": "北海道電力",
+    "operator:en": "HEPCO",
+    "operator:ja": "北海道電力株式会社",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "transmission"
+  }
+},
+{
+  "type": "way",
+  "id": 179971423,
+  "center": {
+    "lat": 43.0366332,
+    "lon": 141.3055753
+  },
+  "nodes": [
+    1904197122,
+    1904197118,
+    13356733465,
+    1904197123,
+    1904197124,
+    1904197122
+  ],
+  "tags": {
+    "barrier": "fence",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "transition",
+    "voltage": "187000"
+  }
+},
+{
+  "type": "way",
+  "id": 182529428,
+  "center": {
+    "lat": 43.0328686,
+    "lon": 141.4128732
+  },
+  "nodes": [
+    1928899432,
+    1928899428,
+    1928899430,
+    1928899426,
+    1928899424,
+    1928899418,
+    1928899425,
+    1928899417,
+    1928899427,
+    1928899434,
+    1928899432
+  ],
+  "tags": {
+    "barrier": "fence",
+    "frequency": "50",
+    "name": "月寒変電所",
+    "name:ja": "月寒変電所",
+    "operator": "北海道電力",
+    "operator:en": "HEPCO",
+    "operator:ja": "北海道電力株式会社",
+    "power": "substation",
+    "ref": "月寒",
+    "source": "Bing",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 182529451,
+  "center": {
+    "lat": 43.0192982,
+    "lon": 141.3700827
+  },
+  "nodes": [
+    1928899295,
+    1928899279,
+    1928899277,
+    1928899297,
+    1928899295
+  ],
+  "tags": {
+    "frequency": "50",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "source": "Bing",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 182532644,
+  "center": {
+    "lat": 42.9153940,
+    "lon": 141.5820342
+  },
+  "nodes": [
+    1928946081,
+    1928946079,
+    9801666483,
+    9801666484,
+    1928946054,
+    1928946099,
+    1928946122,
+    1928946095,
+    1928946081
+  ],
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "name": "島松変電所",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 182538867,
+  "center": {
+    "lat": 42.9770755,
+    "lon": 141.4803925
+  },
+  "nodes": [
+    1928994201,
+    1928994196,
+    1928994197,
+    1928994198,
+    1928994199,
+    1928994203,
+    1928994206,
+    1928994207,
+    1928994201
+  ],
+  "tags": {
+    "barrier": "fence",
+    "frequency": "50",
+    "operator": "北海道電力",
+    "operator:en": "HEPCO",
+    "operator:ja": "北海道電力株式会社",
+    "power": "substation",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 182551910,
+  "center": {
+    "lat": 43.0661907,
+    "lon": 141.4797196
+  },
+  "nodes": [
+    1929089045,
+    1929089037,
+    1929089039,
+    1929089041,
+    1929089043,
+    1929089057,
+    1929089047,
+    1929089045
+  ],
+  "tags": {
+    "frequency": "50",
+    "location": "outdoor",
+    "name": "大麻変電所",
+    "operator": "北海道電力",
+    "operator:en": "HEPCO",
+    "operator:ja": "北海道電力株式会社",
+    "power": "substation",
+    "ref": "大麻",
+    "source": "Bing",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 182551911,
+  "center": {
+    "lat": 43.0925939,
+    "lon": 141.4032100
+  },
+  "nodes": [
+    1929089311,
+    1929089302,
+    1929089299,
+    1929089300,
+    1929089297,
+    1929089303,
+    1929089310,
+    1929089309,
+    1929089311
+  ],
+  "tags": {
+    "barrier": "fence",
+    "frequency": "50",
+    "name": "苗穂変電所",
+    "name:en": "Naebo Substation",
+    "name:ja": "苗穂変電所",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "ref": "苗穂",
+    "source": "Bing",
+    "substation": "transmission",
+    "voltage": "187000;66000"
+  }
+},
+{
+  "type": "way",
+  "id": 182554879,
+  "center": {
+    "lat": 43.0880198,
+    "lon": 141.3009717
+  },
+  "nodes": [
+    1929112591,
+    1929112582,
+    1929112575,
+    1929112580,
+    1929112574,
+    1929112578,
+    1929112581,
+    1929112583,
+    1929112585,
+    1929112591
+  ],
+  "tags": {
+    "frequency": "50",
+    "landuse": "outdoor",
+    "name": "琴似変電所",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "ref": "32",
+    "source": "GSImaps/ort;GSImaps/std",
+    "substation": "distribution",
+    "voltage": "66000;6600"
+  }
+},
+{
+  "type": "way",
+  "id": 182554880,
+  "center": {
+    "lat": 43.1354046,
+    "lon": 141.4172079
+  },
+  "nodes": [
+    1929112675,
+    1929112678,
+    1929112680,
+    1929112682,
+    1929112676,
+    1929112675
+  ],
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 182562067,
+  "center": {
+    "lat": 43.1385114,
+    "lon": 141.1698705
+  },
+  "nodes": [
+    1929177019,
+    1929177011,
+    1929177006,
+    1929177014,
+    1929177019
+  ],
+  "tags": {
+    "barrier": "fence",
+    "name": "JR北海道 銭函変電所",
+    "name:en": "JR Hokkaido Zenibako Substation",
+    "operator": "JR北海道",
+    "operator:en": "JR Hokkaido",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "traction",
+    "voltage": "66000;25000"
+  }
+},
+{
+  "type": "way",
+  "id": 182674676,
+  "center": {
+    "lat": 43.0591905,
+    "lon": 141.4058003
+  },
+  "nodes": [
+    1930340013,
+    1930340004,
+    1930340010,
+    1930340015,
+    1930340020,
+    1930340021,
+    1930340013
+  ],
+  "tags": {
+    "frequency": "50",
+    "location": "indoor",
+    "name": "白石変電所",
+    "name:en": "Shiroishi Substation",
+    "name:ja": "白石変電所",
+    "name:ja_rm": "Shiroishi Hendensho",
+    "operator": "北海道電力",
+    "operator:en": "HEPCO",
+    "operator:ja": "北海道電力株式会社",
+    "power": "substation",
+    "ref": "白石",
+    "source": "Bing",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 190888043,
+  "center": {
+    "lat": 43.1405397,
+    "lon": 141.1517811
+  },
+  "nodes": [
+    2014885911,
+    2014885997,
+    3065662510,
+    3065662512,
+    3065662509,
+    3065662508,
+    2014885957,
+    2014885934,
+    2014885914,
+    2014885850,
+    2014885911
+  ],
+  "tags": {
+    "name": "銭函変電所",
+    "operator": "北海道電力",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 193973509,
+  "center": {
+    "lat": 43.1060056,
+    "lon": 141.2810411
+  },
+  "nodes": [
+    2044819635,
+    2044819630,
+    2044819631,
+    2044819633,
+    2044819639,
+    2044819635
+  ],
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 193973510,
+  "center": {
+    "lat": 43.1036005,
+    "lon": 141.2779763
+  },
+  "nodes": [
+    2044819620,
+    2044819610,
+    2044819613,
+    2044819626,
+    2044819624,
+    2044819620
+  ],
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 196912752,
+  "center": {
+    "lat": 43.0963632,
+    "lon": 141.2822214
+  },
+  "nodes": [
+    2072014354,
+    2072014355,
+    2072014353,
+    2072014352,
+    2072014354
+  ],
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "distribution"
+  }
+},
+{
+  "type": "way",
+  "id": 200915482,
+  "center": {
+    "lat": 43.1006533,
+    "lon": 141.2748069
+  },
+  "nodes": [
+    2108785656,
+    2108785713,
+    2108785763,
+    2108785734,
+    2108785719,
+    2108785715,
+    2108785709,
+    2108785705,
+    2108785678,
+    2108785680,
+    2108785666,
+    2108785665,
+    2108785656
+  ],
+  "tags": {
+    "barrier": "fence",
+    "location": "outdoor",
+    "name": "宮の沢変電所",
+    "power": "substation",
+    "ref": "43",
+    "source": "Bing",
+    "substation": "distribution",
+    "voltage": "66000;6600"
+  }
+},
+{
+  "type": "way",
+  "id": 203869092,
+  "center": {
+    "lat": 43.1811170,
+    "lon": 141.3008909
+  },
+  "nodes": [
+    2138800431,
+    2138800429,
+    2138800430,
+    2138800431
+  ],
+  "tags": {
+    "barrier": "fence",
+    "frequency": "50",
+    "gas_insulated": "yes",
+    "location": "outdoor",
+    "name": "石狩変電所",
+    "operator": "北海道電力ネットワーク株式会社",
+    "power": "substation",
+    "rating": "40MVA",
+    "source": "Bing",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 255467846,
+  "center": {
+    "lat": 43.2119511,
+    "lon": 141.5202776
+  },
+  "nodes": [
+    2611537124,
+    2611537120,
+    2611537122,
+    2611537125,
+    2611537124
+  ],
+  "tags": {
+    "frequency": "50",
+    "name": "当別変電所 (Tobetsu Hendensho)",
+    "name:en": "Tobetsu Substation",
+    "name:ja": "当別変電所",
+    "name:ja_rm": "Tōbetsu Hendensho",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "ref": "当別",
+    "substation": "transmission",
+    "voltage": "66000;22000"
+  }
+},
+{
+  "type": "way",
+  "id": 255467853,
+  "center": {
+    "lat": 43.0901030,
+    "lon": 141.5522859
+  },
+  "nodes": [
+    2611537117,
+    2611537118,
+    2611537116,
+    2611537114,
+    2611537115,
+    2611537117
+  ],
+  "tags": {
+    "location": "outdoor",
+    "name": "上江別変電所",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 256412760,
+  "center": {
+    "lat": 42.9937016,
+    "lon": 141.5760224
+  },
+  "nodes": [
+    2620794023,
+    2620794021,
+    2620794019,
+    2620794020,
+    2620794023
+  ],
+  "tags": {
+    "frequency": "50",
+    "location": "outdoor",
+    "name": "北広島変電所",
+    "name:en": "Kitahiroshima Substation",
+    "name:ja": "北広島変電所",
+    "name:ja_rm": "Kitahiroshima Hendensho",
+    "operator": "北海道電力",
+    "operator:en": "HEPCO",
+    "operator:ja": "北海道電力株式会社",
+    "power": "substation",
+    "ref": "北広島",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 271908645,
+  "center": {
+    "lat": 43.0533742,
+    "lon": 141.3575805
+  },
+  "nodes": [
+    2768364123,
+    2768364080,
+    3822172432,
+    8864765375,
+    2768364361,
+    2768364123
+  ],
+  "tags": {
+    "building": "yes",
+    "building:levels": "5",
+    "name": "札幌市交通局高速電車 すすきの変電所",
+    "name:ja": "札幌市交通局高速電車 すすきの変電所",
+    "power": "substation",
+    "substation": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 374823429,
+  "center": {
+    "lat": 43.0774136,
+    "lon": 141.3152581
+  },
+  "nodes": [
+    3782031494,
+    3782031507,
+    3782031497,
+    3782031493,
+    3782031488,
+    3782031475,
+    3782031494
+  ],
+  "tags": {
+    "building": "yes",
+    "name": "二十四軒変電所",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "ref": "34",
+    "source": "Bing",
+    "substation": "transmission",
+    "voltage": "66000;6600"
+  }
+},
+{
+  "type": "way",
+  "id": 383471009,
+  "center": {
+    "lat": 43.0357461,
+    "lon": 141.3448404
+  },
+  "nodes": [
+    3867445304,
+    3867445340,
+    3867445348,
+    3867445308,
+    3867445304
+  ],
+  "tags": {
+    "power": "substation",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 385253920,
+  "center": {
+    "lat": 43.0384436,
+    "lon": 141.3599779
+  },
+  "nodes": [
+    3886091371,
+    3886091446,
+    3886091418,
+    3886091250,
+    3886091371
+  ],
+  "tags": {
+    "power": "substation",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 389077713,
+  "center": {
+    "lat": 43.0505352,
+    "lon": 141.3802509
+  },
+  "nodes": [
+    3922376246,
+    3922376313,
+    3922376463,
+    3922376466,
+    3922376469,
+    3922376525,
+    3922376324,
+    3922376246
+  ],
+  "tags": {
+    "power": "substation",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 408497737,
+  "center": {
+    "lat": 43.0190561,
+    "lon": 141.3676370
+  },
+  "nodes": [
+    4104119384,
+    4104119385,
+    4104119386,
+    4104119387,
+    4104119384
+  ],
+  "tags": {
+    "building": "electricity",
+    "operator": "北海道電力",
+    "operator:en": "Hokkaido Electric Power Company",
+    "operator:ja": "北海道電力",
+    "operator:wikidata": "Q742449",
+    "operator:wikipedia": "ja:北海道電力",
+    "power": "substation",
+    "substation": "transmission"
+  }
+},
+{
+  "type": "way",
+  "id": 429046271,
+  "center": {
+    "lat": 43.1054850,
+    "lon": 141.3245741
+  },
+  "nodes": [
+    4281708147,
+    4281707904,
+    4281707707,
+    4281707725,
+    4281707688,
+    4281707899,
+    4281708147
+  ],
+  "tags": {
+    "building": "yes",
+    "name": "新琴似変電所",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "transmission",
+    "voltage": "66000;6600"
+  }
+},
+{
+  "type": "way",
+  "id": 433216625,
+  "center": {
+    "lat": 42.9673840,
+    "lon": 141.2808599
+  },
+  "nodes": [
+    4320643538,
+    4320643539,
+    4320643540,
+    4320643541,
+    4320643538
+  ],
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 439189858,
+  "center": {
+    "lat": 42.9724729,
+    "lon": 141.1697817
+  },
+  "nodes": [
+    4368141647,
+    4368141649,
+    4368141574,
+    4368141584,
+    4368141647
+  ],
+  "tags": {
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "operator:wikipedia": "ja:北海道電力",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "transmission"
+  }
+},
+{
+  "type": "way",
+  "id": 439278581,
+  "center": {
+    "lat": 42.9678187,
+    "lon": 141.1948508
+  },
+  "nodes": [
+    4369299601,
+    4369299638,
+    4369299618,
+    4369299479,
+    4369299601
+  ],
+  "tags": {
+    "power": "substation",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 453334929,
+  "center": {
+    "lat": 43.0285540,
+    "lon": 141.4535965
+  },
+  "nodes": [
+    4500812412,
+    4500812411,
+    4500812410,
+    4500812408,
+    4500812409,
+    4500812407,
+    4500812412
+  ],
+  "tags": {
+    "building": "yes",
+    "building:levels": "2",
+    "name": "札幌市交通局　高速電車大谷地変電所",
+    "operator": "札幌市交通局",
+    "power": "substation",
+    "source": "Bing",
+    "substation": "traction"
+  }
+},
+{
+  "type": "way",
+  "id": 618767841,
+  "center": {
+    "lat": 43.1207281,
+    "lon": 141.5345250
+  },
+  "nodes": [
+    5848309917,
+    1869867053,
+    5848309919,
+    5848309921,
+    5848309922,
+    5848309923,
+    5848309924,
+    5848309925,
+    5848309926,
+    5848309934,
+    5848309933,
+    5848309928,
+    5848309929,
+    5848309930,
+    5848309931,
+    5848309932,
+    5848309927,
+    5848309917
+  ],
+  "tags": {
+    "name": "北江別変電所",
+    "name:en": "North Ebetsu Substation",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "substation": "transmission",
+    "voltage": "187000;66000"
+  }
+},
+{
+  "type": "way",
+  "id": 625058530,
+  "center": {
+    "lat": 42.9650917,
+    "lon": 141.2568271
+  },
+  "nodes": [
+    5901707485,
+    5901707282,
+    5901707283,
+    5901707284,
+    5901707485
+  ],
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 766496067,
+  "center": {
+    "lat": 43.0636762,
+    "lon": 141.3308240
+  },
+  "nodes": [
+    7158843367,
+    7158843368,
+    7158843369,
+    7158843370,
+    7158843367
+  ],
+  "tags": {
+    "name": "桑園変電所",
+    "name:ja": "桑園変電所",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1058237877,
+  "center": {
+    "lat": 43.1633360,
+    "lon": 141.2727086
+  },
+  "nodes": [
+    9723989504,
+    9723989503,
+    9723989502,
+    9723989501,
+    9723989500,
+    9723989504
+  ],
+  "tags": {
+    "barrier": "fence",
+    "frequency": "50",
+    "gas_insulated": "yes",
+    "location": "outdoor",
+    "name": "樽川変電所",
+    "operator": "北海道電力ネットワーク株式会社",
+    "power": "substation",
+    "rating": "40MVA",
+    "source": "Bing",
+    "substation": "distribution",
+    "voltage": "66000;6600"
+  }
+},
+{
+  "type": "way",
+  "id": 1072662513,
+  "center": {
+    "lat": 42.9090086,
+    "lon": 141.5738332
+  },
+  "nodes": [
+    9841421353,
+    9841421352,
+    9841421351,
+    9841421350,
+    9841421349,
+    9841421353
+  ],
+  "tags": {
+    "power": "substation"
+  }
+},
+{
+  "type": "way",
+  "id": 1352274339,
+  "center": {
+    "lat": 43.0623473,
+    "lon": 141.3628426
+  },
+  "nodes": [
+    12511818583,
+    12511818584,
+    12511818585,
+    12511818586,
+    12511818583
+  ],
+  "tags": {
+    "building": "yes",
+    "power": "substation",
+    "source": "aerial imagery"
+  }
+},
+{
+  "type": "way",
+  "id": 1456879389,
+  "center": {
+    "lat": 42.9529005,
+    "lon": 141.4941577
+  },
+  "nodes": [
+    13361305574,
+    13361305575,
+    13361305576,
+    13361305577,
+    13361305578,
+    13361305580,
+    13361305581,
+    13361305582,
+    13361305574
+  ],
+  "tags": {
+    "power": "substation",
+    "substation": "minor_distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 1456879409,
+  "center": {
+    "lat": 43.0090452,
+    "lon": 141.4483430
+  },
+  "nodes": [
+    13361335111,
+    13361335112,
+    13361335113,
+    13361335114,
+    13361335111
+  ],
+  "tags": {
+    "power": "substation",
+    "substation": "distribution",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 1473233469,
+  "center": {
+    "lat": 43.1251652,
+    "lon": 141.2422261
+  },
+  "nodes": [
+    13515781276,
+    13515781277,
+    13515781278,
+    13515781279,
+    13515781280,
+    13515781271,
+    13515781281,
+    13515781282,
+    13515781283,
+    13515781276
+  ],
+  "tags": {
+    "frequency": "60",
+    "location": "indoor",
+    "name": "前田変電所",
+    "name:en": "Maeda substation",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "substation": "distribution",
+    "voltage": "66000;6600"
+  }
+},
+{
+  "type": "way",
+  "id": 1473252184,
+  "center": {
+    "lat": 43.1213482,
+    "lon": 141.5384558
+  },
+  "nodes": [
+    13515937169,
+    13515937170,
+    13515937171,
+    13515937172,
+    13515937173,
+    13515937174,
+    13515937175,
+    13515937176,
+    13515937177,
+    13515937178,
+    13515937179,
+    13515937180,
+    13515937181,
+    13515937182,
+    13515937183,
+    13515937184,
+    13515937185,
+    13515937186,
+    13515937187,
+    13515937188,
+    13515937169
+  ],
+  "tags": {
+    "name": "江別変電所",
+    "name:en": "Ebetsu Substation",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "substation": "transmission",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 1473254439,
+  "center": {
+    "lat": 43.1918688,
+    "lon": 141.2766388
+  },
+  "nodes": [
+    13515911390,
+    13515911391,
+    13515911392,
+    13515911393,
+    13515911394,
+    13515911395,
+    13515911396,
+    13515911397,
+    13515911390
+  ],
+  "tags": {
+    "frequency": "50",
+    "name": "石狩湾新港発電所",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "substation": "generation",
+    "voltage": "275000"
+  }
+},
+{
+  "type": "way",
+  "id": 1482877410,
+  "center": {
+    "lat": 43.0611516,
+    "lon": 141.6249982
+  },
+  "nodes": [
+    13598006594,
+    13598006595,
+    13598006596,
+    13598006597,
+    13598006598,
+    13598006599,
+    13598006600,
+    13598040901,
+    13598006594
+  ],
+  "tags": {
+    "name": "晩翠変電所",
+    "name:en": "Bansui Substation",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "substation": "transmission",
+    "voltage": "66000"
+  }
+},
+{
+  "type": "way",
+  "id": 1531377928,
+  "center": {
+    "lat": 43.0614937,
+    "lon": 141.3578682
+  },
+  "nodes": [
+    13957460053,
+    13957460038,
+    13957460039,
+    13957460040,
+    13980577231,
+    13957460041,
+    13957460042,
+    13957460043,
+    13957460044,
+    13957460045,
+    13957460046,
+    13957460047,
+    13957460048,
+    13957460049,
+    13957460050,
+    13980577230,
+    13957460051,
+    13957460054,
+    13957460053
+  ],
+  "tags": {
+    "addr:block_number": "2",
+    "addr:city": "札幌市",
+    "addr:neighbourhood": "大通東1丁目",
+    "addr:postcode": "060-0041",
+    "addr:province": "北海道",
+    "addr:suburb": "中央区",
+    "branch": "本店;本店別館",
+    "building": "office",
+    "name": "北海道電力",
+    "name:en": "Hokkaido Electric Power",
+    "name:ja": "北海道電力",
+    "office": "company",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "operator:wikipedia": "ja:北海道電力",
+    "power": "substation",
+    "source": "Bing",
+    "type": "multipolygon",
+    "website": "https://www.hepco.co.jp/"
+  }
+},
+{
+  "type": "relation",
+  "id": 12927262,
+  "center": {
+    "lat": 43.0223352,
+    "lon": 141.4185291
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 158880530,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 962249090,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "frequency": "50",
+    "location": "outdoor",
+    "name": "南札幌変電所",
+    "name:en": "South Sapporo Substation",
+    "name:ja": "南札幌変電所",
+    "name:ja_rm": "Minami-Sapporo Hendensho",
+    "operator": "北海道電力ネットワーク",
+    "operator:en": "Hokkaido Electric Power Network",
+    "operator:ja": "北海道電力ネットワーク",
+    "operator:short": "ほくでんネットワーク",
+    "operator:wikidata": "Q64504223",
+    "power": "substation",
+    "ref": "南札幌",
+    "substation": "transmission",
+    "type": "multipolygon",
+    "voltage": "187000;66000"
+  }
+}
+
+  ]
+}

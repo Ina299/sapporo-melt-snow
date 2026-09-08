@@ -11,6 +11,7 @@ QUERIES = {
     'makomanai_ishiyama': '札幌市南区石山1条1丁目',
     'oyachi_kitano': '札幌市白石区流通センター',
     'shinkawa': '札幌市北区新川西1条1丁目',
+    'maruyama': '札幌市中央区宮ケ丘',
     'yonesato': '札幌市白石区東米里',
 }
 
