@@ -1,0 +1,202 @@
+[
+  {
+    "id": "procurement_2026",
+    "url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/nyusatsu.html",
+    "retrieved_at": "2026-09-08T02:09:47.197850+00:00",
+    "sha256": "3f14ac58079568897dde3715d01346667660db038171fa2dc01d491edf539201",
+    "path": "data\\raw\\procurement_2026.html"
+  },
+  {
+    "id": "snow_facilities",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/03_genkyo07-2.html",
+    "retrieved_at": "2026-09-08T02:09:47.396849+00:00",
+    "sha256": "f4245fef244ab2a84b3a5da0b5847d663fd9bcb04971c89fc228b6c19f2147a8",
+    "path": "data\\raw\\snow_facilities.html"
+  },
+  {
+    "id": "water_plants",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/03_genkyo10.html",
+    "retrieved_at": "2026-09-08T02:09:47.341880+00:00",
+    "sha256": "2bea95667a353b464135d837f32dca407b1a1e8de3fdf11d33c19f32e705f2f3",
+    "path": "data\\raw\\water_plants.html"
+  },
+  {
+    "id": "members",
+    "url": "https://sapporo-josetsu.jp/member.html",
+    "retrieved_at": "2026-09-08T02:09:47.357849+00:00",
+    "sha256": "e91774215f071333d1b4f9d269f686622d67ffffd615b23146ecad3424cf7504",
+    "path": "data\\raw\\members.html"
+  },
+  {
+    "id": "toyo",
+    "url": "https://toyoroad.co.jp/about/",
+    "retrieved_at": "2026-09-08T02:09:47.492863+00:00",
+    "sha256": "51736db9661286fd21706e63523510dbd6d79e5f1992bcf1f7ff070f7311f1a1",
+    "path": "data\\raw\\toyo.html"
+  },
+  {
+    "id": "snow_energy",
+    "url": "https://www.city.sapporo.jp/kankyo/energy/shokai/snowiceenergy.html",
+    "retrieved_at": "2026-09-08T02:09:47.563849+00:00",
+    "sha256": "d38e8042a6c7edf8e97412d3ba7d45102b8255226f4166502eb9013d1c482174",
+    "path": "data\\raw\\snow_energy.html"
+  },
+  {
+    "id": "procurement_2026_3-taisekijoitiran",
+    "url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/3-taisekijoitiran.pdf",
+    "retrieved_at": "2026-09-08T02:09:48.712106+00:00",
+    "sha256": "e702e18a05ac82082fcfd3991d7c7fc374f6a3aa8139529541772edffdd6fca2",
+    "path": "data\\raw\\procurement_2026_3-taisekijoitiran.pdf"
+  },
+  {
+    "id": "procurement_2026_4_taiyosyadaisu",
+    "url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "retrieved_at": "2026-09-08T02:09:50.368077+00:00",
+    "sha256": "9604f034acc49eb09c5e367b877251d03ade338f7a50fc811b11cf2161c9f177",
+    "path": "data\\raw\\procurement_2026_4_taiyosyadaisu.pdf"
+  },
+  {
+    "id": "procurement_2026_5_saiteidaisu",
+    "url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "retrieved_at": "2026-09-08T02:09:50.370078+00:00",
+    "sha256": "a99926c220b4b25324c06f17f24c34a16bb8c2b9ff5e86ea31612b0ffd284d5e",
+    "path": "data\\raw\\procurement_2026_5_saiteidaisu.pdf"
+  },
+  {
+    "id": "snow_facilities_r7hyousi",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7hyousi.pdf",
+    "retrieved_at": "2026-09-08T02:09:51.871972+00:00",
+    "sha256": "0415c9cb373ec5a1e18e6a36a9a87d91dfe6affa895dc812d64a6b7c3e78484f",
+    "path": "data\\raw\\snow_facilities_r7hyousi.pdf"
+  },
+  {
+    "id": "snow_facilities_r7ayumi",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7ayumi.pdf",
+    "retrieved_at": "2026-09-08T02:09:51.118945+00:00",
+    "sha256": "b6506ef64206d2206423a3e552749b036455bdc5824f70befc18b7bfe2c83ba0",
+    "path": "data\\raw\\snow_facilities_r7ayumi.pdf"
+  },
+  {
+    "id": "snow_facilities_r7yakuwari",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7yakuwari.pdf",
+    "retrieved_at": "2026-09-08T02:09:53.014073+00:00",
+    "sha256": "f84dc8680e6c094fbe4230ab261b50e87a4c83d6a44663c46805515e59260cfa",
+    "path": "data\\raw\\snow_facilities_r7yakuwari.pdf"
+  },
+  {
+    "id": "snow_facilities_r7yuusetukann",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7yuusetukann.pdf",
+    "retrieved_at": "2026-09-08T02:09:53.475968+00:00",
+    "sha256": "f02f83bff548067eb4258a6c7219997d67fd05e23a326703ee2e2a115d5e66c5",
+    "path": "data\\raw\\snow_facilities_r7yuusetukann.pdf"
+  },
+  {
+    "id": "snow_facilities_r7yuusetusou",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7yuusetusou.pdf",
+    "retrieved_at": "2026-09-08T02:09:55.530856+00:00",
+    "sha256": "807023fd4574859e9821eaa1ab3ffa46e338310c75ee4a2e8a1e7afafcb4628a",
+    "path": "data\\raw\\snow_facilities_r7yuusetusou.pdf"
+  },
+  {
+    "id": "snow_facilities_r7tousetusisetu",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7tousetusisetu.pdf",
+    "retrieved_at": "2026-09-08T02:09:55.096860+00:00",
+    "sha256": "a3e7115014c345f9d89fcdc57f862b33abb767cb4bcebde7d5e97bca6496798b",
+    "path": "data\\raw\\snow_facilities_r7tousetusisetu.pdf"
+  },
+  {
+    "id": "snow_facilities_r7tiikimittyaku",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7tiikimittyaku.pdf",
+    "retrieved_at": "2026-09-08T02:09:53.971977+00:00",
+    "sha256": "6d2e577d51140139d249c2e79b30497c0dc64ab6fdf567099ffb969eb32a564f",
+    "path": "data\\raw\\snow_facilities_r7tiikimittyaku.pdf"
+  },
+  {
+    "id": "snow_facilities_r7ryuusetukou",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7ryuusetukou.pdf",
+    "retrieved_at": "2026-09-08T02:09:57.656185+00:00",
+    "sha256": "f43cc8e08fe5c277de47164578f5a57a412b00318139d4c7a44c8d0c63e03826",
+    "path": "data\\raw\\snow_facilities_r7ryuusetukou.pdf"
+  },
+  {
+    "id": "snow_facilities_r7gesuidouigai",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7gesuidouigai.pdf",
+    "retrieved_at": "2026-09-08T02:09:56.298425+00:00",
+    "sha256": "8323ecaedabab4fa898d520bad1cc9a79d4d90293d1382a8cd8cf5fa90046734",
+    "path": "data\\raw\\snow_facilities_r7gesuidouigai.pdf"
+  },
+  {
+    "id": "snow_facilities_r7urabyousi",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7urabyousi.pdf",
+    "retrieved_at": "2026-09-08T02:09:58.500999+00:00",
+    "sha256": "19b9a979e17127038d9b25eb20a60c679897389ef1039044643ec87646167c69",
+    "path": "data\\raw\\snow_facilities_r7urabyousi.pdf"
+  },
+  {
+    "id": "snow_facilities_r7ikkatu",
+    "url": "https://www.city.sapporo.jp/gesui/01yakuwari/documents/r7ikkatu.pdf",
+    "retrieved_at": "2026-09-08T02:10:08.242756+00:00",
+    "sha256": "6783d48b793d3232c626abf98c488d8c4684bcf67dbe7e98fe02c146c69c6103",
+    "path": "data\\raw\\snow_facilities_r7ikkatu.pdf"
+  },
+  {
+    "id": "krs",
+    "url": "https://www.krs-sapporo.co.jp/business/",
+    "retrieved_at": "2026-09-08T02:12:27.897014+00:00",
+    "sha256": "5965e75919a4cc81f53c5abb332515ab2baee1fcc5631686658127c2895e5675",
+    "path": "data\\raw\\krs.html"
+  },
+  {
+    "id": "satsuichi_fleet",
+    "url": "https://www.satsuichi.co.jp/engineering/",
+    "retrieved_at": "2026-09-08T02:12:27.614011+00:00",
+    "sha256": "e1dfde7e14901eb7da87b9f8c72dbfcdc4ab8c46e665ee14d0c6904a79707ff7",
+    "path": "data\\raw\\satsuichi_fleet.html"
+  },
+  {
+    "id": "satsuichi_office",
+    "url": "https://www.satsuichi.co.jp/about/",
+    "retrieved_at": "2026-09-08T02:12:27.615012+00:00",
+    "sha256": "f3eea7a4856558d8b2b457f26c47555ce65ad1be25a66ab7efed77d4d59b6895",
+    "path": "data\\raw\\satsuichi_office.html"
+  },
+  {
+    "id": "kashima",
+    "url": "https://kashimahodou.jp/",
+    "retrieved_at": "2026-09-08T02:12:29.946783+00:00",
+    "sha256": "5981573766c0581046d9618845aaccdf08d9929e1da86c7e648efefa4d654634",
+    "path": "data\\raw\\kashima.html"
+  },
+  {
+    "id": "new_melting",
+    "url": "https://www.city.sapporo.jp/kensetsu/yuki/new/torikumi05.html",
+    "retrieved_at": "2026-09-08T02:12:27.802043+00:00",
+    "sha256": "d5a77f915562d92554c28332d41cd7150bf6e5dfe757333eb3ec4539228a888a",
+    "path": "data\\raw\\new_melting.html"
+  },
+  {
+    "id": "sewer_plan",
+    "url": "https://www.city.sapporo.jp/gesui/keieiplan/documents/honsyo_all.pdf",
+    "retrieved_at": "2026-09-08T02:12:32.038323+00:00",
+    "sha256": "714684e73d2e0840c7b44fd53fbfb3523cfda0924e903beb89cfb606d1cf7639",
+    "path": "data\\raw\\sewer_plan.pdf"
+  },
+  {
+    "id": "snowfall_2025",
+    "url": "https://www.city.sapporo.jp/kensetsu/yuki/documents/snowfall_r08_0411.xls",
+    "retrieved_at": "2026-09-08T02:26:04.862850+00:00",
+    "path": "data\\raw\\snowfall_2025.xls",
+    "sha256": "78eb21e39124a3a97075b070496f82ee4eca358d0977f194d67c17203481e4d7",
+    "source_as_of": "2026-04-11",
+    "period": "2025-11-01 / 2026-04-10"
+  },
+  {
+    "id": "snowdepth_2025",
+    "url": "https://www.city.sapporo.jp/kensetsu/yuki/documents/snowdepth_r08_0411.xls",
+    "retrieved_at": "2026-09-08T02:26:04.899820+00:00",
+    "path": "data\\raw\\snowdepth_2025.xls",
+    "sha256": "d9004a0fb26fb4abb67cf8dc56e86fb20f84e8321f90b41d6a444677eb52f060",
+    "source_as_of": "2026-04-11",
+    "period": "2025-11-01 / 2026-04-10"
+  }
+]

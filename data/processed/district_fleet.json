@@ -1,0 +1,669 @@
+[
+  {
+    "ward": "中央区",
+    "district": "中地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 9,
+      "snow_truck": 0,
+      "wheel_loader": 0,
+      "rotary_large": 0,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 8,
+      "spreader_4m3": 2,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 1
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 13,
+      "wheel_loader_8t": 12,
+      "rotary_80_130ps": 9,
+      "rotary_large": 3,
+      "dump_10t": 45
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "中央区",
+    "district": "西地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 5,
+      "snow_truck": 0,
+      "wheel_loader": 1,
+      "rotary_large": 0,
+      "rotary_40ps": 1,
+      "rotary_80_130ps": 5,
+      "spreader_4m3": 2,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 10,
+      "wheel_loader_8t": 14,
+      "rotary_80_130ps": 6,
+      "rotary_large": 2,
+      "dump_10t": 30
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "中央区",
+    "district": "南地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 4,
+      "snow_truck": 0,
+      "wheel_loader": 1,
+      "rotary_large": 0,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 3,
+      "spreader_4m3": 0,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 9,
+      "wheel_loader_8t": 10,
+      "rotary_80_130ps": 4,
+      "rotary_large": 2,
+      "dump_10t": 30
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "北区",
+    "district": "東地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 5,
+      "snow_truck": 2,
+      "wheel_loader": 1,
+      "rotary_large": 2,
+      "rotary_40ps": 1,
+      "rotary_80_130ps": 11,
+      "spreader_4m3": 1,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 11,
+      "wheel_loader_8t": 35,
+      "rotary_80_130ps": 12,
+      "rotary_large": 7,
+      "dump_10t": 105
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "北区",
+    "district": "西地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 5,
+      "snow_truck": 0,
+      "wheel_loader": 1,
+      "rotary_large": 1,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 12,
+      "spreader_4m3": 0,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 10,
+      "wheel_loader_8t": 36,
+      "rotary_80_130ps": 12,
+      "rotary_large": 6,
+      "dump_10t": 90
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "北区",
+    "district": "南地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 10,
+      "snow_truck": 0,
+      "wheel_loader": 1,
+      "rotary_large": 2,
+      "rotary_40ps": 1,
+      "rotary_80_130ps": 12,
+      "spreader_4m3": 1,
+      "spreader_2m3": 2,
+      "spreader_sidewalk": 2
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 14,
+      "wheel_loader_8t": 25,
+      "rotary_80_130ps": 12,
+      "rotary_large": 5,
+      "dump_10t": 75
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "東区",
+    "district": "東地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 6,
+      "snow_truck": 2,
+      "wheel_loader": 1,
+      "rotary_large": 0,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 8,
+      "spreader_4m3": 1,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 10,
+      "wheel_loader_8t": 23,
+      "rotary_80_130ps": 9,
+      "rotary_large": 3,
+      "dump_10t": 45
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "東区",
+    "district": "西地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 3,
+      "snow_truck": 0,
+      "wheel_loader": 0,
+      "rotary_large": 1,
+      "rotary_40ps": 1,
+      "rotary_80_130ps": 14,
+      "spreader_4m3": 0,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 7,
+      "wheel_loader_8t": 19,
+      "rotary_80_130ps": 14,
+      "rotary_large": 7,
+      "dump_10t": 105
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "東区",
+    "district": "南地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 8,
+      "snow_truck": 0,
+      "wheel_loader": 0,
+      "rotary_large": 3,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 10,
+      "spreader_4m3": 1,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 1
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 11,
+      "wheel_loader_8t": 20,
+      "rotary_80_130ps": 11,
+      "rotary_large": 4,
+      "dump_10t": 80
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "白石区",
+    "district": "南地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 7,
+      "snow_truck": 0,
+      "wheel_loader": 2,
+      "rotary_large": 1,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 11,
+      "spreader_4m3": 2,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 2
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 13,
+      "wheel_loader_8t": 23,
+      "rotary_80_130ps": 13,
+      "rotary_large": 4,
+      "dump_10t": 60
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "白石区",
+    "district": "北地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 9,
+      "snow_truck": 0,
+      "wheel_loader": 0,
+      "rotary_large": 1,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 9,
+      "spreader_4m3": 0,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 11,
+      "wheel_loader_8t": 25,
+      "rotary_80_130ps": 9,
+      "rotary_large": 3,
+      "dump_10t": 45
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "厚別区",
+    "district": "南地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 5,
+      "snow_truck": 1,
+      "wheel_loader": 2,
+      "rotary_large": 1,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 8,
+      "spreader_4m3": 1,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 1
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 7,
+      "wheel_loader_8t": 17,
+      "rotary_80_130ps": 8,
+      "rotary_large": 4,
+      "dump_10t": 60
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "厚別区",
+    "district": "北地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 2,
+      "snow_truck": 0,
+      "wheel_loader": 1,
+      "rotary_large": 0,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 8,
+      "spreader_4m3": 0,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 6,
+      "wheel_loader_8t": 20,
+      "rotary_80_130ps": 9,
+      "rotary_large": 4,
+      "dump_10t": 50
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "豊平区",
+    "district": "東地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 2,
+      "snow_truck": 0,
+      "wheel_loader": 0,
+      "rotary_large": 1,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 10,
+      "spreader_4m3": 0,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 4,
+      "wheel_loader_8t": 24,
+      "rotary_80_130ps": 10,
+      "rotary_large": 5,
+      "dump_10t": 60
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "豊平区",
+    "district": "西地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 9,
+      "snow_truck": 0,
+      "wheel_loader": 2,
+      "rotary_large": 1,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 7,
+      "spreader_4m3": 2,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 1
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 12,
+      "wheel_loader_8t": 20,
+      "rotary_80_130ps": 7,
+      "rotary_large": 4,
+      "dump_10t": 60
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "清田区",
+    "district": "南地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 7,
+      "snow_truck": 0,
+      "wheel_loader": 0,
+      "rotary_large": 2,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 8,
+      "spreader_4m3": 2,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 8,
+      "wheel_loader_8t": 23,
+      "rotary_80_130ps": 8,
+      "rotary_large": 5,
+      "dump_10t": 60
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "清田区",
+    "district": "北地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 5,
+      "snow_truck": 0,
+      "wheel_loader": 0,
+      "rotary_large": 0,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 6,
+      "spreader_4m3": 2,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 7,
+      "wheel_loader_8t": 16,
+      "rotary_80_130ps": 6,
+      "rotary_large": 4,
+      "dump_10t": 60
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "南区",
+    "district": "南地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 7,
+      "snow_truck": 2,
+      "wheel_loader": 1,
+      "rotary_large": 3,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 6,
+      "spreader_4m3": 2,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 11,
+      "wheel_loader_8t": 33,
+      "rotary_80_130ps": 7,
+      "rotary_large": 3,
+      "dump_10t": 45
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "南区",
+    "district": "北地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 7,
+      "snow_truck": 0,
+      "wheel_loader": 1,
+      "rotary_large": 0,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 8,
+      "spreader_4m3": 1,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 1
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 10,
+      "wheel_loader_8t": 30,
+      "rotary_80_130ps": 8,
+      "rotary_large": 4,
+      "dump_10t": 60
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "西区",
+    "district": "南地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 4,
+      "snow_truck": 1,
+      "wheel_loader": 0,
+      "rotary_large": 0,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 9,
+      "spreader_4m3": 2,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 10,
+      "wheel_loader_8t": 33,
+      "rotary_80_130ps": 9,
+      "rotary_large": 7,
+      "dump_10t": 105
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "西区",
+    "district": "北地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 7,
+      "snow_truck": 1,
+      "wheel_loader": 3,
+      "rotary_large": 1,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 10,
+      "spreader_4m3": 1,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 1
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 12,
+      "wheel_loader_8t": 26,
+      "rotary_80_130ps": 10,
+      "rotary_large": 6,
+      "dump_10t": 90
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "手稲区",
+    "district": "南地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 8,
+      "snow_truck": 1,
+      "wheel_loader": 4,
+      "rotary_large": 0,
+      "rotary_40ps": 1,
+      "rotary_80_130ps": 6,
+      "spreader_4m3": 1,
+      "spreader_2m3": 1,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 11,
+      "wheel_loader_8t": 26,
+      "rotary_80_130ps": 6,
+      "rotary_large": 4,
+      "dump_10t": 60
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  },
+  {
+    "ward": "手稲区",
+    "district": "北地区",
+    "fiscal_year": 2026,
+    "status": "予定・参考／稼働実績ではない",
+    "city_loan": {
+      "grader": 5,
+      "snow_truck": 0,
+      "wheel_loader": 1,
+      "rotary_large": 1,
+      "rotary_40ps": 0,
+      "rotary_80_130ps": 10,
+      "spreader_4m3": 0,
+      "spreader_2m3": 0,
+      "spreader_sidewalk": 0
+    },
+    "minimum_including_city_loan": {
+      "grader_family": 6,
+      "wheel_loader_8t": 24,
+      "rotary_80_130ps": 10,
+      "rotary_large": 4,
+      "dump_10t": 60
+    },
+    "contractor_owned": null,
+    "available_now": null,
+    "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/4_taiyosyadaisu.pdf",
+    "minimum_source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/5_saiteidaisu.pdf",
+    "source_page": 1
+  }
+]

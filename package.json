@@ -1,0 +1,17 @@
+{
+  "name": "sapporo-melt-snow",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "python -m http.server 8000 --bind 127.0.0.1",
+    "test": "playwright test",
+    "test:models": "python -m unittest discover -s tests -v",
+    "build:data": "python scripts/run_analysis.py"
+  },
+  "keywords": [],
+  "author": "",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

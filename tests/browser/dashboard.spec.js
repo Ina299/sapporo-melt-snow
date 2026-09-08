@@ -1,0 +1,32 @@
+const {test,expect}=require('@playwright/test');
+test('data, controls, coverage and map work without external network',async({page})=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.route(/https:\/\//,route=>route.abort());
+  await page.goto('/web/');
+  await expect(page.locator('#top-stats')).toContainText('209');
+  await expect(page.locator('#coverage-notice')).toContainText('107');
+  await expect(page.locator('#route-stats')).toContainText('1.57');
+  await page.locator('#vehicles').selectOption('1');
+  await expect(page.locator('#route-stats')).toContainText('5.95');
+  await page.locator('#shift').fill('1');
+  await expect(page.locator('#scenario-table .selected-row')).toContainText('超過');
+  await expect(page.locator('#melt-tonnes')).toHaveText('201');
+  await page.locator('#recovery').fill('0');
+  await page.locator('#recovery').dispatchEvent('input');
+  await expect(page.locator('#melt-tonnes')).toHaveText('0');
+  await page.locator('summary').filter({hasText:'協会掲載'}).click();
+  await page.locator('#company-search').fill('存在しない企業名XYZ');
+  await expect(page.locator('#company-count')).toHaveText('0件');
+  await page.locator('#pilot-view').click();
+  await expect(page.locator('#pilot-view')).toHaveClass('selected');
+  await expect(page.locator('.site-card')).toHaveCount(7);
+  await expect(page.locator('#weather-table tr')).toHaveCount(13);
+  expect(errors).toEqual([]);
+});
+test('mobile layout has no horizontal document overflow',async({page})=>{
+  await page.setViewportSize({width:390,height:844});
+  await page.route(/https:\/\//,route=>route.abort());
+  await page.goto('/web/');
+  const sizes=await page.evaluate(()=>({body:document.documentElement.scrollWidth,viewport:innerWidth}));
+  expect(sizes.body).toBeLessThanOrEqual(sizes.viewport);
+});

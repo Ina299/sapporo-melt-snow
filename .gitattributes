@@ -1,0 +1,7 @@
+* text=auto eol=lf
+# Preserve downloaded source bytes and their recorded SHA-256 hashes.
+data/raw/** -text
+web/vendor/** -text
+*.png -text
+*.pdf -text
+*.xls -text

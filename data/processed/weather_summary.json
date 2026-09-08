@@ -1,0 +1,150 @@
+{
+  "period": "2025-11-01〜2026-04-10",
+  "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/weather-data.html",
+  "notes": "降雪量は朝9時までの24時間値。2025/11/1–13と白石区2026/3/9–25にセンサー休止による参考値を含む。Xは欠測。日量10cm超の日数は出動回数ではない。",
+  "stations": [
+    {
+      "station": "中央区",
+      "snowfall_max_cm": 37.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 508.0,
+      "days_over_10cm": 21,
+      "p95_cm": 17.0,
+      "peak_date": "2026-01-25",
+      "snowdepth_max_cm": 106.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "北区(太平)",
+      "snowfall_max_cm": 49.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 535.0,
+      "days_over_10cm": 18,
+      "p95_cm": 16.0,
+      "peak_date": "2026-01-22",
+      "snowdepth_max_cm": 115.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "北区(あいの里)",
+      "snowfall_max_cm": 31.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 443.0,
+      "days_over_10cm": 16,
+      "p95_cm": 15.0,
+      "peak_date": "2026-01-25",
+      "snowdepth_max_cm": 78.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "東区",
+      "snowfall_max_cm": 41.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 558.0,
+      "days_over_10cm": 17,
+      "p95_cm": 19.0,
+      "peak_date": "2026-01-22",
+      "snowdepth_max_cm": 118.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "白石区",
+      "snowfall_max_cm": 37.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 540.0,
+      "days_over_10cm": 17,
+      "p95_cm": 24.0,
+      "peak_date": "2026-01-26",
+      "snowdepth_max_cm": 111.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "厚別区",
+      "snowfall_max_cm": 33.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 506.0,
+      "days_over_10cm": 19,
+      "p95_cm": 20.0,
+      "peak_date": "2026-01-26",
+      "snowdepth_max_cm": 102.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "豊平区",
+      "snowfall_max_cm": 36.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 557.0,
+      "days_over_10cm": 22,
+      "p95_cm": 19.0,
+      "peak_date": "2026-01-25",
+      "snowdepth_max_cm": 117.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "清田区",
+      "snowfall_max_cm": 32.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 529.0,
+      "days_over_10cm": 21,
+      "p95_cm": 21.0,
+      "peak_date": "2026-01-26",
+      "snowdepth_max_cm": 115.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "南区(南31条西8丁目)",
+      "snowfall_max_cm": 37.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 517.0,
+      "days_over_10cm": 21,
+      "p95_cm": 20.0,
+      "peak_date": "2026-01-25",
+      "snowdepth_max_cm": 99.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "南区(定山渓)",
+      "snowfall_max_cm": 47.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 621.0,
+      "days_over_10cm": 16,
+      "p95_cm": 17.0,
+      "peak_date": "2026-02-19",
+      "snowdepth_max_cm": 128.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "西区(西野)",
+      "snowfall_max_cm": 30.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 581.0,
+      "days_over_10cm": 23,
+      "p95_cm": 20.0,
+      "peak_date": "2026-01-25",
+      "snowdepth_max_cm": 113.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "西区(平和)",
+      "snowfall_max_cm": 36.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 719.0,
+      "days_over_10cm": 26,
+      "p95_cm": 21.0,
+      "peak_date": "2026-02-19",
+      "snowdepth_max_cm": 149.0,
+      "snowdepth_missing_days": 0
+    },
+    {
+      "station": "手稲区",
+      "snowfall_max_cm": 40.0,
+      "snowfall_missing_days": 0,
+      "snowfall_sum_cm": 568.0,
+      "days_over_10cm": 20,
+      "p95_cm": 20.0,
+      "peak_date": "2026-02-19",
+      "snowdepth_max_cm": 125.0,
+      "snowdepth_missing_days": 0
+    }
+  ]
+}

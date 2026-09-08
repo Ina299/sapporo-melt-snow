@@ -1,0 +1,1739 @@
+[
+  {
+    "u": 1793890059,
+    "v": 1793890061,
+    "task_id": "168081367:3:1793890059:1793890061",
+    "way_id": 168081367,
+    "segment_id": "168081367:3",
+    "name": "名称未登録",
+    "highway": "residential",
+    "length_m": 44.085913310046955,
+    "service_s": 19.838660989521127,
+    "cost": 7935,
+    "tags": {
+      "highway": "residential",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1793890059,
+    "v": 13370086402,
+    "task_id": "168081380:2:1793890059:13370086402",
+    "way_id": 168081380,
+    "segment_id": "168081380:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 8.525232475562019,
+    "service_s": 3.8363546140029086,
+    "cost": 1535,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1793890061,
+    "v": 1793890059,
+    "task_id": "168081367:3:1793890061:1793890059",
+    "way_id": 168081367,
+    "segment_id": "168081367:3",
+    "name": "名称未登録",
+    "highway": "residential",
+    "length_m": 44.085913310046955,
+    "service_s": 19.838660989521127,
+    "cost": 7935,
+    "tags": {
+      "highway": "residential",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1793890061,
+    "v": 1793890040,
+    "task_id": "168081376:2:1793890061:1793890040",
+    "way_id": 168081376,
+    "segment_id": "168081376:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 8.476594637302862,
+    "service_s": 3.8144675867862876,
+    "cost": 1526,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 13370086406,
+    "v": 1793890040,
+    "task_id": "168081376:1:13370086406:1793890040",
+    "way_id": 168081376,
+    "segment_id": "168081376:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 5.2631408784713125,
+    "service_s": 2.3684133953120905,
+    "cost": 947,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1793890040,
+    "v": 13370086406,
+    "task_id": "168081376:1:1793890040:13370086406",
+    "way_id": 168081376,
+    "segment_id": "168081376:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 5.2631408784713125,
+    "service_s": 2.3684133953120905,
+    "cost": 947,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1793890040,
+    "v": 1793890061,
+    "task_id": "168081376:2:1793890040:1793890061",
+    "way_id": 168081376,
+    "segment_id": "168081376:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 8.476594637302862,
+    "service_s": 3.8144675867862876,
+    "cost": 1526,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1793890062,
+    "v": 13370086402,
+    "task_id": "168081380:1:1793890062:13370086402",
+    "way_id": 168081380,
+    "segment_id": "168081380:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 2.0615841487837994,
+    "service_s": 0.9277128669527097,
+    "cost": 371,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 13370086402,
+    "v": 1793890062,
+    "task_id": "168081380:1:13370086402:1793890062",
+    "way_id": 168081380,
+    "segment_id": "168081380:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 2.0615841487837994,
+    "service_s": 0.9277128669527097,
+    "cost": 371,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 13370086402,
+    "v": 1793890059,
+    "task_id": "168081380:2:13370086402:1793890059",
+    "way_id": 168081380,
+    "segment_id": "168081380:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 8.525232475562019,
+    "service_s": 3.8363546140029086,
+    "cost": 1535,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800527518,
+    "v": 1800527643,
+    "task_id": "168868752:7:1800527518:1800527643",
+    "way_id": 168868752,
+    "segment_id": "168868752:7",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 30.89987553107029,
+    "service_s": 13.90494398898163,
+    "cost": 5562,
+    "tags": {
+      "highway": "unclassified",
+      "oneway": "yes",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800527643,
+    "v": 13367628339,
+    "task_id": "168868772:1:1800527643:13367628339",
+    "way_id": 168868772,
+    "segment_id": "168868772:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 2.6398479168509494,
+    "service_s": 1.1879315625829272,
+    "cost": 475,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 13367628339,
+    "v": 1800527643,
+    "task_id": "168868772:1:13367628339:1800527643",
+    "way_id": 168868772,
+    "segment_id": "168868772:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 2.6398479168509494,
+    "service_s": 1.1879315625829272,
+    "cost": 475,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646252,
+    "v": 1800646208,
+    "task_id": "168882526:6:1800646252:1800646208",
+    "way_id": 168882526,
+    "segment_id": "168882526:6",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 47.27334878346221,
+    "service_s": 21.273006952557996,
+    "cost": 8509,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646208,
+    "v": 1800646252,
+    "task_id": "168882526:6:1800646208:1800646252",
+    "way_id": 168882526,
+    "segment_id": "168882526:6",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 47.27334878346221,
+    "service_s": 21.273006952557996,
+    "cost": 8509,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646208,
+    "v": 1800646164,
+    "task_id": "168882526:7:1800646208:1800646164",
+    "way_id": 168882526,
+    "segment_id": "168882526:7",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 33.44028861094839,
+    "service_s": 15.048129874926776,
+    "cost": 6019,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646208,
+    "v": 1800646260,
+    "task_id": "168882535:0:1800646208:1800646260",
+    "way_id": 168882535,
+    "segment_id": "168882535:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 42.168265186517885,
+    "service_s": 18.975719333933046,
+    "cost": 7590,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646164,
+    "v": 1800646208,
+    "task_id": "168882526:7:1800646164:1800646208",
+    "way_id": 168882526,
+    "segment_id": "168882526:7",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 33.44028861094839,
+    "service_s": 15.048129874926776,
+    "cost": 6019,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646164,
+    "v": 1800646162,
+    "task_id": "168882526:8:1800646164:1800646162",
+    "way_id": 168882526,
+    "segment_id": "168882526:8",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 57.55676345751768,
+    "service_s": 25.900543555882955,
+    "cost": 10360,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646164,
+    "v": 2036273503,
+    "task_id": "168882533:0:1800646164:2036273503",
+    "way_id": 168882533,
+    "segment_id": "168882533:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 45.21606627468481,
+    "service_s": 20.347229823608163,
+    "cost": 8139,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646162,
+    "v": 1800646164,
+    "task_id": "168882526:8:1800646162:1800646164",
+    "way_id": 168882526,
+    "segment_id": "168882526:8",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 57.55676345751768,
+    "service_s": 25.900543555882955,
+    "cost": 10360,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646162,
+    "v": 1800646216,
+    "task_id": "168882526:9:1800646162:1800646216",
+    "way_id": 168882526,
+    "segment_id": "168882526:9",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 56.72242551910632,
+    "service_s": 25.52509148359784,
+    "cost": 10210,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646162,
+    "v": 1800646215,
+    "task_id": "168882538:4:1800646162:1800646215",
+    "way_id": 168882538,
+    "segment_id": "168882538:4",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 32.593278621953466,
+    "service_s": 14.666975379879059,
+    "cost": 5867,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646216,
+    "v": 1800646162,
+    "task_id": "168882526:9:1800646216:1800646162",
+    "way_id": 168882526,
+    "segment_id": "168882526:9",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 56.72242551910632,
+    "service_s": 25.52509148359784,
+    "cost": 10210,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646216,
+    "v": 1800646233,
+    "task_id": "168882526:10:1800646216:1800646233",
+    "way_id": 168882526,
+    "segment_id": "168882526:10",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 12.59708897704245,
+    "service_s": 5.6686900396691025,
+    "cost": 2267,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646216,
+    "v": 1800646235,
+    "task_id": "168882528:0:1800646216:1800646235",
+    "way_id": 168882528,
+    "segment_id": "168882528:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 7.36021252028963,
+    "service_s": 3.3120956341303334,
+    "cost": 1325,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646233,
+    "v": 1800646216,
+    "task_id": "168882526:10:1800646233:1800646216",
+    "way_id": 168882526,
+    "segment_id": "168882526:10",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 12.59708897704245,
+    "service_s": 5.6686900396691025,
+    "cost": 2267,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646233,
+    "v": 1800646211,
+    "task_id": "168882526:11:1800646233:1800646211",
+    "way_id": 168882526,
+    "segment_id": "168882526:11",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 14.397739492201548,
+    "service_s": 6.4789827714906965,
+    "cost": 2592,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646211,
+    "v": 1800646233,
+    "task_id": "168882526:11:1800646211:1800646233",
+    "way_id": 168882526,
+    "segment_id": "168882526:11",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 14.397739492201548,
+    "service_s": 6.4789827714906965,
+    "cost": 2592,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646211,
+    "v": 1800646197,
+    "task_id": "168882526:12:1800646211:1800646197",
+    "way_id": 168882526,
+    "segment_id": "168882526:12",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 20.752497983741634,
+    "service_s": 9.338624092683736,
+    "cost": 3735,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646197,
+    "v": 1800646211,
+    "task_id": "168882526:12:1800646197:1800646211",
+    "way_id": 168882526,
+    "segment_id": "168882526:12",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 20.752497983741634,
+    "service_s": 9.338624092683736,
+    "cost": 3735,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646197,
+    "v": 1800646183,
+    "task_id": "168882526:13:1800646197:1800646183",
+    "way_id": 168882526,
+    "segment_id": "168882526:13",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 97.85559629236641,
+    "service_s": 44.035018331564885,
+    "cost": 17614,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646197,
+    "v": 1800646181,
+    "task_id": "168882529:2:1800646197:1800646181",
+    "way_id": 168882529,
+    "segment_id": "168882529:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 49.9549800083223,
+    "service_s": 22.479741003745033,
+    "cost": 8992,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646183,
+    "v": 1800646197,
+    "task_id": "168882526:13:1800646183:1800646197",
+    "way_id": 168882526,
+    "segment_id": "168882526:13",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 97.85559629236641,
+    "service_s": 44.035018331564885,
+    "cost": 17614,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646183,
+    "v": 1800646207,
+    "task_id": "168882526:14:1800646183:1800646207",
+    "way_id": 168882526,
+    "segment_id": "168882526:14",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 23.80426575308271,
+    "service_s": 10.71191958888722,
+    "cost": 4285,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646207,
+    "v": 1800646183,
+    "task_id": "168882526:14:1800646207:1800646183",
+    "way_id": 168882526,
+    "segment_id": "168882526:14",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 23.80426575308271,
+    "service_s": 10.71191958888722,
+    "cost": 4285,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646207,
+    "v": 1800646214,
+    "task_id": "168882526:15:1800646207:1800646214",
+    "way_id": 168882526,
+    "segment_id": "168882526:15",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 26.62716705881129,
+    "service_s": 11.982225176465079,
+    "cost": 4793,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646207,
+    "v": 1800646201,
+    "task_id": "168882534:13:1800646207:1800646201",
+    "way_id": 168882534,
+    "segment_id": "168882534:13",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 13.116739317945994,
+    "service_s": 5.902532693075697,
+    "cost": 2361,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646214,
+    "v": 1800646207,
+    "task_id": "168882526:15:1800646214:1800646207",
+    "way_id": 168882526,
+    "segment_id": "168882526:15",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 26.62716705881129,
+    "service_s": 11.982225176465079,
+    "cost": 4793,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646214,
+    "v": 1800646169,
+    "task_id": "168882526:16:1800646214:1800646169",
+    "way_id": 168882526,
+    "segment_id": "168882526:16",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 37.78234455376884,
+    "service_s": 17.002055049195977,
+    "cost": 6801,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646169,
+    "v": 1800646214,
+    "task_id": "168882526:16:1800646169:1800646214",
+    "way_id": 168882526,
+    "segment_id": "168882526:16",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 37.78234455376884,
+    "service_s": 17.002055049195977,
+    "cost": 6801,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646169,
+    "v": 1800646189,
+    "task_id": "168882526:17:1800646169:1800646189",
+    "way_id": 168882526,
+    "segment_id": "168882526:17",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 43.108810773453285,
+    "service_s": 19.39896484805398,
+    "cost": 7760,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646189,
+    "v": 1800646169,
+    "task_id": "168882526:17:1800646189:1800646169",
+    "way_id": 168882526,
+    "segment_id": "168882526:17",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 43.108810773453285,
+    "service_s": 19.39896484805398,
+    "cost": 7760,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646189,
+    "v": 1800646176,
+    "task_id": "168882526:18:1800646189:1800646176",
+    "way_id": 168882526,
+    "segment_id": "168882526:18",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 35.04473921151014,
+    "service_s": 15.770132645179563,
+    "cost": 6308,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646176,
+    "v": 1800646189,
+    "task_id": "168882526:18:1800646176:1800646189",
+    "way_id": 168882526,
+    "segment_id": "168882526:18",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 35.04473921151014,
+    "service_s": 15.770132645179563,
+    "cost": 6308,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646176,
+    "v": 1800646202,
+    "task_id": "168882526:19:1800646176:1800646202",
+    "way_id": 168882526,
+    "segment_id": "168882526:19",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 31.021361393511693,
+    "service_s": 13.959612627080261,
+    "cost": 5584,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646202,
+    "v": 1800646176,
+    "task_id": "168882526:19:1800646202:1800646176",
+    "way_id": 168882526,
+    "segment_id": "168882526:19",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 31.021361393511693,
+    "service_s": 13.959612627080261,
+    "cost": 5584,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646202,
+    "v": 1800646250,
+    "task_id": "168882526:20:1800646202:1800646250",
+    "way_id": 168882526,
+    "segment_id": "168882526:20",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 31.71247532273103,
+    "service_s": 14.270613895228964,
+    "cost": 5708,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646250,
+    "v": 1800646202,
+    "task_id": "168882526:20:1800646250:1800646202",
+    "way_id": 168882526,
+    "segment_id": "168882526:20",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 31.71247532273103,
+    "service_s": 14.270613895228964,
+    "cost": 5708,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646250,
+    "v": 1800646185,
+    "task_id": "168882526:21:1800646250:1800646185",
+    "way_id": 168882526,
+    "segment_id": "168882526:21",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 24.29218671173345,
+    "service_s": 10.931484020280053,
+    "cost": 4373,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646185,
+    "v": 1800646250,
+    "task_id": "168882526:21:1800646185:1800646250",
+    "way_id": 168882526,
+    "segment_id": "168882526:21",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 24.29218671173345,
+    "service_s": 10.931484020280053,
+    "cost": 4373,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646185,
+    "v": 1800646193,
+    "task_id": "168882526:22:1800646185:1800646193",
+    "way_id": 168882526,
+    "segment_id": "168882526:22",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 25.228260610156216,
+    "service_s": 11.352717274570297,
+    "cost": 4541,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646193,
+    "v": 1800646185,
+    "task_id": "168882526:22:1800646193:1800646185",
+    "way_id": 168882526,
+    "segment_id": "168882526:22",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 25.228260610156216,
+    "service_s": 11.352717274570297,
+    "cost": 4541,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646193,
+    "v": 10611432636,
+    "task_id": "232720013:10:1800646193:10611432636",
+    "way_id": 232720013,
+    "segment_id": "232720013:10",
+    "name": "鉄工団地通",
+    "highway": "tertiary",
+    "length_m": 87.04619299127897,
+    "service_s": 39.170786846075536,
+    "cost": 15668,
+    "tags": {
+      "highway": "tertiary",
+      "name": "鉄工団地通",
+      "name:en": "Tekkodanchi dori",
+      "name:ja": "鉄工団地通",
+      "name:ja_rm": "Tekkōdanchi dōri"
+    }
+  },
+  {
+    "u": 1800646193,
+    "v": 2036135433,
+    "task_id": "232720013:11:1800646193:2036135433",
+    "way_id": 232720013,
+    "segment_id": "232720013:11",
+    "name": "鉄工団地通",
+    "highway": "tertiary",
+    "length_m": 5.896207211279007,
+    "service_s": 2.6532932450755533,
+    "cost": 1061,
+    "tags": {
+      "highway": "tertiary",
+      "name": "鉄工団地通",
+      "name:en": "Tekkodanchi dori",
+      "name:ja": "鉄工団地通",
+      "name:ja_rm": "Tekkōdanchi dōri"
+    }
+  },
+  {
+    "u": 1800646235,
+    "v": 1800646216,
+    "task_id": "168882528:0:1800646235:1800646216",
+    "way_id": 168882528,
+    "segment_id": "168882528:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 7.36021252028963,
+    "service_s": 3.3120956341303334,
+    "cost": 1325,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646235,
+    "v": 1800646226,
+    "task_id": "168882528:1:1800646235:1800646226",
+    "way_id": 168882528,
+    "segment_id": "168882528:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 52.305499292899334,
+    "service_s": 23.5374746818047,
+    "cost": 9415,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646226,
+    "v": 1800646235,
+    "task_id": "168882528:1:1800646226:1800646235",
+    "way_id": 168882528,
+    "segment_id": "168882528:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 52.305499292899334,
+    "service_s": 23.5374746818047,
+    "cost": 9415,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646226,
+    "v": 1800646218,
+    "task_id": "168882528:2:1800646226:1800646218",
+    "way_id": 168882528,
+    "segment_id": "168882528:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 51.38463044633293,
+    "service_s": 23.123083700849815,
+    "cost": 9249,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646226,
+    "v": 1800646254,
+    "task_id": "168882529:0:1800646226:1800646254",
+    "way_id": 168882529,
+    "segment_id": "168882529:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 39.411739155627004,
+    "service_s": 17.73528262003215,
+    "cost": 7094,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646218,
+    "v": 1800646226,
+    "task_id": "168882528:2:1800646218:1800646226",
+    "way_id": 168882528,
+    "segment_id": "168882528:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 51.38463044633293,
+    "service_s": 23.123083700849815,
+    "cost": 9249,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646218,
+    "v": 1800646206,
+    "task_id": "168882528:3:1800646218:1800646206",
+    "way_id": 168882528,
+    "segment_id": "168882528:3",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 63.4735787374504,
+    "service_s": 28.56311043185268,
+    "cost": 11425,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646206,
+    "v": 1800646218,
+    "task_id": "168882528:3:1800646206:1800646218",
+    "way_id": 168882528,
+    "segment_id": "168882528:3",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 63.4735787374504,
+    "service_s": 28.56311043185268,
+    "cost": 11425,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646206,
+    "v": 2036528768,
+    "task_id": "168882534:8:1800646206:2036528768",
+    "way_id": 168882534,
+    "segment_id": "168882534:8",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 9.433751755169556,
+    "service_s": 4.2451882898263005,
+    "cost": 1698,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646206,
+    "v": 1800646199,
+    "task_id": "168882534:9:1800646206:1800646199",
+    "way_id": 168882534,
+    "segment_id": "168882534:9",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 59.423342289237624,
+    "service_s": 26.74050403015693,
+    "cost": 10696,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646254,
+    "v": 1800646226,
+    "task_id": "168882529:0:1800646254:1800646226",
+    "way_id": 168882529,
+    "segment_id": "168882529:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 39.411739155627004,
+    "service_s": 17.73528262003215,
+    "cost": 7094,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646254,
+    "v": 1800646181,
+    "task_id": "168882529:1:1800646254:1800646181",
+    "way_id": 168882529,
+    "segment_id": "168882529:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 18.00990007097195,
+    "service_s": 8.104455031937377,
+    "cost": 3242,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646181,
+    "v": 1800646254,
+    "task_id": "168882529:1:1800646181:1800646254",
+    "way_id": 168882529,
+    "segment_id": "168882529:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 18.00990007097195,
+    "service_s": 8.104455031937377,
+    "cost": 3242,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646181,
+    "v": 1800646197,
+    "task_id": "168882529:2:1800646181:1800646197",
+    "way_id": 168882529,
+    "segment_id": "168882529:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 49.9549800083223,
+    "service_s": 22.479741003745033,
+    "cost": 8992,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646181,
+    "v": 1800646204,
+    "task_id": "168882542:0:1800646181:1800646204",
+    "way_id": 168882542,
+    "segment_id": "168882542:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 71.080176440595,
+    "service_s": 31.986079398267748,
+    "cost": 12794,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 2036273503,
+    "v": 1800646164,
+    "task_id": "168882533:0:2036273503:1800646164",
+    "way_id": 168882533,
+    "segment_id": "168882533:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 45.21606627468481,
+    "service_s": 20.347229823608163,
+    "cost": 8139,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 2036273503,
+    "v": 2036273497,
+    "task_id": "168882533:1:2036273503:2036273497",
+    "way_id": 168882533,
+    "segment_id": "168882533:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 24.93731465466448,
+    "service_s": 11.221791594599015,
+    "cost": 4489,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 2036273497,
+    "v": 2036273503,
+    "task_id": "168882533:1:2036273497:2036273503",
+    "way_id": 168882533,
+    "segment_id": "168882533:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 24.93731465466448,
+    "service_s": 11.221791594599015,
+    "cost": 4489,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 2036273497,
+    "v": 2036273493,
+    "task_id": "168882533:2:2036273497:2036273493",
+    "way_id": 168882533,
+    "segment_id": "168882533:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 30.143988480724065,
+    "service_s": 13.56479481632583,
+    "cost": 5426,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 2036273493,
+    "v": 2036273497,
+    "task_id": "168882533:2:2036273493:2036273497",
+    "way_id": 168882533,
+    "segment_id": "168882533:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 30.143988480724065,
+    "service_s": 13.56479481632583,
+    "cost": 5426,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 2036273489,
+    "v": 2036528768,
+    "task_id": "168882534:7:2036273489:2036528768",
+    "way_id": 168882534,
+    "segment_id": "168882534:7",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 36.21020209090556,
+    "service_s": 16.2945909409075,
+    "cost": 6518,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 2036528768,
+    "v": 2036273489,
+    "task_id": "168882534:7:2036528768:2036273489",
+    "way_id": 168882534,
+    "segment_id": "168882534:7",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 36.21020209090556,
+    "service_s": 16.2945909409075,
+    "cost": 6518,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 2036528768,
+    "v": 1800646206,
+    "task_id": "168882534:8:2036528768:1800646206",
+    "way_id": 168882534,
+    "segment_id": "168882534:8",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 9.433751755169556,
+    "service_s": 4.2451882898263005,
+    "cost": 1698,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646199,
+    "v": 1800646206,
+    "task_id": "168882534:9:1800646199:1800646206",
+    "way_id": 168882534,
+    "segment_id": "168882534:9",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 59.423342289237624,
+    "service_s": 26.74050403015693,
+    "cost": 10696,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646199,
+    "v": 1800646204,
+    "task_id": "168882534:10:1800646199:1800646204",
+    "way_id": 168882534,
+    "segment_id": "168882534:10",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 65.7365843887465,
+    "service_s": 29.58146297493592,
+    "cost": 11833,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646204,
+    "v": 1800646199,
+    "task_id": "168882534:10:1800646204:1800646199",
+    "way_id": 168882534,
+    "segment_id": "168882534:10",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 65.7365843887465,
+    "service_s": 29.58146297493592,
+    "cost": 11833,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646204,
+    "v": 1800646179,
+    "task_id": "168882534:11:1800646204:1800646179",
+    "way_id": 168882534,
+    "segment_id": "168882534:11",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 4.480023564643587,
+    "service_s": 2.016010604089614,
+    "cost": 806,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646204,
+    "v": 1800646181,
+    "task_id": "168882542:0:1800646204:1800646181",
+    "way_id": 168882542,
+    "segment_id": "168882542:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 71.080176440595,
+    "service_s": 31.986079398267748,
+    "cost": 12794,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646179,
+    "v": 1800646204,
+    "task_id": "168882534:11:1800646179:1800646204",
+    "way_id": 168882534,
+    "segment_id": "168882534:11",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 4.480023564643587,
+    "service_s": 2.016010604089614,
+    "cost": 806,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646179,
+    "v": 1800646201,
+    "task_id": "168882534:12:1800646179:1800646201",
+    "way_id": 168882534,
+    "segment_id": "168882534:12",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 47.793316578028985,
+    "service_s": 21.506992460113043,
+    "cost": 8603,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646201,
+    "v": 1800646179,
+    "task_id": "168882534:12:1800646201:1800646179",
+    "way_id": 168882534,
+    "segment_id": "168882534:12",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 47.793316578028985,
+    "service_s": 21.506992460113043,
+    "cost": 8603,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646201,
+    "v": 1800646207,
+    "task_id": "168882534:13:1800646201:1800646207",
+    "way_id": 168882534,
+    "segment_id": "168882534:13",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 13.116739317945994,
+    "service_s": 5.902532693075697,
+    "cost": 2361,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646260,
+    "v": 1800646208,
+    "task_id": "168882535:0:1800646260:1800646208",
+    "way_id": 168882535,
+    "segment_id": "168882535:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 42.168265186517885,
+    "service_s": 18.975719333933046,
+    "cost": 7590,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646260,
+    "v": 1800646184,
+    "task_id": "168882535:1:1800646260:1800646184",
+    "way_id": 168882535,
+    "segment_id": "168882535:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 13.285114630894714,
+    "service_s": 5.9783015839026215,
+    "cost": 2391,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646260,
+    "v": 1800646158,
+    "task_id": "168882536:0:1800646260:1800646158",
+    "way_id": 168882536,
+    "segment_id": "168882536:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 67.94005880969372,
+    "service_s": 30.573026464362176,
+    "cost": 12229,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646184,
+    "v": 1800646260,
+    "task_id": "168882535:1:1800646184:1800646260",
+    "way_id": 168882535,
+    "segment_id": "168882535:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 13.285114630894714,
+    "service_s": 5.9783015839026215,
+    "cost": 2391,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646184,
+    "v": 1800646222,
+    "task_id": "168882535:2:1800646184:1800646222",
+    "way_id": 168882535,
+    "segment_id": "168882535:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 8.340070022858539,
+    "service_s": 3.7530315102863425,
+    "cost": 1501,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646222,
+    "v": 1800646184,
+    "task_id": "168882535:2:1800646222:1800646184",
+    "way_id": 168882535,
+    "segment_id": "168882535:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 8.340070022858539,
+    "service_s": 3.7530315102863425,
+    "cost": 1501,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646222,
+    "v": 1800646261,
+    "task_id": "168882538:2:1800646222:1800646261",
+    "way_id": 168882538,
+    "segment_id": "168882538:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 70.0620294576937,
+    "service_s": 31.52791325596216,
+    "cost": 12611,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646222,
+    "v": 1800646215,
+    "task_id": "168882538:3:1800646222:1800646215",
+    "way_id": 168882538,
+    "segment_id": "168882538:3",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 81.66759875016295,
+    "service_s": 36.75041943757333,
+    "cost": 14700,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646158,
+    "v": 1800646260,
+    "task_id": "168882536:0:1800646158:1800646260",
+    "way_id": 168882536,
+    "segment_id": "168882536:0",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 67.94005880969372,
+    "service_s": 30.573026464362176,
+    "cost": 12229,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646158,
+    "v": 1800646261,
+    "task_id": "168882538:1:1800646158:1800646261",
+    "way_id": 168882538,
+    "segment_id": "168882538:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 51.99689393413133,
+    "service_s": 23.398602270359095,
+    "cost": 9359,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646261,
+    "v": 1800646158,
+    "task_id": "168882538:1:1800646261:1800646158",
+    "way_id": 168882538,
+    "segment_id": "168882538:1",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 51.99689393413133,
+    "service_s": 23.398602270359095,
+    "cost": 9359,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646261,
+    "v": 1800646222,
+    "task_id": "168882538:2:1800646261:1800646222",
+    "way_id": 168882538,
+    "segment_id": "168882538:2",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 70.0620294576937,
+    "service_s": 31.52791325596216,
+    "cost": 12611,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646215,
+    "v": 1800646222,
+    "task_id": "168882538:3:1800646215:1800646222",
+    "way_id": 168882538,
+    "segment_id": "168882538:3",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 81.66759875016295,
+    "service_s": 36.75041943757333,
+    "cost": 14700,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 1800646215,
+    "v": 1800646162,
+    "task_id": "168882538:4:1800646215:1800646162",
+    "way_id": 168882538,
+    "segment_id": "168882538:4",
+    "name": "名称未登録",
+    "highway": "unclassified",
+    "length_m": 32.593278621953466,
+    "service_s": 14.666975379879059,
+    "cost": 5867,
+    "tags": {
+      "highway": "unclassified",
+      "source": "Bing"
+    }
+  },
+  {
+    "u": 493342976,
+    "v": 2036527284,
+    "task_id": "232720013:8:493342976:2036527284",
+    "way_id": 232720013,
+    "segment_id": "232720013:8",
+    "name": "鉄工団地通",
+    "highway": "tertiary",
+    "length_m": 14.815138409416546,
+    "service_s": 6.666812284237445,
+    "cost": 2667,
+    "tags": {
+      "highway": "tertiary",
+      "name": "鉄工団地通",
+      "name:en": "Tekkodanchi dori",
+      "name:ja": "鉄工団地通",
+      "name:ja_rm": "Tekkōdanchi dōri"
+    }
+  },
+  {
+    "u": 2036527284,
+    "v": 493342976,
+    "task_id": "232720013:8:2036527284:493342976",
+    "way_id": 232720013,
+    "segment_id": "232720013:8",
+    "name": "鉄工団地通",
+    "highway": "tertiary",
+    "length_m": 14.815138409416546,
+    "service_s": 6.666812284237445,
+    "cost": 2667,
+    "tags": {
+      "highway": "tertiary",
+      "name": "鉄工団地通",
+      "name:en": "Tekkodanchi dori",
+      "name:ja": "鉄工団地通",
+      "name:ja_rm": "Tekkōdanchi dōri"
+    }
+  },
+  {
+    "u": 2036527284,
+    "v": 10611432636,
+    "task_id": "232720013:9:2036527284:10611432636",
+    "way_id": 232720013,
+    "segment_id": "232720013:9",
+    "name": "鉄工団地通",
+    "highway": "tertiary",
+    "length_m": 103.12920662068738,
+    "service_s": 46.40814297930932,
+    "cost": 18563,
+    "tags": {
+      "highway": "tertiary",
+      "name": "鉄工団地通",
+      "name:en": "Tekkodanchi dori",
+      "name:ja": "鉄工団地通",
+      "name:ja_rm": "Tekkōdanchi dōri"
+    }
+  },
+  {
+    "u": 10611432636,
+    "v": 2036527284,
+    "task_id": "232720013:9:10611432636:2036527284",
+    "way_id": 232720013,
+    "segment_id": "232720013:9",
+    "name": "鉄工団地通",
+    "highway": "tertiary",
+    "length_m": 103.12920662068738,
+    "service_s": 46.40814297930932,
+    "cost": 18563,
+    "tags": {
+      "highway": "tertiary",
+      "name": "鉄工団地通",
+      "name:en": "Tekkodanchi dori",
+      "name:ja": "鉄工団地通",
+      "name:ja_rm": "Tekkōdanchi dōri"
+    }
+  },
+  {
+    "u": 10611432636,
+    "v": 1800646193,
+    "task_id": "232720013:10:10611432636:1800646193",
+    "way_id": 232720013,
+    "segment_id": "232720013:10",
+    "name": "鉄工団地通",
+    "highway": "tertiary",
+    "length_m": 87.04619299127897,
+    "service_s": 39.170786846075536,
+    "cost": 15668,
+    "tags": {
+      "highway": "tertiary",
+      "name": "鉄工団地通",
+      "name:en": "Tekkodanchi dori",
+      "name:ja": "鉄工団地通",
+      "name:ja_rm": "Tekkōdanchi dōri"
+    }
+  },
+  {
+    "u": 2036135433,
+    "v": 1800646193,
+    "task_id": "232720013:11:2036135433:1800646193",
+    "way_id": 232720013,
+    "segment_id": "232720013:11",
+    "name": "鉄工団地通",
+    "highway": "tertiary",
+    "length_m": 5.896207211279007,
+    "service_s": 2.6532932450755533,
+    "cost": 1061,
+    "tags": {
+      "highway": "tertiary",
+      "name": "鉄工団地通",
+      "name:en": "Tekkodanchi dori",
+      "name:ja": "鉄工団地通",
+      "name:ja_rm": "Tekkōdanchi dōri"
+    }
+  }
+]

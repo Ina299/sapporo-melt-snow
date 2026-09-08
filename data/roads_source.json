@@ -1,0 +1,15 @@
+{
+  "source": "https://api.openstreetmap.org/api/0.6/map",
+  "bbox": [
+    43.085,
+    141.3,
+    43.095,
+    141.315
+  ],
+  "retrieved_at": "2026-09-08T02:15:10.256947+00:00",
+  "sha256": "1b971ea68ff146bc39429e52ecc8bae7b2b8d1ea4bd14b36cd9bc9d847394a45",
+  "snapshot_file": "data/raw/roads_osm.xml",
+  "attribution": "© OpenStreetMap contributors",
+  "license": "ODbL 1.0",
+  "scope": "八軒・新川周辺の矩形抽出。市全域・市公式除雪路線ではない。"
+}
