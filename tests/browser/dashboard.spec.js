@@ -87,8 +87,16 @@ test('wide coverage and company-origin fleet routes are selectable',async({page}
   await expect(page.locator('#company-map-legend')).toContainText('破線：回送');
   await page.locator('#company-view').click();
   await expect(page.locator('.vehicle-start')).toHaveCount(3);
-  await page.locator('#company-vehicle-focus').selectOption('1');
+  await page.locator('#fit-company').click();
+  await page.locator('.vehicle-start').first().click();
+  expect(await page.locator('#company-vehicle-focus').inputValue()).not.toBe('0');
   await expect(page.locator('#trip-panel')).toBeVisible();
+  await page.locator('#all-vehicles-view').click();
+  await expect(page.locator('#trip-panel')).toBeHidden();
+  await expect(page.locator('.vehicle-start')).toHaveCount(3);
+  await page.locator('.vehicle-start').first().click();
+  await expect(page.locator('#trip-panel')).toBeVisible();
+  await page.locator('#company-vehicle-focus').selectOption('1');
   const jobs=await page.locator('#trip-table tr').count();
   expect(jobs).toBeGreaterThan(10);
   expect(await page.locator('.trip-seq').count()).toBeGreaterThan(1);

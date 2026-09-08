@@ -24,6 +24,12 @@ if(CR){
   const midpoint=f=>{const c=f.geometry.coordinates;let total=0;const seg=[];for(let i=1;i<c.length;i++){const d=km(c[i-1],c[i]);seg.push(d);total+=d;}let acc=0;for(let i=0;i<seg.length;i++){if(acc+seg[i]>=total/2){const t=seg[i]?(total/2-acc)/seg[i]:0;const a=c[i],b=c[i+1];return {lat:a[1]+(b[1]-a[1])*t,lon:a[0]+(b[0]-a[0])*t,bearing:bearing(a,b),km:total};}acc+=seg[i];}return null;};
   $('route-company').innerHTML=CR.companies.map(c=>`<option value="${c.id}">${esc(companyLabel(c))}</option>`).join('');
 
+  function focusVehicle(v){$('company-vehicle-focus').value=String(v);selectedTrip=null;timeLimit=null;draw(false);}
+  // Buttons inside Leaflet popups are created dynamically; delegate their clicks.
+  document.addEventListener('click',e=>{
+    const f=e.target.closest('[data-popup-focus]');if(f){focusVehicle(+f.dataset.popupFocus);map.closePopup();return;}
+    const c=e.target.closest('[data-popup-company]');if(c){selectCompany(c.dataset.popupCompany,false);map.closePopup();}
+  });
   function selectCompany(id,fit=false){
     $('route-company').value=id;
     const c=company();
@@ -73,13 +79,13 @@ if(CR){
     tripIndex=focus?built[0]?.seq??[]:[];
     L.geoJSON({type:'FeatureCollection',features},
       {style:f=>styleFor(f,focus),
-       onEachFeature:(f,l)=>{const p=f.properties;l.bindPopup(`${esc(companyLabel(c))}<br>車両 ${p.vehicle} / ${p.service?'除雪作業':'往復・区間間の回送'}${p.seq?`<br>作業 ${p.seq} 番目 / 出発から ${num(p.start_h,1)}〜${num(p.end_h,1)} 時間`:''}`,{autoPan:false});
+       onEachFeature:(f,l)=>{const p=f.properties;l.bindPopup(`${esc(companyLabel(c))}<br>車両 ${p.vehicle} / ${p.service?'除雪作業':'往復・区間間の回送'}${p.seq?`<br>作業 ${p.seq} 番目 / 出発から ${num(p.start_h,1)}〜${num(p.end_h,1)} 時間`:''}${focus?'':`<br><button class="text-button" data-popup-focus="${p.vehicle}">この車両の作業順序・方向を見る →</button>`}`,{autoPan:false});
          if(focus&&p.seq)l.on('click',()=>selectTrip(p.seq,false));}}).addTo(layer);
     // Start markers: one per vehicle (all vehicles) or one per job (focused vehicle).
     if(!focus){
       const started=new Set();
       for(const f of features){const v=f.properties.vehicle;if(!f.properties.service||started.has(v))continue;started.add(v);const [lon,lat]=f.geometry.coordinates[0];
-        L.marker([lat,lon],{icon:L.divIcon({className:'vehicle-start',html:`<span style="background:${color(v)}">${v}</span>`,iconSize:[22,22]})}).addTo(layer).bindPopup(`車両 ${v} の作業開始点`,{autoPan:false});}
+        L.marker([lat,lon],{icon:L.divIcon({className:'vehicle-start',html:`<span style="background:${color(v)}">${v}</span>`,iconSize:[22,22]}),title:`車両 ${v} の作業開始点。クリックで作業順序・方向を表示`,zIndexOffset:2000}).addTo(layer).bindTooltip(`車両 ${v}：クリックで順序・方向・経過時間を表示`,{direction:'top',offset:[0,-12]}).on('click',()=>focusVehicle(v));}
     }else{
       drawDetail(c,built[0]);
     }
@@ -92,9 +98,10 @@ if(CR){
     renderTripPanel(c,focus,built[0]);
     const chips=routes.map(r=>`<span class="vehicle-chip"><i style="background:${color(r.vehicle_id)}"></i>車両 ${r.vehicle_id}</span>`).join('');
     const bandLegend=focus?`<div class="time-bands">${bands.map(([limit,col],i)=>`<span><i style="background:${col}"></i>${i?`${bands[i-1][0]}〜`:'0〜'}${limit===Infinity?'':limit}時間${limit===Infinity?'超':''}</span>`).join('')}</div>`:'';
-    $('company-map-legend').innerHTML=`<b>${esc(companyLabel(c))} / ${s.vehicles}台${focus?` / 車両${focus}を表示`:''}</b><span>${focus?'色：出発からの経過時間　番号：作業の順序　矢印：進行方向　破線：回送':'実線：作業　破線：回送　番号：作業開始点'}　灰色点線：未確認接続</span>${bandLegend}<div>${chips}</div><div class="legend-actions"><button id="fit-company" class="text-button">この表示範囲に合わせる</button><button id="all-companies-view" class="text-button">全社表示に戻る</button><a href="#company-routing">事業者・台数・表示車両を変更 ↓</a></div>`;
+    $('company-map-legend').innerHTML=`<b>${esc(companyLabel(c))} / ${s.vehicles}台${focus?` / 車両${focus}を表示`:''}</b><span>${focus?'色：出発からの経過時間　番号：作業の順序　矢印：進行方向　破線：回送':'実線：作業　破線：回送　番号：作業開始点（クリックでその車両の順序・方向・経過時間）'}　灰色点線：未確認接続</span>${bandLegend}<div>${chips}</div><div class="legend-actions">${focus?'<button id="all-vehicles-view" class="text-button">全車両に戻る</button>':''}<button id="fit-company" class="text-button">この表示範囲に合わせる</button><button id="all-companies-view" class="text-button">全社表示に戻る</button><a href="#company-routing">事業者・台数・表示車両を変更 ↓</a></div>`;
     $('fit-company').onclick=()=>{if(layer.getLayers().length)map.fitBounds(layer.getBounds(),{padding:[45,45],maxZoom:15});};
     $('all-companies-view').onclick=()=>allCompanies(false);
+    const back=$('all-vehicles-view');if(back)back.onclick=()=>focusVehicle(0);
     if(fit&&layer.getLayers().length){map.fitBounds(layer.getBounds(),{padding:[45,45],maxZoom:15});revealMap();}
   }
   // Direction arrows and job-order numbers for a single vehicle.
@@ -147,7 +154,7 @@ if(CR){
     Object.values(contractorMarkers).forEach(m=>m.getElement()?.classList.remove('is-selected'));
     cityRoadLayer?.setStyle({opacity:.12});
     CR.companies.forEach(c=>{
-      companyLayers[c.id]=L.geoJSON({type:'FeatureCollection',features:c.trips.flatMap(t=>t.features.filter(f=>f.properties.service))},{style:()=>({color:companyColor(c.id),weight:2,opacity:.75}),onEachFeature:(f,l)=>l.bindPopup(`${esc(companyLabel(c))}の広域担当区間<br>事業者マーカーを選ぶと車両別経路を表示`,{autoPan:false})});
+      companyLayers[c.id]=L.geoJSON({type:'FeatureCollection',features:c.trips.flatMap(t=>t.features.filter(f=>f.properties.service))},{style:()=>({color:companyColor(c.id),weight:2,opacity:.75}),onEachFeature:(f,l)=>l.bindPopup(`${esc(companyLabel(c))}の広域担当区間<br><button class="text-button" data-popup-company="${c.id}">この会社の車両別経路を表示 →</button>`,{autoPan:false})});
       if(!hiddenCompanies.has(c.id))companyLayers[c.id].addTo(layer);
     });
     const a=CR.summary;
