@@ -61,7 +61,7 @@ tr.faded-row td{opacity:.4}
 .grid-ss span{display:block;background:#fff;border:1.5px solid #7a4fb8;color:#5b2a86;border-radius:3px;font:bold 9px/13px Arial;text-align:center}
 .grid-ss-hv span{background:#5b2a86;color:#fff;border-color:#5b2a86}
 .grid-ix{background:#e0a100;color:#fff;border:2px solid #fff;border-radius:4px;font:bold 10px/16px Arial;text-align:center;box-shadow:0 1px 4px #0005}
-#grid-panel{margin-top:16px}
+#grid-panel{margin-top:16px;padding:24px}#grid-panel .panel-heading{padding:0 0 12px}#grid-panel .panel-heading h3{font-size:14px}#grid-panel .fineprint{padding:12px 0 0}#grid-panel #grid-method{margin:0 0 14px}
 #dc-grid-table td{white-space:normal;vertical-align:top;min-width:120px}
 #dc-grid-table small{color:var(--muted)}
 
@@ -86,3 +86,5 @@ button.vehicle-chip{cursor:pointer;color:var(--ink)}
 .company-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:11px;line-height:1.9}
 .company-detail-grid small{color:var(--muted)}
 .company-detail-grid b{font-size:10px;color:var(--muted);font-weight:600}
+
+#grid-panel .table-scroll{border:1px solid var(--line);border-radius:6px}
