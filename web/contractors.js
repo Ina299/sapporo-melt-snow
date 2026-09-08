@@ -35,7 +35,7 @@ if(CR){
     const c=company();
     $('company-vehicles').innerHTML=c.scenarios.map(s=>`<option value="${s.vehicles}">${s.vehicles}台</option>`).join('');
     $('company-vehicles').value=String(CR.mode==='joint'?c.fleet_limit:(selectedCounts[id]??c.fleet_limit));
-    $('company-vehicles').disabled=CR.mode==='joint';
+    $('company-vehicles').disabled=true;  // both modes are computed for the standard fleet only
     updateFocus();draw(fit);
   }
   function updateFocus(){
@@ -44,8 +44,8 @@ if(CR){
     selectedTrip=null;timeLimit=null;
   }
   // Ordered feature list of one vehicle: depot → trips (incoming + body) → depot.
-  function vehicleFeatures(c,r){
-    const trips=new Map(c.trips.map(t=>[t.id,t]));
+  function vehicleFeatures(c,r,s){
+    const trips=new Map((s?.trips??c.trips).map(t=>[t.id,t]));
     const out=[];let clock=0;const seq=[];
     const push=(f,tripSeq)=>{const h=hoursOf(f);out.push({...f,properties:{...f.properties,vehicle:r.vehicle_id,seq:tripSeq,start_h:clock,end_h:clock+h}});clock+=h;};
     if(CR.route_format!=='direct_jobs'){r.trip_ids.forEach((id,k)=>trips.get(id).features.forEach(f=>push(f,k+1)));return {features:out,seq:[],hours:clock};}
@@ -61,8 +61,8 @@ if(CR){
     (r.tail_features??[]).forEach(f=>push(f,r.trip_ids.length+1));
     return {features:out,seq,hours:clock};
   }
-  function vehicleStart(c,r){
-    const trips=new Map(c.trips.map(t=>[t.id,t]));
+  function vehicleStart(c,r,s){
+    const trips=new Map((s?.trips??c.trips).map(t=>[t.id,t]));
     for(const id of r.trip_ids){const t=trips.get(id);const f=t.features.find(x=>x.properties.service)??t.features[0];if(f){const [lon,lat]=f.geometry.coordinates[0];return [lat,lon];}}
     return null;
   }
@@ -80,7 +80,7 @@ if(CR){
     routeLayer.clearLayers();layer.clearLayers();detailLayer.clearLayers();
     cityRoadLayer?.setStyle(f=>({opacity:f.properties.included ? .16 : .55}));
     const routes=s.routes.filter(r=>!focus||r.vehicle_id===focus);
-    const built=routes.map(r=>vehicleFeatures(c,r));
+    const built=routes.map(r=>vehicleFeatures(c,r,s));
     const features=built.flatMap(b=>b.features);
     tripIndex=focus?built[0]?.seq??[]:[];
     L.geoJSON({type:'FeatureCollection',features},
@@ -91,7 +91,7 @@ if(CR){
     // Start markers for every vehicle (車N). In the focused view the other vehicles stay as faded,
     // clickable markers so the user can jump between vehicles without leaving the view.
     // Vehicles that start at (almost) the same point are fanned out in a small ring so every tag stays clickable.
-    const starts=s.routes.map(r=>({r,start:vehicleStart(c,r)})).filter(x=>x.start);
+    const starts=s.routes.map(r=>({r,start:vehicleStart(c,r,s)})).filter(x=>x.start);
     // Cluster in screen space at the current zoom (tags closer than ~28px would overlap).
     const groups=[];
     starts.forEach(x=>{const pt=map.latLngToContainerPoint(x.start);const g=groups.find(g=>g.pt.distanceTo(pt)<28);if(g)g.items.push(x);else groups.push({pt,items:[x]});});
@@ -106,7 +106,7 @@ if(CR){
     if(focus)drawDetail(c,built[0]);
     const source=D.contractors.find(x=>x.id===c.id);
     L.polyline([[source.latitude,source.longitude],[c.depot.lat,c.depot.lon]],{color:'#687278',dashArray:'2 5',weight:2}).addTo(layer).bindPopup(`道路への未確認接続 ${num(c.snap_distance_m)}m。走行距離・時間に未算入。`,{autoPan:false});
-    $('company-route-note').textContent=`${c.name} / 広域担当${num(s.validation.covered)}方向区間。試算設定の最大${c.fleet_limit}台：${c.fleet_basis}。実際の上限・稼働・拠点配備は未確認。所在地と道路接続点の差：約${num(c.snap_distance_m)}m。${CR.mode==='joint'?'全社方式では台数は固定です。':'台数変更は固定担当区間内の再配分です。'}`;
+    $('company-route-note').textContent=`${c.name} / 広域担当${num(s.validation.covered)}方向区間。試算設定の最大${c.fleet_limit}台：${c.fleet_basis}。実際の上限・稼働・拠点配備は未確認。所在地と道路接続点の差：約${num(c.snap_distance_m)}m。台数は標準台数で固定です。`;
     $('company-route-stats').innerHTML=stat('担当分の完了まで',num(Math.max(...s.routes.map(r=>r.hours)),2),'時間',`${s.vehicles}台同時出発・休憩未算入`)+stat('全車両の総走行',num(s.routes.reduce((t,r)=>t+r.distance_km,0),1),'km','作業＋往復等の回送')+stat('広域の担当区間',num(s.validation.covered),'方向区間','他社と作業区間の重複なし');
     $('company-route-table').innerHTML=s.routes.map(r=>`<tr class="${focus===r.vehicle_id?'selected-row':''}" data-vehicle="${r.vehicle_id}"><td><i class="legend-line" style="background:${color(r.vehicle_id)}"></i>${r.vehicle_id}</td><td>${num(r.service_km,2)} km</td><td>${num(r.deadhead_km,2)} km</td><td>${num(r.hours,2)} h</td><td class="${r.hours<=SHIFT_HOURS?'ok':'bad'}">${r.hours<=SHIFT_HOURS?'範囲内':'超過'}</td><td><button class="text-button" data-focus-vehicle="${r.vehicle_id}">順序を見る</button></td></tr>`).join('');
     document.querySelectorAll('[data-focus-vehicle]').forEach(b=>b.onclick=()=>{$('company-vehicle-focus').value=b.dataset.focusVehicle;selectedTrip=null;timeLimit=null;draw(false);});
@@ -208,7 +208,7 @@ if(CR){
     $('top-stats').lastElementChild.outerHTML=stat('広域の仮定割当',num(a.assigned_arcs),'方向区間',`${num(a.unassigned_arcs)}区間は未割当`);
     $('city-stats').innerHTML=stat('対象の方向区間',num(a.required_arcs),'区間','市域と周辺のOSM車道')+stat('事業者・車両へ配車',num(a.assigned_arcs),'区間','4社が重複なく担当')+stat('仮定の試算台数',a.fleet,'台','公表主要機種による仮定')+stat('往復できず未割当',num(a.unassigned_arcs),'区間','架空の接続は追加しません');
     $('city-audit').textContent=CR.scope+' '+CR.method+' '+CR.transit_note;
-    $('dispatch-mode-note').textContent=CR.mode==='joint'?'各社の仮定台数を考慮して区域境界を調整し、近い作業へ直行する近似配車。仮定30台で比較します（この方式では台数を変更できません）。':'比較用の基準線。会社所在地への道路上の近さだけで区域を作成し、台数を考慮しないため、台数の少ないKRS・サツイチに区間が集中します。会社内の台数を変更できます。';
+    $('dispatch-mode-note').textContent=CR.mode==='joint'?'各社の仮定台数を考慮して区域境界を調整し、近い作業へ直行する近似配車。仮定30台で比較します（この方式では台数を変更できません）。':'比較用の基準線。会社所在地への道路上の近さだけで区域を作成し、台数を考慮しないため、台数の少ないKRS・サツイチに区間が集中します。台数は標準台数で固定です。';
     const old=a.previous;
     if(old){
       let note=$('route-improvement');if(!note){note=document.createElement('p');note.id='route-improvement';$('dispatch-mode-note').after(note);}
