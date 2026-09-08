@@ -82,6 +82,7 @@ test('wide coverage and company-origin fleet routes are selectable',async({page}
   await page.locator('#company-map-legend [data-vehicle-chip="1"]').click();
   await expect(page.locator('#company-vehicle-focus')).toHaveValue('1');
   await expect(page.locator('.map-back-control [data-back="vehicles"]')).toBeVisible();
+  await page.locator('#map').scrollIntoViewIfNeeded();
   const scrollBefore=await page.evaluate(()=>scrollY);
   await page.locator('#map').click({position:{x:30,y:400}});
   await expect(page.locator('#company-vehicle-focus')).toHaveValue('0');

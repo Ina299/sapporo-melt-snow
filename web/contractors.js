@@ -251,7 +251,7 @@ if(CR){
     marker.on('click',()=>selectCompany(c.id,false));
     marker.getElement()?.addEventListener('keydown',e=>{if(e.key==='Enter')selectCompany(c.id,false);});
   }
-  selectCompany(CR.companies[0].id);allCompanies(true);
+  selectCompany(CR.companies[0].id);allCompanies(false);  // keep the initial Sapporo view; no fit-to-routes zoom-out on load
   $('company-view').onclick=()=>draw(false);
   $('city-view').onclick=()=>allCompanies(false);
 }
