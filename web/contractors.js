@@ -106,6 +106,14 @@ if(CR){
     if(focus)drawDetail(c,built[0]);
     const source=D.contractors.find(x=>x.id===c.id);
     L.polyline([[source.latitude,source.longitude],[c.depot.lat,c.depot.lon]],{color:'#687278',dashArray:'2 5',weight:2}).addTo(layer).bindPopup(`道路への未確認接続 ${num(c.snap_distance_m)}m。走行距離・時間に未算入。`,{autoPan:false});
+    const info=D.contractors.find(x=>x.id===c.id);
+    $('company-detail').innerHTML=`<div class="company-detail-head"><span class="legend-tag" style="background:${companyColor(c.id)}">業${contractorNumber(c.id)}</span><h3>${esc(c.name)}</h3><span class="tag">${esc(info.location_type)}</span></div>
+      <div class="company-detail-grid">
+        <div><b>公開所在地</b><br>${esc(info.address)}<br><small>${esc(info.location_status)}／座標は${esc(info.geocoded_title)}の代表点</small></div>
+        <div><b>試算に採用した台数</b><br>${c.fleet_limit}台：${esc(c.fleet_basis)}<br><small>${esc(info.fleet_scope)}</small></div>
+        <div><b>会社公表の保有機械</b><br>${Object.entries(info.fleet).map(([k,v])=>`<span class="equipment">${esc(k)} <b>${v}台</b></span>`).join('')}<br><small>${esc(info.published_scope)}</small></div>
+        <div><b>根拠</b><br>${esc(info.location_evidence)}<br>${link(info.source_url,'会社公表値')}${info.address_source_url&&info.address_source_url!==info.source_url?' · '+link(info.address_source_url,'所在地'):''} · <a href="#fleet">照合表 ↓</a></div>
+      </div>`;
     $('company-route-note').textContent=`${c.name} / 広域担当${num(s.validation.covered)}方向区間。試算設定の最大${c.fleet_limit}台：${c.fleet_basis}。実際の上限・稼働・拠点配備は未確認。所在地と道路接続点の差：約${num(c.snap_distance_m)}m。台数は標準台数で固定です。`;
     $('company-route-stats').innerHTML=stat('担当分の完了まで',num(Math.max(...s.routes.map(r=>r.hours)),2),'時間',`${s.vehicles}台同時出発・休憩未算入`)+stat('全車両の総走行',num(s.routes.reduce((t,r)=>t+r.distance_km,0),1),'km','作業＋往復等の回送')+stat('広域の担当区間',num(s.validation.covered),'方向区間','他社と作業区間の重複なし');
     $('company-route-table').innerHTML=s.routes.map(r=>`<tr class="${focus===r.vehicle_id?'selected-row':''}" data-vehicle="${r.vehicle_id}"><td><i class="legend-line" style="background:${color(r.vehicle_id)}"></i>${r.vehicle_id}</td><td>${num(r.service_km,2)} km</td><td>${num(r.deadhead_km,2)} km</td><td>${num(r.hours,2)} h</td><td class="${r.hours<=SHIFT_HOURS?'ok':'bad'}">${r.hours<=SHIFT_HOURS?'範囲内':'超過'}</td><td><button class="text-button" data-focus-vehicle="${r.vehicle_id}">順序を見る</button></td></tr>`).join('');

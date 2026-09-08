@@ -5,7 +5,7 @@ from pathlib import Path
 import networkx as nx
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from src.routing import build_graph,travel_graph,distance,metrics,DRIVABLE
-from src.spatial_routing import bisect_groups
+from src.spatial_routing import bisect_groups,improve_order
 from scripts.run_dispatch import LIMITS
 
 def main():
@@ -110,11 +110,29 @@ def main():
                             for _ in range(amount):
                                 for st in path_steps(paths[(dn[1],sn[1])]):aug.add_edge(st['u'],st['v'],step=st)
                 components=[aug.subgraph(cn).copy() for cn in nx.weakly_connected_components(aug)]
-                current_nodes={c['depot_node']};walk=[];remaining=components
+                # Component visiting order: approximate hop costs (nearest node pair, directed road cost),
+                # nearest-first from the depot, then Or-opt with the return-to-depot cost included.
+                node_sets=[set(cn) for cn in components];K=len(components)
+                hop_cost={}
+                if K>1:
+                    for i in range(K):
+                        others=set().union(*(node_sets[j] for j in range(K) if j!=i))
+                        cost=multi_source_costs(node_sets[i],others)
+                        for j in range(K):
+                            if j!=i:hop_cost[(i,j)]=min(cost.get(n,float('inf')) for n in node_sets[j])
+                depot_cost=multi_source_costs({c['depot_node']},set().union(*node_sets))
+                start_cost=lambda i:min(depot_cost.get(n,float('inf')) for n in node_sets[i])
+                end_cost=lambda i:min(b.get(n,float('inf')) for n in node_sets[i])
+                order=[];remaining=list(range(K));cur=None
                 while remaining:
-                    entry,par=multi_source_nearest(current_nodes,set().union(*(set(cn) for cn in remaining)))
+                    nxt=min(remaining,key=lambda j:start_cost(j) if cur is None else hop_cost[(cur,j)])
+                    order.append(nxt);remaining.remove(nxt);cur=nxt
+                if K>1:order=improve_order(order,lambda i,j:hop_cost[(i,j)],start_cost,end_cost,max_segment=3,max_passes=30)
+                current_nodes={c['depot_node']};walk=[]
+                for i in order:
+                    entry,par=multi_source_nearest(current_nodes,node_sets[i])
                     hop=trace_back(par,current_nodes,entry);walk.extend(path_steps(hop))
-                    idx=next(i for i,cn in enumerate(remaining) if entry in cn);comp=remaining.pop(idx)
+                    comp=components[i]
                     for u,v,k in nx.eulerian_circuit(comp,source=entry,keys=True):walk.append(comp[u][v][k]['step'])
                     current_nodes={entry}
                 walk.extend(access(walk[-1]['v'],bp,True) if walk else [])
@@ -134,6 +152,17 @@ def main():
                 pth=[dst]
                 while pth[-1]!=src:pth.append(par[pth[-1]])
                 return pth[::-1]
+            def multi_source_costs(sources,targets):
+                import heapq
+                q=[(0,n) for n in sources];cost={n:0 for n in sources};found=0;targets=set(targets)-set(sources)
+                while q and found<len(targets):
+                    cst,u=heapq.heappop(q)
+                    if cst!=cost[u]:continue
+                    if u in targets:found+=1
+                    for v,a in d[u].items():
+                        nc=cst+a['weight']
+                        if nc<cost.get(v,float('inf')):cost[v]=nc;heapq.heappush(q,(nc,v))
+                return cost
             def multi_source_nearest(sources,targets):
                 import heapq
                 q=[(0,n) for n in sources];cost={n:0 for n in sources};par={}
@@ -207,7 +236,7 @@ def main():
         if {f['properties']['task_id'] for f in missing_geometry['features']}!=missing:raise AssertionError('Unassigned map differs from audit')
         data=dict(mode=mode,route_format='direct_jobs',companies=results,summary=summary,unassigned_geometry=missing_geometry,
                   scope='広域431,116方向区間の仮の割当。実契約地区ではない。',
-                  method='道路往復時間で会社の区域を作成し、作業時間が均等になるよう地理的に二分割を繰り返して車両ごとの連続した担当区域に分割。各区域では担当区間を郵便配達人問題として解き直し（不足する接続を道路最短経路で補い、成分ごとにEuler閉路）、成分を所在地から最寄り順に接続して最初に出発・最後に帰庫。'+('全社台数で区域境界を調整。' if mode=='joint' else '会社所在地への近さを優先。')+'近似解で最適性・区域の完全な連結性の保証なし。',
+                  method='道路往復時間で会社の区域を作成し、作業時間が均等になるよう地理的に二分割を繰り返して車両ごとの連続した担当区域に分割。各区域では担当区間を郵便配達人問題として解き直し（不足する接続を道路最短経路で補い、成分ごとにEuler閉路）、成分の訪問順は帰庫コストを含めて最寄り順＋Or-optで決めて最初に出発・最後に帰庫。'+('全社台数で区域境界を調整。' if mode=='joint' else '会社所在地への近さを優先。')+'近似解で最適性・区域の完全な連結性の保証なし。',
                   transit_note='市外も含む。車種別通行・右左折制限・雪量・実稼働は未検証。',
                   fleet_note='両方式とも台数は公表主要機種による標準台数で固定。機種は公表主要機種の仮定。',origin_note='入口と道路の未確認接続は未算入。')
         with gzip.open(out/f'{prefix}_ordered_routes.json.gz','wt',encoding='utf-8') as file:json.dump(archive,file,ensure_ascii=False,separators=(',',':'))

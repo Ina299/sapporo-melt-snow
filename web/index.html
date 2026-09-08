@@ -50,6 +50,7 @@
       <div class="notice" id="dispatch-audit"></div>
       <div class="panel explanation"><label for="dispatch-mode">割当方式</label><select id="dispatch-mode"><option value="joint" selected>全社の台数で区域・経路を調整</option><option value="fixed">所在地に近い区域で配車（比較用）</option></select><p id="dispatch-mode-note">各社の仮定台数を考慮して区域境界を調整します。</p><div class="table-scroll"><table><thead><tr><th>方式</th><th>仮定台数</th><th>完了まで</th><th>総車両時間</th></tr></thead><tbody id="dispatch-comparison"></tbody></table></div></div>
       <div class="panel company-controls"><label>出発する事業者<select id="route-company"></select></label><label>作業車両数（標準台数で固定）<select id="company-vehicles" disabled></select></label><label>地図に表示する車両<select id="company-vehicle-focus"></select></label><button id="company-route-view" class="text-button">出発点と往復経路を表示 ↑</button></div>
+      <div class="panel company-detail" id="company-detail"></div>
       <p class="section-intro" id="company-route-note"></p>
       <div class="stats route-stats" id="company-route-stats"></div>
       <div class="panel"><div class="table-scroll"><table><thead><tr><th>車両</th><th>作業距離</th><th>往復等の回送</th><th>所要時間</th><th>6時間以内</th><th></th></tr></thead><tbody id="company-route-table"></tbody></table></div></div>

@@ -93,6 +93,7 @@ def improve_order(order,hop,start_cost,end_cost,max_segment=3,max_passes=12):
     seq=list(order);n=len(seq)
     if n<3:return seq
     def link(a,b):
+        if a is None and b is None:return 0
         if a is None:return start_cost(b)
         if b is None:return end_cost(a)
         return hop(a,b)

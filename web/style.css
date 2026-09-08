@@ -78,3 +78,11 @@ button.vehicle-chip{cursor:pointer;color:var(--ink)}
 .map-back-title{background:#fff;border:1px solid var(--line);border-radius:6px;padding:4px 9px;font-size:11px;font-weight:bold;box-shadow:0 1px 3px #0002;max-width:260px}
 .map-back-control .text-button{background:#fff;border:1px solid var(--line);border-radius:6px;padding:5px 9px}
 .map-back-hint{font-size:9px;color:var(--muted);background:#fffc;padding:1px 4px;border-radius:3px}
+
+/* Company detail panel (replaces the marker popup) */
+.company-detail{padding:16px 22px;margin-bottom:14px}
+.company-detail-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.company-detail-head h3{font-size:15px}
+.company-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;font-size:11px;line-height:1.9}
+.company-detail-grid small{color:var(--muted)}
+.company-detail-grid b{font-size:10px;color:var(--muted);font-weight:600}
