@@ -7,6 +7,7 @@ if(CR){
   let tripIndex=[];            // ordered trips of the focused vehicle with cumulative hours
   let selectedTrip=null;
   let timeLimit=null;          // hours; null = show whole route
+  let selectedShift=null;      // shift number; null = show every shift of the focused vehicle
   const hiddenCompanies=new Set();
   const selectedCounts={};
   const SERVICE_KPH=8,DEADHEAD_KPH=20;
@@ -25,10 +26,12 @@ if(CR){
   const midpoint=f=>{const c=f.geometry.coordinates;let total=0;const seg=[];for(let i=1;i<c.length;i++){const d=km(c[i-1],c[i]);seg.push(d);total+=d;}let acc=0;for(let i=0;i<seg.length;i++){if(acc+seg[i]>=total/2){const t=seg[i]?(total/2-acc)/seg[i]:0;const a=c[i],b=c[i+1];return {lat:a[1]+(b[1]-a[1])*t,lon:a[0]+(b[0]-a[0])*t,bearing:bearing(a,b),km:total};}acc+=seg[i];}return null;};
   $('route-company').innerHTML=CR.companies.map(c=>`<option value="${c.id}">${esc(companyLabel(c))}</option>`).join('');
 
-  function focusVehicle(v){$('company-vehicle-focus').value=String(v);selectedTrip=null;timeLimit=null;draw(false);}
+  function focusVehicle(v){$('company-vehicle-focus').value=String(v);selectedTrip=null;timeLimit=null;selectedShift=null;draw(false);}
+  function focusShift(k){selectedShift=selectedShift===k?null:k;selectedTrip=null;draw(false);}
   // Buttons inside Leaflet popups are created dynamically; delegate their clicks.
   document.addEventListener('click',e=>{
     const f=e.target.closest('[data-popup-focus]');if(f){focusVehicle(+f.dataset.popupFocus);map.closePopup();return;}
+    const sh=e.target.closest('[data-popup-shift]');if(sh){focusShift(+sh.dataset.popupShift);map.closePopup();return;}
     const c=e.target.closest('[data-popup-company]');if(c){selectCompany(c.dataset.popupCompany,false);map.closePopup();}
   });
   function selectCompany(id,fit=false){
@@ -42,7 +45,7 @@ if(CR){
   function updateFocus(){
     const n=+$('company-vehicles').value;
     $('company-vehicle-focus').innerHTML='<option value="0">全車両</option>'+Array.from({length:n},(_,i)=>`<option value="${i+1}">車両 ${i+1}</option>`).join('');
-    selectedTrip=null;timeLimit=null;
+    selectedTrip=null;timeLimit=null;selectedShift=null;
   }
   // Ordered feature list of one vehicle: depot → trips (incoming + body) → depot.
   function vehicleFeatures(c,r,s){
@@ -91,17 +94,20 @@ if(CR){
     cityRoadLayer?.setStyle(f=>({...window.cityRoadStyle(f),opacity:f.properties.in_city?.16:.3}));
     const routes=s.routes.filter(r=>!focus||r.vehicle_id===focus);
     const built=routes.map(r=>vehicleFeatures(c,r,s));
-    const features=built.flatMap(b=>b.features);
+    const shiftOnly=focus&&selectedShift!=null?selectedShift:null;
+    const features=built.flatMap(b=>b.features).filter(f=>shiftOnly==null||f.properties.shift===shiftOnly);
     tripIndex=focus?built[0]?.seq??[]:[];
     L.geoJSON({type:'FeatureCollection',features},
       {style:f=>styleFor(f,focus),
-       onEachFeature:(f,l)=>{const p=f.properties;l.bindPopup(`${esc(companyLabel(c))}<br>車両 ${p.vehicle} / ${p.service?'除雪作業':'往復・区間間の回送'}${p.seq?`<br>作業 ${p.seq} 番目 / 出発から ${num(p.start_h,1)}〜${num(p.end_h,1)} 時間`:''}${focus?'':`<br><button class="text-button" data-popup-focus="${p.vehicle}">この車両の作業順序・方向を見る →</button>`}`,{autoPan:false});
+       onEachFeature:(f,l)=>{const p=f.properties;l.bindPopup(`${esc(companyLabel(c))}<br>車両 ${p.vehicle} / ${p.service?'除雪作業':'往復・区間間の回送'}${p.seq?`<br>作業 ${p.seq} 番目 / 出発から ${num(p.start_h,1)}〜${num(p.end_h,1)} 時間`:''}${focus?`<br>第${p.shift??1}シフト${shiftOnly==null?` <button class="text-button" data-popup-shift="${p.shift??1}">このシフトだけ表示 →</button>`:''}`:`<br><button class="text-button" data-popup-focus="${p.vehicle}">この車両の作業順序・方向を見る →</button>`}`,{autoPan:false});
          if(focus&&p.seq)l.on('click',()=>selectTrip(p.seq,false));}}).addTo(layer);
     // Start markers: one per vehicle (all vehicles) or one per job (focused vehicle).
     // Start markers for every vehicle (車N). In the focused view the other vehicles stay as faded,
     // clickable markers so the user can jump between vehicles without leaving the view.
     // Vehicles that start at (almost) the same point are fanned out in a small ring so every tag stays clickable.
-    const starts=s.routes.map(r=>({r,start:vehicleStart(c,r,s)})).filter(x=>x.start);
+    // With one shift selected, the focused vehicle's start tag moves to that shift's first job.
+    const shiftFirst=shiftOnly!=null?built[0]?.seq.find(t=>t.shift===shiftOnly):null;
+    const starts=s.routes.map(r=>({r,start:r.vehicle_id===focus&&shiftOnly!=null?(shiftFirst?[shiftFirst.lat,shiftFirst.lon]:null):vehicleStart(c,r,s)})).filter(x=>x.start);
     // Cluster in screen space at the current zoom (tags closer than ~28px would overlap).
     const groups=[];
     starts.forEach(x=>{const pt=map.latLngToContainerPoint(x.start);const g=groups.find(g=>g.pt.distanceTo(pt)<28);if(g)g.items.push(x);else groups.push({pt,items:[x]});});
@@ -113,7 +119,7 @@ if(CR){
         .addTo(layer).bindTooltip(`車両 ${v}：クリックで${other?'この車両に切替':'順序・方向・経過時間を表示'}`,{direction:'top',offset:[0,-12]}).on('click',()=>focusVehicle(v));
       });
     }
-    if(focus)drawDetail(c,built[0]);
+    if(focus)drawDetail(c,built[0],shiftOnly);
     const source=D.contractors.find(x=>x.id===c.id);
     L.polyline([[source.latitude,source.longitude],[c.depot.lat,c.depot.lon]],{color:'#687278',dashArray:'2 5',weight:2}).addTo(layer).bindPopup(`道路への未確認接続 ${num(c.snap_distance_m)}m。走行距離・時間に未算入。`,{autoPan:false});
     const info=D.contractors.find(x=>x.id===c.id);
@@ -133,20 +139,21 @@ if(CR){
     const prev=focus?((focus-2+s.routes.length)%s.routes.length)+1:0,next=focus?(focus%s.routes.length)+1:0;
     const nav=focus?`<button id="prev-vehicle" class="text-button">← 車${prev}</button><button id="next-vehicle" class="text-button">車${next} →</button>`:'';
     const shiftList=focus?[...(built[0]?.shifts??new Map()).keys()]:[];
-    const bandLegend=focus?`<div class="time-bands">${shiftList.map(k=>`<span><i style="background:${shiftColor(k)}"></i>第${k}シフト</span>`).join('')}</div>`:'';
-    $('company-map-legend').innerHTML=`<b>${esc(companyLabel(c))} / ${s.vehicles}台${focus?` / 車両${focus}を表示`:''}</b><span>${focus?`色：シフト（${shiftHours()}時間ごとに帰庫・再出庫）　丸数字：作業の順序　矢印：進行方向　破線：回送　薄い車N：他車両の開始点（クリックで切替）`:'実線：作業　破線：回送　車N：作業開始点（クリックでその車両の順序・方向・経過時間）'}　灰色点線：未確認接続</span>${bandLegend}<div>${chips}</div><div class="legend-actions">${focus?'<button id="all-vehicles-view" class="primary-button">◀ 全車両に戻る</button>':''}<button id="all-companies-view" class="${focus?'text-button':'primary-button'}">◀ 全社表示に戻る</button>${nav}<button id="fit-company" class="text-button">この表示範囲に合わせる</button><a href="#company-routing">事業者・台数・表示車両を変更 ↓</a></div>`;
+    const bandLegend=focus?`<div class="time-bands">${shiftList.map(k=>`<button class="vehicle-chip${selectedShift===k?' is-selected':''}" data-shift-chip="${k}" title="第${k}シフトだけを表示（再クリックで全シフト）"><i style="background:${shiftColor(k)}"></i>第${k}シフト</button>`).join('')}${selectedShift!=null?`<button class="text-button" data-shift-chip="${selectedShift}">全シフトを表示</button>`:''}</div>`:'';
+    $('company-map-legend').innerHTML=`<b>${esc(companyLabel(c))} / ${s.vehicles}台${focus?` / 車両${focus}を表示${selectedShift!=null?`（第${selectedShift}シフトのみ）`:''}`:''}</b><span>${focus?`色：シフト（${shiftHours()}時間ごとに帰庫・再出庫）　丸数字：作業の順序　矢印：進行方向　破線：回送　薄い車N：他車両の開始点（クリックで切替）`:'実線：作業　破線：回送　車N：作業開始点（クリックでその車両の順序・方向・経過時間）'}　灰色点線：未確認接続</span>${bandLegend}<div>${chips}</div><div class="legend-actions">${focus?'<button id="all-vehicles-view" class="primary-button">◀ 全車両に戻る</button>':''}<button id="all-companies-view" class="${focus?'text-button':'primary-button'}">◀ 全社表示に戻る</button>${nav}<button id="fit-company" class="text-button">この表示範囲に合わせる</button><a href="#company-routing">事業者・台数・表示車両を変更 ↓</a></div>`;
     $('fit-company').onclick=()=>{if(layer.getLayers().length)map.fitBounds(layer.getBounds(),{padding:[45,45],maxZoom:15});};
     $('all-companies-view').onclick=()=>allCompanies(false);
     const back=$('all-vehicles-view');if(back)back.onclick=()=>focusVehicle(0);
     document.querySelectorAll('#company-map-legend [data-vehicle-chip]').forEach(b=>b.onclick=()=>focusVehicle(+b.dataset.vehicleChip===focus?0:+b.dataset.vehicleChip));
+    document.querySelectorAll('[data-shift-chip]').forEach(b=>b.onclick=()=>focusShift(+b.dataset.shiftChip));
     if(focus){$('prev-vehicle').onclick=()=>focusVehicle(prev);$('next-vehicle').onclick=()=>focusVehicle(next);}
     updateBackControl();
     if(fit&&layer.getLayers().length){map.fitBounds(layer.getBounds(),{padding:[45,45],maxZoom:15});revealMap();}
   }
   // Direction arrows and job-order numbers for a single vehicle.
-  function drawDetail(c,b){
+  function drawDetail(c,b,shiftOnly=null){
     if(!b)return;
-    const serviceFeatures=b.features.filter(f=>f.properties.service);
+    const serviceFeatures=b.features.filter(f=>f.properties.service&&(shiftOnly==null||f.properties.shift===shiftOnly));
     const step=Math.max(1,Math.ceil(serviceFeatures.length/350));
     serviceFeatures.forEach((f,i)=>{
       if(i%step)return;const m=midpoint(f);if(!m||m.km<0.04)return;
@@ -155,18 +162,19 @@ if(CR){
     });
     // Thin out order numbers when zoomed out; always keep the first/last job and the selected one.
     const z=map.getZoom();const every=z>=14?1:z>=13?3:z>=12?8:20;
-    b.seq.forEach(t=>{
-      if(every>1&&t.seq!==1&&t.seq!==b.seq.length&&t.seq!==selectedTrip&&(t.seq-1)%every)return;
+    const shown=shiftOnly==null?b.seq:b.seq.filter(t=>t.shift===shiftOnly);
+    shown.forEach((t,i)=>{
+      if(every>1&&i!==0&&i!==shown.length-1&&t.seq!==selectedTrip&&i%every)return;
       const faded=timeLimit!=null&&t.start_h>timeLimit;
       L.marker([t.lat,t.lon],{zIndexOffset:800,icon:L.divIcon({className:'trip-seq'+(selectedTrip===t.seq?' is-selected':''),html:`<span style="background:${shiftColor(t.shift)};opacity:${faded?.2:1}">${t.seq}</span>`,iconSize:[24,24],iconAnchor:[12,12]})})
-        .addTo(detailLayer).bindPopup(`<b>作業 ${t.seq} / ${b.seq.length}</b><br>第${t.shift}シフト（${shiftHours()}時間制）<br>累積 ${num(t.start_h,2)} 時間で開始、${num(t.end_h,2)} 時間で完了<br>作業 ${num(t.trip.service_km,2)} km／区間内回送 ${num(t.trip.deadhead_km,2)} km`,{autoPan:false})
+        .addTo(detailLayer).bindPopup(`<b>作業 ${t.seq} / ${b.seq.length}</b><br>第${t.shift}シフト（${shiftHours()}時間制）${shiftOnly==null?` <button class="text-button" data-popup-shift="${t.shift}">このシフトだけ表示 →</button>`:''}<br>累積 ${num(t.start_h,2)} 時間で開始、${num(t.end_h,2)} 時間で完了<br>作業 ${num(t.trip.service_km,2)} km／区間内回送 ${num(t.trip.deadhead_km,2)} km`,{autoPan:false})
         .on('click',()=>selectTrip(t.seq,false));
     });
   }
   map.on('zoomend',()=>{if(mode==='company')draw(false);});
   let popupWasOpen=false;
   map.on('preclick',()=>{popupWasOpen=!!map._popup;});
-  map.on('click',()=>{if(popupWasOpen)return;if(mode==='company'&&+$('company-vehicle-focus').value)focusVehicle(0);});
+  map.on('click',()=>{if(popupWasOpen)return;if(mode!=='company'||!+$('company-vehicle-focus').value)return;if(selectedShift!=null){selectedShift=null;selectedTrip=null;draw(false);}else focusVehicle(0);});
   // Floating "back" control on the map itself so the way out is always visible.
   const backControl=L.control({position:'topright'});
   backControl.onAdd=()=>{const div=L.DomUtil.create('div','map-back-control');L.DomEvent.disableClickPropagation(div);div.innerHTML='';return div;};
@@ -175,8 +183,11 @@ if(CR){
     const div=document.querySelector('.map-back-control');if(!div)return;
     const focus=mode==='company'?+$('company-vehicle-focus').value:0;
     const c=mode==='company'?company():null;
-    div.innerHTML=mode==='all'?'':`<div class="map-back-title">${esc(companyLabel(c))}${focus?` / 車両 ${focus}`:''}</div>${focus?'<button class="primary-button" data-back="vehicles">◀ 全車両に戻る</button>':''}<button class="${focus?'text-button':'primary-button'}" data-back="companies">◀ 全社表示に戻る</button><span class="map-back-hint">${focus?'地図の何もない所をクリックしても全車両に戻ります':''}</span>`;
-    div.querySelectorAll('[data-back]').forEach(b=>b.onclick=()=>b.dataset.back==='vehicles'?focusVehicle(0):allCompanies(false));
+    div.innerHTML=mode==='all'?'':`<div class="map-back-title">${esc(companyLabel(c))}${focus?` / 車両 ${focus}${selectedShift!=null?` / 第${selectedShift}シフト`:''}`:''}</div>${focus&&selectedShift!=null?`<button class="primary-button" data-shift-chip="${selectedShift}">◀ 全シフトに戻る</button>`:''}${focus?`<button class="${selectedShift!=null?'text-button':'primary-button'}" data-back="vehicles">◀ 全車両に戻る</button>`:''}<button class="${focus?'text-button':'primary-button'}" data-back="companies">◀ 全社表示に戻る</button><span class="map-back-hint">${focus?'地図の何もない所をクリックしても全車両に戻ります':''}</span>`;
+    // Stop the click here: the handlers replace this control's DOM synchronously, after which Leaflet
+    // can no longer tell the detached button belonged to a control and would treat it as a map click.
+    div.querySelectorAll('[data-back]').forEach(b=>b.onclick=e=>{L.DomEvent.stop(e);b.dataset.back==='vehicles'?focusVehicle(0):allCompanies(false);});
+    div.querySelectorAll('[data-shift-chip]').forEach(b=>b.onclick=e=>{L.DomEvent.stop(e);focusShift(+b.dataset.shiftChip);});
   }
   function selectTrip(seq,move){
     selectedTrip=selectedTrip===seq?null:seq;
@@ -194,9 +205,10 @@ if(CR){
     const done=timeLimit==null?b.seq.length:b.seq.filter(t=>t.end_h<=timeLimit).length;
     $('trip-nav').innerHTML=Array.from({length:+$('company-vehicles').value},(_,i)=>i+1).map(v=>`<button class="vehicle-chip${v===focus?' is-selected':''}" data-vehicle-chip="${v}"><i style="background:${color(v)}"></i>車${v}</button>`).join('');
     document.querySelectorAll('#trip-nav [data-vehicle-chip]').forEach(b2=>b2.onclick=()=>focusVehicle(+b2.dataset.vehicleChip));
-    $('trip-summary').textContent=`車両 ${focus}：作業 ${b.seq.length} 件、${b.shifts.size} シフト（${shiftHours()}時間制、シフトごとに帰庫）、総車両時間 ${num(total,2)} 時間。${timeLimit==null?'':`累積 ${num(timeLimit,1)} 時間時点で完了 ${done} 件。`}第1シフトで完了する作業は ${b.seq.filter(t=>t.shift===1).length} 件。`;
-    $('trip-table').innerHTML=b.seq.map(t=>`<tr data-seq="${t.seq}" class="${selectedTrip===t.seq?'selected-row':''}${timeLimit!=null&&t.start_h>timeLimit?' faded-row':''}"><td><i class="legend-dot" style="background:${shiftColor(t.shift)}"></i>${t.seq}</td><td>第${t.shift}</td><td>${num(t.start_h,2)} h</td><td>${num(t.end_h,2)} h</td><td>${num(t.trip.service_km,2)} km</td><td>${num(t.trip.deadhead_km+t.incoming_km,2)} km</td><td><button class="text-button" data-trip-go="${t.seq}">地図で見る</button></td></tr>`).join('');
+    $('trip-summary').textContent=`車両 ${focus}：作業 ${b.seq.length} 件、${b.shifts.size} シフト（${shiftHours()}時間制、シフトごとに帰庫）、総車両時間 ${num(total,2)} 時間。${timeLimit==null?'':`累積 ${num(timeLimit,1)} 時間時点で完了 ${done} 件。`}${selectedShift!=null&&b.shifts.get(selectedShift)?`地図は第${selectedShift}シフトのみ：作業 ${b.seq.filter(t=>t.shift===selectedShift).length} 件、累積 ${num(b.shifts.get(selectedShift).start_h,2)}〜${num(b.shifts.get(selectedShift).end_h,2)} 時間（所在地の出庫から帰庫まで ${num(b.shifts.get(selectedShift).end_h-b.shifts.get(selectedShift).start_h,2)} 時間）。`:`第1シフトで完了する作業は ${b.seq.filter(t=>t.shift===1).length} 件。シフトの色をクリックするとそのシフトだけを表示します。`}`;
+    $('trip-table').innerHTML=b.seq.map(t=>`<tr data-seq="${t.seq}" class="${selectedTrip===t.seq?'selected-row':''}${(timeLimit!=null&&t.start_h>timeLimit)||(selectedShift!=null&&t.shift!==selectedShift)?' faded-row':''}"><td><i class="legend-dot" style="background:${shiftColor(t.shift)}"></i>${t.seq}</td><td><button class="text-button" data-shift-chip="${t.shift}" title="第${t.shift}シフトだけを表示">第${t.shift}</button></td><td>${num(t.start_h,2)} h</td><td>${num(t.end_h,2)} h</td><td>${num(t.trip.service_km,2)} km</td><td>${num(t.trip.deadhead_km+t.incoming_km,2)} km</td><td><button class="text-button" data-trip-go="${t.seq}">地図で見る</button></td></tr>`).join('');
     document.querySelectorAll('#trip-table tr[data-seq]').forEach(row=>row.onclick=e=>{if(e.target.closest('button'))return;selectTrip(+row.dataset.seq,false);});
+    document.querySelectorAll('#trip-table [data-shift-chip]').forEach(b2=>b2.onclick=()=>focusShift(+b2.dataset.shiftChip));
     document.querySelectorAll('[data-trip-go]').forEach(b2=>b2.onclick=()=>{selectedTrip=null;selectTrip(+b2.dataset.tripGo,true);});
   }
   $('time-slider').oninput=()=>{const v=+$('time-slider').value;timeLimit=v>=+$('time-slider').max?null:v;draw(false);};

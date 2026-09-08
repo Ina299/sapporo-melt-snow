@@ -10,6 +10,9 @@ import networkx as nx
 
 DRIVABLE={'primary','secondary','tertiary','unclassified','residential','living_street',
           'primary_link','secondary_link','tertiary_link'}
+# Unpaved mountain/forest roads (e.g. dirt roads above the Asari dam inside the city limits)
+# are not plowed; treating them as work sent vehicles on long detours into the hills.
+UNPAVED={'dirt','unpaved','gravel','fine_gravel','compacted','ground','earth','mud','grass','sand','pebblestone','woodchips'}
 
 def distance(a,b):
     lat1,lon1,lat2,lon2=map(math.radians,[a['lat'],a['lon'],b['lat'],b['lon']])
@@ -31,6 +34,8 @@ def build_graph(payload,bbox,service_kph=8,deadhead_kph=20):
         access=next((tags[k] for k in ['motor_vehicle','vehicle','access'] if k in tags),'yes')
         if access not in {'yes','permissive','designated'} or tags.get('area')=='yes':
             excluded['way:access_or_area']+=1; continue
+        if tags.get('surface') in UNPAVED or tags.get('tracktype'):
+            excluded['way:unpaved']+=1; continue
         oneway=tags.get('oneway', 'yes' if tags.get('junction')=='roundabout' else 'no')
         if oneway not in {'yes','1','true','-1','no','0','false'}:
             excluded['way:ambiguous_oneway']+=1; continue

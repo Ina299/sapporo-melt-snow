@@ -206,7 +206,13 @@ def main():
                         trips.append(chunk);chunk=[];elapsed=0
                     chunk.append(st);elapsed+=st['service_s'] if st['service'] else st['cost']/1000
                 if chunk:trips.append(chunk)
-                trip_steps=trips
+                # A chunk with no service arc would show as a vehicle driving somewhere for nothing:
+                # fold connector-only chunks into the previous trip (or the next one at the start).
+                merged=[]
+                for ch in trips:
+                    if merged and (not any(st['service'] for st in ch) or not any(st['service'] for st in merged[-1])):merged[-1].extend(ch)
+                    else:merged.append(ch)
+                trips=merged;trip_steps=trips
                 records=[]
                 for k,steps in enumerate(trips):
                     tid=base_id+k

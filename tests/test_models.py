@@ -41,6 +41,15 @@ class Models(unittest.TestCase):
         g,_=build_graph(p,[42,140,44,142])
         self.assertEqual(list(g.edges()),[(1,0)])
 
+    def test_unpaved_and_track_roads_excluded(self):
+        p={'elements':[{'type':'node','id':i,'lat':43+i/1000,'lon':141} for i in range(4)]+[
+           {'type':'way','id':20,'nodes':[0,1],'tags':{'highway':'unclassified','surface':'dirt'}},
+           {'type':'way','id':21,'nodes':[1,2],'tags':{'highway':'unclassified','tracktype':'grade3'}},
+           {'type':'way','id':22,'nodes':[2,3],'tags':{'highway':'unclassified','surface':'asphalt','oneway':'yes'}}]}
+        g,audit=build_graph(p,[42,140,44,142])
+        self.assertEqual(list(g.edges()),[(2,3)])
+        self.assertEqual(audit['exclusions']['way:unpaved'],2)
+
     def test_thermal_units(self):
         r=melt_capacity()
         self.assertAlmostEqual(r['tonnes_day'],200.930232558,places=6)

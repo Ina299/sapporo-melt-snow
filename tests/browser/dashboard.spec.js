@@ -1,4 +1,7 @@
 const {test,expect}=require('@playwright/test');
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+const summary=(page,v='JOINT_ROUTES')=>page.evaluate(v=>window[v].summary,v);
+const covered=(page,v)=>page.evaluate(v=>window[v].companies.reduce((n,c)=>n+c.scenarios[0].validation.covered,0),v);
 test('data, controls, coverage and map work without external network',async({page})=>{
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.route(/https:\/\//,route=>route.abort());
@@ -6,7 +9,8 @@ test('data, controls, coverage and map work without external network',async({pag
   await expect(page.locator('#top-stats')).toContainText('209');
   await expect(page.locator('#routing')).toHaveCount(0);
   expect(await page.evaluate(()=>Object.keys(window.SAPPORO_DATA))).not.toContain('analysis');
-  await expect(page.locator('#top-stats')).toContainText('300,081');
+  const js=await summary(page);
+  await expect(page.locator('#top-stats')).toContainText(fmt(js.assigned_arcs));
   await expect(page.locator('#melt-tonnes')).toHaveText('201');
   await page.locator('#recovery').fill('0');
   await page.locator('#recovery').dispatchEvent('input');
@@ -55,17 +59,20 @@ test('wide coverage and company-origin fleet routes are selectable',async({page}
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.route(/https:\/\//,route=>route.abort());
   await page.goto('/web/');
-  await expect(page.locator('#city-stats')).toContainText('302,349');
-  await expect(page.locator('#dispatch-audit')).toContainText('2,268');
+  const js=await summary(page);
+  await expect(page.locator('#city-stats')).toContainText(fmt(js.required_arcs));
+  await expect(page.locator('#dispatch-audit')).toContainText(fmt(js.unassigned_arcs));
   await expect(page.locator('#company-map-legend')).toContainText('仮定配備による割当');
   await expect(page.locator('#dispatch-mode')).toHaveValue('joint');
-  await expect(page.locator('#dispatch-audit')).toContainText('67.5');
+  await expect(page.locator('#dispatch-audit')).toContainText(js.baseline_makespan_hours.toFixed(1));
   await expect(page.locator('#company-vehicles')).toBeDisabled();
   await page.locator('#dispatch-mode').selectOption('fixed');
   await expect(page.locator('#dispatch-mode')).toBeEnabled();
-  await expect(page.locator('#dispatch-audit')).toContainText('217.5');
+  const fs=await summary(page,'CONTRACTOR_ROUTES');
+  await expect(page.locator('#dispatch-audit')).toContainText(fs.baseline_makespan_hours.toFixed(1));
   const assigned=await page.evaluate(()=>window.CONTRACTOR_ROUTES.companies.map(c=>({count:c.scenarios[0].validation.covered,other:c.scenarios.at(-1).validation.covered})));
-  expect(assigned.reduce((n,c)=>n+c.count,0)).toBe(300081);
+  expect(assigned.reduce((n,c)=>n+c.count,0)).toBe(fs.assigned_arcs);
+  expect(fs.assigned_arcs).toBe(js.assigned_arcs);
   expect(assigned.every(c=>c.count>1236&&c.count===c.other)).toBeTruthy();
   await page.locator('#route-company').selectOption('kashima');
   await expect(page.locator('#company-vehicles option')).toHaveCount(1);
@@ -75,8 +82,15 @@ test('wide coverage and company-origin fleet routes are selectable',async({page}
   await expect(page.locator('#company-route-table')).toContainText('シフト');
   await page.locator('#company-vehicle-focus').selectOption('2');
   await expect(page.locator('#company-map-legend')).toContainText('車両2を表示');
-  await expect(page.locator('#company-map-legend .vehicle-chip')).toHaveCount(13);
-  await expect(page.locator('#company-map-legend .vehicle-chip.is-selected')).toHaveText(/車2/);
+  await expect(page.locator('#company-map-legend .vehicle-chip[data-vehicle-chip]')).toHaveCount(13);
+  await expect(page.locator('#company-map-legend .vehicle-chip[data-vehicle-chip].is-selected')).toHaveText(/車2/);
+  // Selecting one shift shows only that shift; clicking it again restores every shift.
+  await page.locator('#company-map-legend [data-shift-chip="1"]').first().click();
+  await expect(page.locator('#company-map-legend')).toContainText('第1シフトのみ');
+  await expect(page.locator('#trip-summary')).toContainText('地図は第1シフトのみ');
+  expect(await page.evaluate(()=>new Set(document.querySelectorAll('#trip-table tr[data-seq]:not(.faded-row) td:nth-child(2)')).size)).toBeGreaterThan(0);
+  await page.locator('.map-back-control [data-shift-chip]').click();
+  await expect(page.locator('#company-map-legend')).not.toContainText('シフトのみ');
   await page.locator('#next-vehicle').click();
   await expect(page.locator('#company-vehicle-focus')).toHaveValue('3');
   await page.locator('#company-map-legend [data-vehicle-chip="1"]').click();
@@ -155,7 +169,7 @@ test('numbered companies, facility toggle, reset, boundary and joint mode',async
   await page.locator('[data-site]').first().click();
   await expect(page.locator('#melt-layer')).toBeChecked();
   await expect(page.locator('.site-marker')).toHaveCount(7);
-  await expect(page.locator('#dispatch-comparison')).toContainText('67.47');
+  await expect(page.locator('#dispatch-comparison')).toContainText((await summary(page)).baseline_makespan_hours.toFixed(2));
   await expect(page.locator('#dispatch-comparison')).toContainText('選択時に読込');
   await page.locator('#route-company').selectOption('kashima');
   await page.locator('#map').click({position:{x:25,y:100}});
@@ -165,12 +179,12 @@ test('numbered companies, facility toggle, reset, boundary and joint mode',async
   await expect(page.locator('.numbered-contractor.is-selected')).toHaveCount(0);
   expect(await page.evaluate(()=>window.JOINT_ROUTES.route_format)).toBe('direct_jobs');
   await expect(page.locator('#company-vehicles')).toBeDisabled();
-  expect(await page.evaluate(()=>window.JOINT_ROUTES.companies.reduce((n,c)=>n+c.scenarios[0].validation.covered,0))).toBe(300081);
+  expect(await covered(page,'JOINT_ROUTES')).toBe((await summary(page)).assigned_arcs);
   await page.locator('#route-company').selectOption('satsuichi');
   await expect(page.locator('#company-route-table tr')).toHaveCount(4);
   await page.locator('#dispatch-mode').selectOption('fixed');
   await expect(page.locator('#dispatch-mode')).toBeEnabled();
-  await expect(page.locator('#dispatch-comparison')).toContainText('217.54');
+  await expect(page.locator('#dispatch-comparison')).toContainText((await summary(page,'CONTRACTOR_ROUTES')).baseline_makespan_hours.toFixed(2));
   await page.locator('#route-company').selectOption('kashima');
   await expect(page.locator('#company-vehicles')).toBeDisabled();
   await expect(page.locator('#company-route-table tr')).toHaveCount(13);
