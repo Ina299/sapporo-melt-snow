@@ -88,3 +88,6 @@ button.vehicle-chip{cursor:pointer;color:var(--ink)}
 .company-detail-grid b{font-size:10px;color:var(--muted);font-weight:600}
 
 #grid-panel .table-scroll{border:1px solid var(--line);border-radius:6px}
+
+/* Consistent vertical rhythm: any block followed by a panel keeps at least 20px */
+main section > * + .panel{margin-top:20px}
