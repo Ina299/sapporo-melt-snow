@@ -25,10 +25,10 @@ test('data, controls, coverage and map work without external network',async({pag
   await expect(page.locator('.dc-marker')).toHaveCount(5);
   await page.locator('#dc-layer').uncheck();
   await expect(page.locator('.dc-marker')).toHaveCount(0);
-  await page.locator('[data-dc-site="central1"]').click();
+  await page.locator('[data-dc-site="teine"]').click();
   await expect(page.locator('#dc-layer')).toBeChecked();
   await expect(page.locator('.dc-marker')).toHaveCount(5);
-  await expect(page.locator('.leaflet-popup-content')).toContainText('石狩市新港中央1丁目');
+  await expect(page.locator('.leaflet-popup-content')).toContainText('札幌市手稲区手稲山口・前田方面');
   await expect(page.locator('.leaflet-popup-content')).toContainText('地区の代表点');
   await expect(page.locator('#weather-table tr')).toHaveCount(13);
   expect(errors).toEqual([]);

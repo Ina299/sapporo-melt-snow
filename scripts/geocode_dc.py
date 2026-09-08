@@ -7,9 +7,9 @@ import requests
 
 ROOT = Path(__file__).resolve().parents[1]
 QUERIES = {
-    'central1': '石狩市新港中央1丁目',
-    'zenibako4': '小樽市銭函4丁目',
-    'south2': '石狩市新港南2丁目',
+    'teine': '札幌市手稲区手稲山口',
+    'makomanai_ishiyama': '札幌市南区石山1条1丁目',
+    'oyachi_kitano': '札幌市白石区流通センター',
     'shinkawa': '札幌市北区新川西1条1丁目',
     'yonesato': '札幌市白石区東米里',
 }
