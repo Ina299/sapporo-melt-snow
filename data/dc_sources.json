@@ -1,0 +1,51 @@
+[
+  {
+    "id": "land",
+    "url": "https://www.ishikari-dev.co.jp/bunjyo/",
+    "path": "data/raw/dc/land.html",
+    "retrieved_at": "2026-09-08T03:00:57.981712+00:00",
+    "sha256": "cf72ede8e03638181a10b347d0c91ed8179653f1b61d8e2346d02431a55e9b35"
+  },
+  {
+    "id": "infrastructure",
+    "url": "https://www.ishikari-dev.co.jp/infrastructure/",
+    "path": "data/raw/dc/infrastructure.html",
+    "retrieved_at": "2026-09-08T03:00:58.254735+00:00",
+    "sha256": "aa72ef22b79d38e6061558e7e5d26929fafb2c9c7b420f32836f6e219b948b09"
+  },
+  {
+    "id": "jpnap_pop",
+    "url": "https://www.jpnap.net/ix/pop",
+    "path": "data/raw/dc/jpnap_pop.html",
+    "retrieved_at": "2026-09-08T03:00:58.534736+00:00",
+    "sha256": "de1369352d9478ec78658677e3693ed923735d151ae360b5c2566474d9967c2d"
+  },
+  {
+    "id": "jpnap_options",
+    "url": "https://www.jpnap.net/ix/option",
+    "path": "data/raw/dc/jpnap_options.html",
+    "retrieved_at": "2026-09-08T03:00:58.805499+00:00",
+    "sha256": "cc1d768a08217a5a1a611d2d6e3fcea164d4641b3deb9a110e44224e34df136f"
+  },
+  {
+    "id": "sapporoix_poc",
+    "url": "https://www.city.ishikari.hokkaido.jp/shisei/shiseiunei/1001911/1003728.html",
+    "path": "data/raw/dc/sapporoix_poc.html",
+    "retrieved_at": "2026-09-08T03:00:59.172498+00:00",
+    "sha256": "8e6bc1f7730a4f13907697e47075918fd257d115a6d7020960683cfbab3cb92e"
+  },
+  {
+    "id": "dc_precedent",
+    "url": "https://www.tokyu-dc.com/dc_ishikari.html",
+    "path": "data/raw/dc/dc_precedent.html",
+    "retrieved_at": "2026-09-08T03:00:59.535155+00:00",
+    "sha256": "f063e27d4a9efbe89732aee88493ba401822d4548131fc41dd57f9042aa204c1"
+  },
+  {
+    "id": "grid_lines",
+    "url": "https://hello.hepco.co.jp/wp-content/uploads/geojson/generated/lines_all.json",
+    "path": "data/raw/dc/grid_lines.json",
+    "retrieved_at": "2026-09-08T03:00:59.887155+00:00",
+    "sha256": "e313f9f26effe2665555b7f7df743df6b14f45c9b9f4019dbc0aa857f42fd723"
+  }
+]

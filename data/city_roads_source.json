@@ -1,0 +1,43 @@
+{
+  "bbox": [
+    42.75,
+    140.95,
+    43.26,
+    141.55
+  ],
+  "sources": [
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28primary%7Csecondary%7Ctertiary%7Cunclassified%7Cresidential%7Cliving_street%7Cprimary_link%7Csecondary_link%7Ctertiary_link%29%24%22%5D%2842.75%2C140.95%2C42.9%2C141.55%29%3Bout+geom%3B",
+      "query": "[out:json][timeout:180];way[highway~\"^(primary|secondary|tertiary|unclassified|residential|living_street|primary_link|secondary_link|tertiary_link)$\"](42.75,140.95,42.9,141.55);out geom;",
+      "retrieved_at": "2026-09-08T03:16:32.302976+00:00",
+      "sha256": "c2b56e57481628f772dd43e075d6ef9a5e310b2eac0f6e445c8a44a62a2a3ebd"
+    },
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28primary%7Csecondary%7Ctertiary%7Cunclassified%7Cresidential%7Cliving_street%7Cprimary_link%7Csecondary_link%7Ctertiary_link%29%24%22%5D%2842.9%2C140.95%2C43.0%2C141.55%29%3Bout+geom%3B",
+      "query": "[out:json][timeout:180];way[highway~\"^(primary|secondary|tertiary|unclassified|residential|living_street|primary_link|secondary_link|tertiary_link)$\"](42.9,140.95,43.0,141.55);out geom;",
+      "retrieved_at": "2026-09-08T03:16:34.974275+00:00",
+      "sha256": "96d08051e1f85628a596ec024199a6b7ec19c41b2076802b8f16dd5e386b3dc4"
+    },
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28primary%7Csecondary%7Ctertiary%7Cunclassified%7Cresidential%7Cliving_street%7Cprimary_link%7Csecondary_link%7Ctertiary_link%29%24%22%5D%2843.0%2C140.95%2C43.08%2C141.55%29%3Bout+geom%3B",
+      "query": "[out:json][timeout:180];way[highway~\"^(primary|secondary|tertiary|unclassified|residential|living_street|primary_link|secondary_link|tertiary_link)$\"](43.0,140.95,43.08,141.55);out geom;",
+      "retrieved_at": "2026-09-08T03:16:39.098304+00:00",
+      "sha256": "f0a15f4a418bf845c4fd9ec37852471e5284f7a39ec8be234a9ed1d5027b8014"
+    },
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28primary%7Csecondary%7Ctertiary%7Cunclassified%7Cresidential%7Cliving_street%7Cprimary_link%7Csecondary_link%7Ctertiary_link%29%24%22%5D%2843.08%2C140.95%2C43.16%2C141.55%29%3Bout+geom%3B",
+      "query": "[out:json][timeout:180];way[highway~\"^(primary|secondary|tertiary|unclassified|residential|living_street|primary_link|secondary_link|tertiary_link)$\"](43.08,140.95,43.16,141.55);out geom;",
+      "retrieved_at": "2026-09-08T03:16:43.815865+00:00",
+      "sha256": "bda9e2e6442149139bbc838fedd9641ea367b9ccbf44c603ae53608f87a32569"
+    },
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28primary%7Csecondary%7Ctertiary%7Cunclassified%7Cresidential%7Cliving_street%7Cprimary_link%7Csecondary_link%7Ctertiary_link%29%24%22%5D%2843.16%2C140.95%2C43.26%2C141.55%29%3Bout+geom%3B",
+      "query": "[out:json][timeout:180];way[highway~\"^(primary|secondary|tertiary|unclassified|residential|living_street|primary_link|secondary_link|tertiary_link)$\"](43.16,140.95,43.26,141.55);out geom;",
+      "retrieved_at": "2026-09-08T03:16:48.973519+00:00",
+      "sha256": "adfe8b28abf7e3e97c67cc52d57c70bf2ffd8e3f445af9ac57d214fc53848178"
+    }
+  ],
+  "license": "ODbL 1.0",
+  "attribution": "© OpenStreetMap contributors",
+  "scope": "札幌市域を広く覆う矩形と北部近郊。行政界による切抜き・市公式除雪路線照合は未実施。右左折制限relationは未取得。"
+}

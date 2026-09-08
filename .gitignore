@@ -3,4 +3,6 @@ __pycache__/
 .venv/
 test-results/
 playwright-report/
+data/raw/dc/grid.html
+data/raw/dc/grid_config.json
 data/raw/*_attempt.*

@@ -7,40 +7,47 @@ const num=(v,d=0)=>Number(v).toLocaleString('ja-JP',{minimumFractionDigits:d,max
 const colors=['#207f69','#6374b9','#cd874a','#9b6090','#448aa1','#9a9d43','#926451','#686e7c'];
 const stat=(label,value,unit,note)=>`<div class="stat"><div class="stat-label">${label}</div><div class="stat-value">${value}<small>${unit}</small></div><div class="stat-note">${note}</div></div>`;
 const link=(url,label)=>`<a href="${esc(url)}" target="_blank" rel="noreferrer">${label} ↗</a>`;
-$('top-stats').innerHTML=stat('協会掲載の所在地',D.contractor_directory.length,'件','保有台数確認は4社')+stat('地区別の機械計画',D.district_fleet.length,'地区','2026年度・予定資料')+stat('融雪と排熱の調査候補',D.candidates.length,'エリア','用地・受電余力は未確認')+stat('実道路の計算範囲',num(D.analysis.audit.processed_arcs),'方向区間','八軒周辺の限定実証');
-const a=D.analysis.audit;
-$('coverage-notice').innerHTML=`<b>市全域の経路ではありません。</b> 抽出した${num(a.required_arcs)}方向区間のうち、${num(a.processed_arcs)}区間を計算（${num(a.processed_arcs/a.required_arcs*100,1)}%）。接続が分かれた${a.excluded_connectivity_arcs}区間は未計算です。計算対象内の被覆率は100%。車道以外・構内道路等・矩形境界をまたぐ道路は抽出条件で除外しています。`;
-
-const map=L.map('map',{scrollWheelZoom:false,preferCanvas:true}).setView([43.075,141.36],11);
+if(D.dc){
+  $('dc-sites').innerHTML=D.dc.candidates.map(s=>`<article class="panel dc-card"><span class="tag">${esc(s.verdict)}</span><h3>${esc(s.name)}</h3><p>${esc(s.land)}</p><p>${esc(s.rationale)}</p><p class="fineprint">${esc(s.hazard)}</p>${link(s.source_url,'用地資料')}</article>`).join('');
+  $('dc-assumptions').textContent=D.dc.assumptions;
+  $('dc-scenarios').innerHTML=D.dc.scenarios.map(s=>`<tr><td>${s.it_mw} MW</td><td>${num(s.tonnes_day)}</td><td>${num(s.snow_m3_day)}</td><td>${num(s.loads_day_at_8t)}</td><td>${s.unload_bays_at_16h_8min_70pct}</td></tr>`).join('');
+  $('dc-network').textContent=Object.values(D.dc.ix).join(' ');
+}
+$('top-stats').innerHTML=stat('協会掲載の所在地',D.contractor_directory.length,'件','4社の掲載値を確認・配備未確認')+stat('地区別の機械計画',D.district_fleet.length,'地区','2026年度・予定資料')+stat('融雪と排熱の調査候補',D.candidates.length,'エリア','用地・受電余力は未確認')+stat('広域配車','読込中','','');
+const map=L.map('map',{scrollWheelZoom:false,preferCanvas:true,zoomSnap:.25,zoomDelta:.5}).setView([43.075,141.36],11);
 const base=L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'}).addTo(map);
 map.attributionControl.addAttribution('<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>');
 L.control.scale({imperial:false}).addTo(map);
 $('base-map').onchange=e=>e.target.checked?base.addTo(map):map.removeLayer(base);
-const roads=L.geoJSON(D.roads,{style:f=>({color:f.properties.included?'#769389':'#c56754',weight:f.properties.included?2:3,opacity:.7}),
-  onEachFeature:(f,l)=>l.bindPopup(`<b>${esc(f.properties.name)}</b><br>OSM way ${f.properties.way_id}<br>${num(f.properties.length_m)}m / ${f.properties.included?'計算対象':'接続分離・未計算'}`)}).addTo(map);
 const siteMarkers={};
-D.candidates.forEach((s,i)=>{if(s.latitude==null)return;siteMarkers[s.id]=L.marker([s.latitude,s.longitude],{icon:L.divIcon({className:'site-marker',html:String(i+1),iconSize:[25,25]})}).addTo(map).bindPopup(`<b>${esc(s.name)}</b><br>${esc(s.address)}<br><small>${esc(s.location_status)}</small><br>${link(s.source_url,'施設資料')}`);});
-D.contractors.forEach(s=>{if(s.latitude==null)return;L.marker([s.latitude,s.longitude],{icon:L.divIcon({className:'contractor-marker',iconSize:[13,13]})}).addTo(map).bindPopup(`<b>${esc(s.name)}</b><br>${esc(s.location_type)}<br>${esc(s.address)}<br><small>会社全体の公表数／この拠点の配備数ではない</small><br>${Object.entries(s.fleet).map(([k,v])=>`${esc(k)} ${v}台`).join('<br>')}<br>${link(s.source_url,'会社公表値')}`);});
-D.analysis.depots.forEach(s=>L.marker([s.lat,s.lon],{icon:L.divIcon({className:'depot-marker',iconSize:[12,12]})}).addTo(map).bindPopup(`${esc(s.id)}<br>道路端に置いた仮定の待機点。実在する車庫ではありません。`));
+const contractorMarkers={};
+const contractorNumber=id=>D.contractors.findIndex(c=>c.id===id)+1;
+const companyLabel=c=>`事業者${contractorNumber(c.id)} · ${c.name}`;
+const companyPalette={toyo:'#386dbe',kashima:'#9260a8',satsuichi:'#268574',krs:'#b08028'};
+const companyColor=id=>companyPalette[id];
+const meltLayer=L.layerGroup().addTo(map);
+$('melt-layer').onchange=e=>e.target.checked?meltLayer.addTo(map):map.removeLayer(meltLayer);
+function showMeltLayer(){$('melt-layer').checked=true;meltLayer.addTo(map);}
+const dcMarkers={};
+const dcLayer=L.layerGroup().addTo(map);
+(D.dc?.candidates??[]).forEach((s,i)=>{
+  if(s.latitude==null||s.longitude==null)return;
+  dcMarkers[s.id]=L.marker([s.latitude,s.longitude],{title:`DC${i+1} ${s.name}`,icon:L.divIcon({className:'dc-marker',html:`DC${i+1}`,iconSize:[40,28],iconAnchor:[20,14]}),zIndexOffset:500})
+    .addTo(dcLayer).bindPopup(`<b>DC${i+1} ${esc(s.name)}</b><br>${esc(s.verdict)}<br><small>${esc(s.location_status)}<br>表示基準：${esc(s.map_address)}</small><br>${esc(s.land)}<br>${link(s.source_url,'用地資料')}`);
+  const card=$('dc-sites').children[i];
+  const button=document.createElement('button');button.className='text-button dc-map-button';button.dataset.dcSite=s.id;button.textContent=`DC${i+1} 地図で見る ↑`;
+  button.onclick=()=>{showDcLayer();routeLayer.clearLayers();setViewButtons(false);map.setView([s.latitude,s.longitude],13);dcMarkers[s.id].openPopup();$('map').scrollIntoView({behavior:'smooth',block:'center'});};
+  card.appendChild(button);
+});
+$('dc-layer').onchange=e=>e.target.checked?dcLayer.addTo(map):map.removeLayer(dcLayer);
+function showDcLayer(){$('dc-layer').checked=true;dcLayer.addTo(map);}
+function setViewButtons(pilot){$('city-view').classList.toggle('selected',!pilot);$('company-view').classList.toggle('selected',pilot);}
+$('dc-view').onclick=()=>{showDcLayer();routeLayer.clearLayers();setViewButtons(false);const points=(D.dc?.candidates??[]).filter(s=>s.latitude!=null).map(s=>[s.latitude,s.longitude]);if(points.length)map.fitBounds(points,{padding:[45,45],maxZoom:12});};
+D.candidates.forEach((s,i)=>{if(s.latitude==null)return;siteMarkers[s.id]=L.marker([s.latitude,s.longitude],{icon:L.divIcon({className:'site-marker',html:String(i+1),iconSize:[25,25]})}).addTo(meltLayer).bindPopup(`<b>${esc(s.name)}</b><br>${esc(s.address)}<br><small>${esc(s.location_status)}</small><br>${link(s.source_url,'施設資料')}`);});
+D.contractors.forEach(s=>{if(s.latitude==null)return;contractorMarkers[s.id]=L.marker([s.latitude,s.longitude],{title:s.name,icon:L.divIcon({className:'contractor-marker numbered-contractor',html:`<span>業${contractorNumber(s.id)}</span>`,iconSize:[25,25],iconAnchor:[12,12]}),zIndexOffset:1500,riseOnHover:true}).addTo(map).bindTooltip(esc(companyLabel(s)),{direction:'top',offset:[0,-20]}).bindPopup(`<b>${esc(companyLabel(s))}</b><br>${esc(s.location_type)}<br>${esc(s.address)}<br><small>${esc(s.published_scope)}<br>拠点配備：未確認／地番代表点・入口未確認</small><br>${Object.entries(s.fleet).map(([k,v])=>`${esc(k)} ${v}台`).join('<br>')}<br>${link(s.source_url,'会社公表値')}`);});
+Object.entries(contractorMarkers).forEach(([id,marker])=>marker.getElement().style.setProperty('--company-color',companyColor(id)));
 const routeLayer=L.layerGroup().addTo(map);
-function switchView(pilot){$('city-view').classList.toggle('selected',!pilot);$('pilot-view').classList.toggle('selected',pilot);if(pilot)map.fitBounds(roads.getBounds(),{padding:[25,25]});else map.fitBounds(L.latLngBounds(D.candidates.concat(D.contractors).filter(s=>s.latitude!=null).map(s=>[s.latitude,s.longitude])),{padding:[35,35]});}
-$('city-view').onclick=()=>{routeLayer.clearLayers();switchView(false);};
-$('pilot-view').onclick=()=>{drawRoutes();switchView(true);};
-function drawRoutes(){routeLayer.clearLayers();const count=+$('vehicles').value;L.geoJSON({type:'FeatureCollection',features:D.routes.features.filter(f=>f.properties.scenario===count)},{style:f=>({color:colors[(f.properties.vehicle-1)%colors.length],weight:3,opacity:.8}),onEachFeature:(f,l)=>l.bindPopup(`車両 ${f.properties.vehicle}<br>${esc(f.properties.depot)}<br>${num(f.properties.distance_km,2)}km<br>方向・走行順はroutes.geojsonとanalysis.jsonに保存`) }).addTo(routeLayer);}
-$('show-routes').onclick=()=>{drawRoutes();switchView(true);$('map').scrollIntoView({behavior:'smooth',block:'center'});};
 function numberInput(id){const el=$(id);return el.checkValidity()&&el.value!==''?Number(el.value):null;}
-function updateRoutes(){
-  const speed=+$('speed').value,travel=+$('deadhead').value,hourly=numberInput('hourly'),shift=numberInput('shift'),count=+$('vehicles').value;
-  $('speed-value').textContent=speed+' km/h';$('deadhead-value').textContent=travel+' km/h';
-  if(hourly==null||shift==null){$('route-stats').innerHTML='<p class="notice">費用と時間上限に有効な値を入力してください。</p>';return;}
-  const scenarios=D.analysis.scenarios.map(s=>{const times=s.routes.map(r=>r.service_km/speed+r.deadhead_km/travel);return {...s,times,makespan:Math.max(...times),cost:times.reduce((a,b)=>a+b,0)*hourly};});
-  const s=scenarios.find(s=>s.vehicles===count);
-  $('route-stats').innerHTML=stat('完了までの時間',num(s.makespan,2),'時間','各車両を同時に出動')+stat('総走行距離',num(s.total_km,1),'km','全車両の合計')+stat('変動費の試算',num(s.cost/10000,2),'万円','仮の時間単価による比較');
-  $('scenario-table').innerHTML=scenarios.map(s=>`<tr class="${s.vehicles===count?'selected-row':''}"><td>${s.vehicles}台</td><td>${num(s.makespan,2)} h</td><td>${num(s.total_km,1)} km</td><td>${num(s.deadhead_km,1)} km</td><td>¥${num(s.cost)}</td><td class="${s.makespan<=shift?'ok':'bad'}">${s.makespan<=shift?'範囲内':'超過・要再計画'}</td></tr>`).join('');
-  $('vehicle-list').innerHTML=s.routes.map((r,i)=>`<span class="vehicle-chip"><i style="background:${colors[i%colors.length]}"></i>車両 ${r.vehicle_id}　${num(s.times[i],2)} h / ${num(r.distance_km,1)} km</span>`).join('');
-  if($('pilot-view').classList.contains('selected'))drawRoutes();
-}
-['vehicles','speed','deadhead','hourly','shift'].forEach(id=>$(id).addEventListener('input',updateRoutes));updateRoutes();
 function updateHeat(){
   const it=+$('it').value,load=+$('load').value/100,recovery=+$('recovery').value/100,temp=+$('snow-temp').value,hours=+$('heat-hours').value,density=numberInput('density');
   $('it-value').textContent=it+' MW';$('load-value').textContent=num(load*100)+'%';$('recovery-value').textContent=num(recovery*100)+'%';$('snow-temp-value').textContent=temp+'℃';$('heat-hours-value').textContent=hours+'時間/日';
@@ -49,8 +56,8 @@ function updateHeat(){
 }
 ['it','load','recovery','snow-temp','density','heat-hours'].forEach(id=>$(id).addEventListener('input',updateHeat));updateHeat();
 $('site-grid').innerHTML=D.candidates.map((s,i)=>`<article class="site-card"><div class="site-top"><span>候補 ${String(i+1).padStart(2,'0')}</span><span>調査順 ${s.investigation_tier} · 条件付き</span></div><h3>${esc(s.name)}</h3><p>${esc(s.address)}<br>${esc(s.facility_status)}</p><div class="site-capacity">${s.existing_capacity_m3_day==null?'未確認':num(s.existing_capacity_m3_day)} <small>${s.existing_capacity_m3_day==null?'処理能力':'m³/日・公表融雪能力'}</small></div><p>${esc(s.rationale)}</p><p class="checks">確認事項：${esc(s.site_specific_checks)}</p><div class="site-actions"><button data-site="${s.id}">地図で見る ↑</button>${link(s.source_url,'根拠資料')}</div></article>`).join('');
-document.querySelectorAll('[data-site]').forEach(b=>b.onclick=()=>{const s=D.candidates.find(s=>s.id===b.dataset.site);if(s.latitude!=null){map.setView([s.latitude,s.longitude],15);siteMarkers[s.id].openPopup();$('map').scrollIntoView({behavior:'smooth',block:'center'});}});
-$('contractor-table').innerHTML=D.contractors.map(c=>`<tr><td><b>${esc(c.name)}</b><small>${esc(c.location_type)}<br>${esc(c.address)}</small></td><td>${Object.entries(c.fleet).map(([k,v])=>`<span class="equipment">${esc(k)} <b>${v}台</b></span>`).join('')}</td><td>${link(c.source_url,'機械')}<br>${link(c.address_source_url,'所在地')}</td></tr>`).join('');
+document.querySelectorAll('[data-site]').forEach(b=>b.onclick=()=>{const s=D.candidates.find(s=>s.id===b.dataset.site);if(s.latitude!=null){showMeltLayer();map.setView([s.latitude,s.longitude],15);siteMarkers[s.id].openPopup();$('map').scrollIntoView({behavior:'smooth',block:'center'});}});
+$('contractor-table').innerHTML=D.contractors.map(c=>`<tr><td><b>${esc(companyLabel(c))}</b><small>${esc(c.location_type)}<br>${esc(c.address)}<br>${esc(c.location_evidence)}<br>座標：${esc(c.geocoded_title)}の代表点（枝番・入口未確認）</small></td><td><small>${esc(c.published_scope)}</small>${Object.entries(c.fleet).map(([k,v])=>`<span class="equipment">${esc(k)} <b>${v}台</b></span>`).join('')}</td><td><b>試算 ${c.scenario_fleet_count}台</b><small>${Object.entries(c.scenario_fleet).map(([k,v])=>`${esc(k)} ${v}台`).join('＋')}<br>試算から除外：${Object.entries(c.excluded_fleet).map(([k,v])=>`${esc(k)} ${v}台`).join('、')}<br>拠点の実配備：未確認</small></td><td>${link(c.source_url,'機械')}<br>${link(c.address_source_url,'所在地')}</td></tr>`).join('');
 $('district-table').innerHTML=D.district_fleet.map(r=>`<tr><td>${esc(r.ward+r.district)}</td><td>${Object.values(r.city_loan).reduce((a,b)=>a+b,0)}台</td><td>${r.minimum_including_city_loan.grader_family}台</td><td>${r.minimum_including_city_loan.wheel_loader_8t}台</td><td>${r.minimum_including_city_loan.dump_10t}台</td></tr>`).join('');
 function directory(){const q=$('company-search').value.trim();const rows=D.contractor_directory.filter(r=>(r.name+r.address).includes(q));$('company-count').textContent=rows.length+'件';$('directory-table').innerHTML=rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${esc(r.address)}</td><td>未確認</td></tr>`).join('');}
 $('company-search').oninput=directory;directory();

@@ -1,0 +1,33 @@
+{
+  "required_arcs": 431116,
+  "assigned_arcs": 421029,
+  "unassigned_arcs": 10087,
+  "duplicate_service_arcs": 0,
+  "fleet": 30,
+  "total_hours": 2342.3251749366536,
+  "total_deadhead_km": 1686.7291538658944,
+  "total_service_km": 18063.909963937786,
+  "baseline_makespan_hours": 296.4025617470061,
+  "all_tasks_assigned": false,
+  "valid_assigned_routes": true,
+  "trip_count": 11151,
+  "previous": {
+    "required_arcs": 431116,
+    "assigned_arcs": 421029,
+    "unassigned_arcs": 10087,
+    "duplicate_service_arcs": 0,
+    "fleet": 30,
+    "total_hours": 4679.128475214439,
+    "baseline_makespan_hours": 156.21248594275374,
+    "unassigned_reason": "追加した回送道路を含めても、公開4社の出発道路ノードから往復可能な経路を確認できない区間。",
+    "all_tasks_assigned": false,
+    "valid_assigned_routes": true,
+    "trip_count": 1845
+  },
+  "territory_offsets_hours": [
+    0,
+    0,
+    0,
+    0
+  ]
+}

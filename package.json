@@ -6,6 +6,8 @@
     "start": "python -m http.server 8000 --bind 127.0.0.1",
     "test": "playwright test",
     "test:models": "python -m unittest discover -s tests -v",
+    "test:snow": "node --test tests/snow_model.test.cjs",
+    "build:snow": "python scripts/build_snow_management.py",
     "build:data": "python scripts/run_analysis.py"
   },
   "keywords": [],

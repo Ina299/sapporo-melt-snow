@@ -67,9 +67,14 @@ def main():
     for name in ['contractors','candidates','district_fleet','contractor_directory']:
         bundle[name]=json.loads((OUT/(name+'.json')).read_text(encoding='utf-8'))
     bundle['sources']=json.loads((ROOT/'data/sources.json').read_text(encoding='utf-8'))
+    dc=OUT/'dc_feasibility.json'
+    if dc.exists(): bundle['dc']=json.loads(dc.read_text(encoding='utf-8'))
     weather=OUT/'weather_summary.json'
     if weather.exists(): bundle['weather']=json.loads(weather.read_text(encoding='utf-8'))
     (ROOT/'web/data.js').write_text('window.SAPPORO_DATA = '+json.dumps(bundle,ensure_ascii=False)+';',encoding='utf-8')
     print(json.dumps(dict(audit=audit,single=result['single_postman'],scenarios=[{k:s[k] for k in ['vehicles','total_km','makespan_hours','total_cost_yen','feasible_shift']} for s in scenarios]),ensure_ascii=False,indent=2))
 
-if __name__=='__main__': main()
+if __name__=='__main__':
+    main()
+    from build_dashboard import main as build_dashboard
+    build_dashboard()

@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://toyoroad.co.jp/about/",
+    "path": "data\\raw\\toyo_audit_20260908.html",
+    "retrieved_at": "2026-09-08T04:22:14.726054+00:00",
+    "sha256": "51736db9661286fd21706e63523510dbd6d79e5f1992bcf1f7ff070f7311f1a1"
+  },
+  {
+    "url": "https://kashimahodou.jp/",
+    "path": "data\\raw\\kashima_audit_20260908.html",
+    "retrieved_at": "2026-09-08T04:22:17.668828+00:00",
+    "sha256": "5981573766c0581046d9618845aaccdf08d9929e1da86c7e648efefa4d654634"
+  },
+  {
+    "url": "https://www.satsuichi.co.jp/about/",
+    "path": "data\\raw\\satsuichi_office_audit_20260908.html",
+    "retrieved_at": "2026-09-08T04:22:17.845829+00:00",
+    "sha256": "f3eea7a4856558d8b2b457f26c47555ce65ad1be25a66ab7efed77d4d59b6895"
+  },
+  {
+    "url": "https://www.satsuichi.co.jp/engineering/",
+    "path": "data\\raw\\satsuichi_fleet_audit_20260908.html",
+    "retrieved_at": "2026-09-08T04:22:17.920341+00:00",
+    "sha256": "e1dfde7e14901eb7da87b9f8c72dbfcdc4ab8c46e665ee14d0c6904a79707ff7"
+  },
+  {
+    "url": "https://www.krs-sapporo.co.jp/business/",
+    "path": "data\\raw\\krs_audit_20260908.html",
+    "retrieved_at": "2026-09-08T04:22:18.552348+00:00",
+    "sha256": "5965e75919a4cc81f53c5abb332515ab2baee1fcc5631686658127c2895e5675"
+  }
+]

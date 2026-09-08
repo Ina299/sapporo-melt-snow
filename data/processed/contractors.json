@@ -16,10 +16,27 @@
     "longitude": 141.278854,
     "available_now": null,
     "fleet_as_of": null,
-    "fleet_scope": "会社公表保有数。所在地への配備内訳、除雪装備、当日稼働台数は未確認",
+    "fleet_scope": "会社の保有機械一覧から関連4機種を抜粋。拠点別配備・基準日・当日の稼働数は未確認",
     "location_status": "国土地理院住所検索の単一候補／代表点・入口未確認",
     "geocoded_title": "北海道札幌市西区発寒十三条十四丁目１０８０番地",
-    "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E8%A5%BF%E5%8C%BA%E7%99%BA%E5%AF%9213%E6%9D%A114%E4%B8%81%E7%9B%AE1080%E7%95%AA%E5%9C%B029"
+    "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E8%A5%BF%E5%8C%BA%E7%99%BA%E5%AF%9213%E6%9D%A114%E4%B8%81%E7%9B%AE1080%E7%95%AA%E5%9C%B029",
+    "published_scope": "会社の保有機械一覧から関連4機種を抜粋",
+    "location_evidence": "発寒事業所の住所を確認。本社は中央区北6条西22丁目2番7号。発寒への機械配備内訳は記載なし。",
+    "scenario_fleet": {
+      "グレーダ": 3,
+      "ショベルローダ": 7
+    },
+    "excluded_fleet": {
+      "大型ロータリ": 2,
+      "4tダンプ": 2
+    },
+    "evidence_checked_on": "2026-09-08",
+    "depot_fleet": null,
+    "dispatch_depot_verified": false,
+    "entrance_verified": false,
+    "coordinate_precision": "住所検索の地番代表点。枝番・敷地・出入口は未照合",
+    "scenario_fleet_count": 10,
+    "scenario_status": "選択機種を公開所在地の代表点に集中配備する仮定。実配備・除雪適性・稼働数の確認ではない"
   },
   {
     "id": "kashima",
@@ -39,10 +56,28 @@
     "longitude": 141.311951,
     "available_now": null,
     "fleet_as_of": null,
-    "fleet_scope": "会社公表保有数。所在地への配備内訳、除雪装備、当日稼働台数は未確認",
+    "fleet_scope": "会社の保有機械・車輌一覧から関連5機種を抜粋。拠点別配備・基準日・当日の稼働数は未確認",
     "location_status": "国土地理院住所検索の単一候補／代表点・入口未確認",
     "geocoded_title": "北海道札幌市南区中ノ沢１７７５番地",
-    "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8D%97%E5%8C%BA%E4%B8%AD%E3%81%AE%E6%B2%A21775-5"
+    "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8D%97%E5%8C%BA%E4%B8%AD%E3%81%AE%E6%B2%A21775-5",
+    "published_scope": "会社の保有機械・車輌一覧から関連5機種を抜粋",
+    "location_evidence": "資材センター・モータープールの住所を確認。本社は南区川沿10条2丁目7-10。モータープールの名称は確認できるが機械別配備は記載なし。",
+    "scenario_fleet": {
+      "グレーダー": 3,
+      "タイヤショベル2.0–2.8m3": 10
+    },
+    "excluded_fleet": {
+      "大型ロータリー": 1,
+      "小型ショベル": 3,
+      "4tダンプ": 9
+    },
+    "evidence_checked_on": "2026-09-08",
+    "depot_fleet": null,
+    "dispatch_depot_verified": false,
+    "entrance_verified": false,
+    "coordinate_precision": "住所検索の地番代表点。枝番・敷地・出入口は未照合",
+    "scenario_fleet_count": 13,
+    "scenario_status": "選択機種を公開所在地の代表点に集中配備する仮定。実配備・除雪適性・稼働数の確認ではない"
   },
   {
     "id": "satsuichi",
@@ -59,10 +94,25 @@
     "longitude": 141.300674,
     "available_now": null,
     "fleet_as_of": null,
-    "fleet_scope": "会社公表保有数。所在地への配備内訳、除雪装備、当日稼働台数は未確認",
+    "fleet_scope": "土木事業部ページの保有車両一覧（全社総数ではない）。拠点別配備・基準日・当日の稼働数は未確認",
     "location_status": "国土地理院住所検索の単一候補／代表点・入口未確認",
     "geocoded_title": "北海道札幌市北区新川七条十六丁目７０８番地",
-    "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8C%97%E5%8C%BA%E6%96%B0%E5%B7%9D7%E6%9D%A116%E4%B8%81%E7%9B%AE708%E7%95%AA%E5%9C%B03"
+    "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8C%97%E5%8C%BA%E6%96%B0%E5%B7%9D7%E6%9D%A116%E4%B8%81%E7%9B%AE708%E7%95%AA%E5%9C%B03",
+    "published_scope": "土木事業部ページの保有車両一覧（全社総数ではない）",
+    "location_evidence": "本社住所と土木事業部の連絡先を確認。別に札幌営業所（川下581番地1：運輸・重機事業部）、札幌流通センター支店（流通センター5丁目2-33）がある。土木車両の駐車場所・配備内訳は記載なし。",
+    "scenario_fleet": {
+      "タイヤショベル": 4
+    },
+    "excluded_fleet": {
+      "10tダンプ": 23
+    },
+    "evidence_checked_on": "2026-09-08",
+    "depot_fleet": null,
+    "dispatch_depot_verified": false,
+    "entrance_verified": false,
+    "coordinate_precision": "住所検索の地番代表点。枝番・敷地・出入口は未照合",
+    "scenario_fleet_count": 4,
+    "scenario_status": "選択機種を公開所在地の代表点に集中配備する仮定。実配備・除雪適性・稼働数の確認ではない"
   },
   {
     "id": "krs",
@@ -84,9 +134,29 @@
     "longitude": 141.443802,
     "available_now": null,
     "fleet_as_of": null,
-    "fleet_scope": "会社公表保有数。所在地への配備内訳、除雪装備、当日稼働台数は未確認",
+    "fleet_scope": "会社の保有車両・機械一覧から関連7機種を抜粋。拠点別配備・基準日・当日の稼働数は未確認",
     "location_status": "国土地理院住所検索の単一候補／代表点・入口未確認",
     "geocoded_title": "北海道札幌市白石区川下５７７番地",
-    "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E7%99%BD%E7%9F%B3%E5%8C%BA%E5%B7%9D%E4%B8%8B577%E7%95%AA%E5%9C%B087%E5%8F%B7"
+    "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E7%99%BD%E7%9F%B3%E5%8C%BA%E5%B7%9D%E4%B8%8B577%E7%95%AA%E5%9C%B087%E5%8F%B7",
+    "published_scope": "会社の保有車両・機械一覧から関連7機種を抜粋",
+    "location_evidence": "工事事務所の住所を確認。本社は中央区南1条西1丁目13番1号。工事事務所への除雪車配備は記載なし。",
+    "scenario_fleet": {
+      "タイヤショベル2m3": 1,
+      "タイヤショベル1.5m3": 2
+    },
+    "excluded_fleet": {
+      "11tダンプ": 4,
+      "4tダンプ": 4,
+      "2tダンプ": 1,
+      "タイヤショベル0.8m3": 2,
+      "タイヤショベル0.5m3以下": 2
+    },
+    "evidence_checked_on": "2026-09-08",
+    "depot_fleet": null,
+    "dispatch_depot_verified": false,
+    "entrance_verified": false,
+    "coordinate_precision": "住所検索の地番代表点。枝番・敷地・出入口は未照合",
+    "scenario_fleet_count": 3,
+    "scenario_status": "選択機種を公開所在地の代表点に集中配備する仮定。実配備・除雪適性・稼働数の確認ではない"
   }
 ]

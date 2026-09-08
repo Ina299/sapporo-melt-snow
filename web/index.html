@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>SAPPORO SNOW LAB — 除雪と熱の都市設計</title>
-  <link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="layout.css">
 </head>
 <body>
   <aside class="sidebar">
@@ -11,11 +11,12 @@
     <p class="nav-caption">都市の冬を、設計する。</p>
     <nav aria-label="メインメニュー">
       <a href="#overview" class="active">01 <span>都市の見取り図</span></a>
-      <a href="#routing">02 <span>除雪経路の比較</span></a>
-      <a href="#heat">03 <span>排熱と融雪</span></a>
-      <a href="#sites">04 <span>融雪候補地</span></a>
-      <a href="#fleet">05 <span>業者・機械台帳</span></a>
-      <a href="#sources">06 <span>データと検証</span></a>
+      <a href="#company-routing">02 <span>事業者別の経路</span></a>
+      <a href="#snow-management">03 <span>堆雪と搬出</span></a>
+      <a href="#heat">04 <span>排熱と融雪</span></a>
+      <a href="#sites">05 <span>融雪候補地</span></a>
+      <a href="#fleet">06 <span>業者・機械台帳</span></a>
+      <a href="#sources">07 <span>データと検証</span></a>
     </nav>
     <div class="sidebar-bottom"><span class="live-dot"></span> 公開データによる検討版<p>札幌市 · 北海道<br>取得日 2026.09.08</p><a href="../docs/design.md">設計書を読む ↗</a></div>
   </aside>
@@ -27,27 +28,56 @@
       <p class="intro">除雪車の経路と雪の行き先を、同じ地図で考える。<br>札幌市の公開資料と実道路から、持続可能な除排雪の条件を探ります。</p>
       <div class="stats" id="top-stats"></div>
       <div class="panel map-panel">
-        <div class="panel-heading"><div><span class="eyebrow">SPATIAL OVERVIEW</span><h2>札幌の拠点と道路</h2></div><div class="segmented"><button id="city-view" class="selected">候補地を俯瞰</button><button id="pilot-view">道路実証エリア</button></div></div>
-        <div id="map" aria-label="札幌の融雪候補地、業者所在地、八軒の計算道路を表示する地図"></div>
-        <div class="map-footer"><span><i class="legend-dot green"></i>融雪候補エリア</span><span><i class="legend-dot blue"></i>公開業者所在地</span><span><i class="legend-line"></i>計算道路</span><span><i class="legend-line red"></i>接続分離・未計算</span><label><input type="checkbox" id="base-map" checked> 地理院背景地図</label></div>
+        <div class="panel-heading"><div><span class="eyebrow">SPATIAL OVERVIEW</span><h2>札幌の拠点と広域配車</h2></div><div class="segmented"><button id="city-view" class="selected">全社の仮定割当</button><button id="company-view">選択事業者の経路</button></div></div>
+        <div class="dc-map-controls"><label><input id="dc-layer" type="checkbox" checked> <i class="legend-dot dc-color"></i>DC候補地区（代表点）</label><label><input id="melt-layer" type="checkbox" checked> <i class="legend-dot green"></i>既存融雪施設</label><button id="dc-view" class="text-button">DC候補5地区を表示</button><span>区画・敷地境界は未確定</span></div>
+        <p id="depot-evidence-note" class="explanation">出動拠点・配備数の組合せを確認できた地点は0件（配備が0台という意味ではありません）。業1〜業4は公開住所の地番代表点です。経路は、ここに10・13・4・3台を集中配備すると仮定した試算です。実際の担当範囲・出動経路ではありません。<a href="#fleet">所在地と台数の照合表 ↓</a></p>
+        <div id="map" aria-label="札幌と近郊のDC候補地区、既存融雪施設、業者所在地、広域の車両別経路を表示する地図"></div>
+        <div class="map-footer"><span><i class="legend-dot green"></i>既存融雪施設</span><span><i class="legend-dot blue"></i>事業者の公開所在地</span><span><i class="legend-line" style="background:#82988d"></i>取得道路の下図</span><span><i class="legend-line" style="background:#d13932"></i>往復到達できず未割当</span><label><input type="checkbox" id="base-map" checked> 地理院背景地図</label></div>
+        <div id="company-map-legend" class="company-map-legend" aria-live="polite"></div>
         <p class="fineprint">点は住所代表点です。建設区画・搬入口・除雪車の配置場所は未確認。背景地図のみインターネット接続を使用します。</p>
       </div>
     </section>
-    <section id="routing">
-      <div class="section-title"><div><span class="eyebrow">01 / ROUTE OPTIMIZATION</span><h2>速く終えることと、費用を抑えること。</h2></div><span class="pill">八軒・新川周辺の試算</span></div>
-      <p class="section-intro">道路の各方向を一度以上作業する経路を計算。1台の閉路は有向郵便配達人問題の最適解、複数台への分担は近似解です。</p>
-      <div class="notice" id="coverage-notice"></div>
-      <div class="route-layout">
-        <div class="panel controls"><h3>運用条件 <span class="tag">仮定</span></h3>
-          <label>車両数<select id="vehicles"><option value="1">1台</option><option value="2">2台</option><option value="4" selected>4台</option><option value="8">8台</option></select></label>
-          <label>作業速度 <span id="speed-value">8 km/h</span><input id="speed" type="range" min="3" max="15" value="8" step="1"></label>
-          <label>回送速度 <span id="deadhead-value">20 km/h</span><input id="deadhead" type="range" min="10" max="35" value="20" step="1"></label>
-          <label>1台・1時間あたりの費用（円）<input id="hourly" type="number" min="0" max="1000000" step="1000" value="12000"></label>
-          <label>作業時間の上限（時間）<input id="shift" type="number" min="0.1" max="24" step="0.1" value="6"></label>
-          <p class="fineprint">速度変更は固定経路の所要時間を再計算します。道路端の仮設待機点を使用。実業者の配車、交差点作業、休憩、燃料・固定費の別計上は含みません。</p>
+    <section id="city-routing">
+      <div class="section-title"><div><span class="eyebrow">EXPANDED ROAD NETWORK</span><h2>札幌市域と近郊へ、道路計算を拡大。</h2></div></div>
+      <p class="section-intro">住宅街を含むOSM車道を広域取得し、方向ごとの作業経路を計算。行政界の切抜き・市公式除雪路線との照合は未実施です。</p>
+      <div class="stats" id="city-stats"></div>
+      <div class="notice" id="city-audit"></div>
+      <div class="panel explanation"><h3>広域道路網を事業者の配車へ接続</h3><p>道路の被覆計算に加え、4社の出発点から往復できる区間を担当割当・車両別経路へ接続しました。未割当は赤色で表示します。台数を変えると、その会社の広域担当区間を車両間で再配分します。</p><label><input id="city-roads-toggle" type="checkbox" checked> 広域道路の下図を表示</label> <button id="city-roads-view" class="text-button">広域道路を見渡す ↑</button><p><a href="../data/processed/dispatch_summary.json">広域配車の検証結果</a> · <a href="../data/processed/dispatch_ordered_routes.json.gz">順序付き配車経路JSON（gzip）</a> · <a href="../data/processed/dispatch_unassigned.geojson">未割当区間GeoJSON</a></p></div>
+    </section>
+    <section id="company-routing">
+      <div class="section-title"><div><span class="eyebrow">CITYWIDE / JOINT DISPATCH</span><h2>広域道路を4社で分担し、車両ごとに配車する。</h2></div></div>
+      <p class="section-intro">番号付きの事業者マーカーから、その会社の広域担当経路を表示。各区間を4社のいずれかへ重複なく割り当てます。実契約地区ではなく、所在地・公表機種数に基づく仮定配車です。</p>
+      <div class="notice" id="dispatch-audit"></div>
+      <div class="panel explanation"><label for="dispatch-mode">割当方式</label><select id="dispatch-mode"><option value="fixed">所在地に近い区域で配車</option><option value="joint">全社の台数で区域・経路を調整</option></select><p id="dispatch-mode-note">会社内の台数を変更できます。</p><div class="table-scroll"><table><thead><tr><th>方式</th><th>仮定台数</th><th>完了まで</th><th>総車両時間</th></tr></thead><tbody id="dispatch-comparison"></tbody></table></div></div>
+      <div class="panel company-controls"><label>出発する事業者<select id="route-company"></select></label><label>試算する作業車両数<select id="company-vehicles"></select></label><label>地図に表示する車両<select id="company-vehicle-focus"></select></label><button id="company-route-view" class="text-button">出発点と往復経路を表示 ↑</button></div>
+      <p class="section-intro" id="company-route-note"></p>
+      <div class="stats route-stats" id="company-route-stats"></div>
+      <div class="panel"><div class="table-scroll"><table><thead><tr><th>車両</th><th>作業距離</th><th>往復等の回送</th><th>所要時間</th><th>6時間以内</th></tr></thead><tbody id="company-route-table"></tbody></table></div></div>
+      <p class="section-intro">実線＝除雪作業、破線＝往復・区間間の回送。同色が同じ車両です。始点番号は各車両が最初に作業する地点。所在地から接続道路までの灰色点線は未確認の接続を表し、走行経路ではありません。速度は作業8km/h・回送20km/hの仮定です。</p>
+      <p class="fineprint">近い作業場所を道路網で直接つなぎ、車両は最後に出発道路ノードへ戻ります。仮の割当区域・近似経路で、最適性や区域の完全な連結性は保証しません。機種・装備・車幅・旋回制限は未検証。<a href="../data/processed/dispatch.json">広域の事業者別経路データ</a></p>
+    </section>
+    <section id="snow-management">
+      <div class="section-title"><div><span class="eyebrow">SNOW STORAGE / DAILY BALANCE</span><h2>置ける雪は残し、必要な雪を運ぶ。</h2></div></div>
+      <p class="section-intro">実際の日別降雪から、道路脇・近接一時堆雪・雪堆積場・DC融雪の在庫を追跡。地区の観測点と、対象道路の堆雪余地を別々に設定します。下の計算は仮定した道路群の感度分析で、行政区全体の排雪計画ではありません。</p>
+      <div class="panel explanation"><div class="snow-input-grid">
+        <label>降雪の観測点<select id="snow-station"></select></label>
+        <label>表示する処理方式<select id="snow-mode"><option value="mixed">堆積場＋DC融雪</option><option value="dump_only">堆積場のみ（DCなし）</option><option value="melt_only">搬出先をDC融雪に限定</option></select></label>
+        <label>搬出先の選び方<select id="snow-policy"><option value="shortest">往復所要時間が短い順</option><option value="melt_first">DC融雪を優先</option></select></label>
+      </div><div id="snow-inputs" class="snow-input-grid"></div>
+      <details><summary>受入枠・雪密度・積込み・自然融解の仮定を変更</summary><div id="snow-more-inputs" class="snow-input-grid"></div></details>
+      <p>入力値は全て変更可能な仮定です。距離は実道路からの算出値ではなく、受入枠はこの道路群に割り当てる量です。初期値の自然融解率は0％。日別気温に基づく融解予測ではありません。</p>
+      <p class="fineprint" id="snow-weather-note"></p><p id="snow-error" role="alert"></p>
+      <button id="snow-export" class="text-button">入力条件・日別収支をJSONで保存 ↓</button></div>
+      <div id="snow-results" aria-live="polite">
+        <div id="snow-summary" class="stats"></div>
+        <div class="panel explanation"><h3>期末の雪の行き先</h3><div id="snow-balance" class="snow-balance"></div><p id="snow-balance-note"></p><p id="snow-capacity-note"></p></div>
+        <div class="panel explanation snow-chart-panel"><h3>道路脇の雪は、いつ置ききれなくなるか</h3><p>緑線：日末の道路脇在庫 ／ 赤破線：仮定した堆雪上限。日中の一時的な支障や、通行可能幅を判定する図ではありません。</p><div id="snow-chart"></div>
+          <label for="snow-day" id="snow-day-label"></label><input id="snow-day" type="range" min="0" max="160" value="85" step="1"><div id="snow-day-stocks"></div><p id="snow-day-note"></p>
         </div>
-        <div><div class="stats route-stats" id="route-stats"></div><div class="panel"><div class="panel-heading"><h3>台数別の比較</h3><button id="show-routes" class="text-button">地図で経路を見る ↑</button></div><div class="table-scroll"><table><thead><tr><th>台数</th><th>完了まで</th><th>総走行</th><th>回送</th><th>変動費試算</th><th>時間上限</th></tr></thead><tbody id="scenario-table"></tbody></table></div><p class="fineprint">実際の運用経路との比較データがないため、現状比の削減率は算出していません。</p></div><div class="vehicle-list" id="vehicle-list"></div></div>
+        <div class="panel"><div class="panel-heading"><h3>同じ降雪・道路・車両条件で比較</h3></div><div class="table-scroll"><table><thead><tr><th>搬出先</th><th>日末上限超過 日</th><th>道路＋一時残雪 t</th><th>堆積場残雪 t</th><th>DC融雪済み t</th><th>走行 km</th><th>車両時間 h</th></tr></thead><tbody id="snow-comparison"></tbody></table></div><p class="fineprint">全方式で道路上の堆雪は許容します。「DC限定」も全降雪を即時搬出する設定ではありません。DCなし方式との比較は融雪追加の運用差で、建設費を含む採算比較ではありません。</p></div>
       </div>
+      <p class="section-intro">近接一時堆雪への移動はローダーの日能力で制限。搬出は各ダンプの積載重量・荷台容積・積込み・往復・投雪・待機・日稼働時間、受入先は日受入量・貯留・熱・排水で制限します。搬出できない雪を計算から消さず、翌日に持ち越します。</p>
+      <p class="fineprint">初期在庫0、日内の作業順序を単純化した試算です。各道路の除雪完了時刻・ダンプの車庫回送・施設間の共有枠・休場日・動的な待ち行列は未接続。上の除雪経路の約88時間に、この排雪時間を足して完了時間とすることはできません。<a href="../docs/snow_management.md">計算方法・根拠・限界</a></p>
     </section>
     <section id="heat">
       <div class="section-title"><div><span class="eyebrow">02 / HEAT RECOVERY</span><h2>データセンターの排熱で、どれだけ融かせるか。</h2></div></div>
@@ -64,24 +94,40 @@
       </div></div>
     </section>
     <section id="sites">
-      <div class="section-title"><div><span class="eyebrow">03 / SITE SHORTLIST</span><h2>既存の融雪機能から、候補を絞る。</h2></div><span class="pill">7候補エリア</span></div>
+      <div class="section-title"><div><span class="eyebrow">03 / SITE SHORTLIST</span><h2>工業・物流用地に、DCと融雪を併設する。</h2></div></div>
+      <p class="section-intro">DCは建設する前提で、排熱回収の追加費用・電力・運搬を比較。一等地と住宅との競合を避けます。下記は地区単位の調査候補で、取得可能な個別敷地の認定ではありません。</p>
+      <div class="panel" id="regional-melting"><h3>北側の増強と、南西・南東への分散を比較する</h3>
+        <p>DC4・DC5では既存融雪機能への接続・増強を調査。南西は真駒内・石山方面、南東は大谷地・北野方面で、新設DC・融雪槽・一時貯雪の用地を探す案です。中央部・すすきの周辺の一等地を避け、雪の運搬時間で比較します。</p>
+        <div class="table-scroll"><table><thead><tr><th>方面</th><th>役割の仮説</th><th>主な確認事項</th></tr></thead><tbody>
+          <tr><td>DC4 新川・発寒</td><td>西・北側の既存融雪機能を増強</td><td>既存熱源との重複、投雪・排水余力、用地と配管距離</td></tr>
+          <tr><td>DC5 東米里・米里</td><td>白石・厚別側の融雪機能と連携</td><td>東部の供用条件、各施設との実距離、追加受入量</td></tr>
+          <tr><td>南西 真駒内・石山方面</td><td>南区・中央区南側の運搬を短縮</td><td>住宅地を避けた既利用地、橋・冬季渋滞、受電・通信・排水</td></tr>
+          <tr><td>南東 大谷地・北野方面</td><td>清田・豊平東側・厚別南側を分担</td><td>物流用地更新との両立、住宅への影響、DC5との運搬時間比較</td></tr>
+        </tbody></table></div>
+        <p class="fineprint">市の2026年度配置案では南区・清田区の雪処理施設欄は空欄。ただし地図の7点は市内施設を網羅していません。南西・南東は探索仮説で、売地・建設可否・輸送削減量は未確認です。DC4・DC5も既存施設そのものの位置ではありません。</p>
+        <p>同じ総IT容量20MWなら、1地点20MWと2地点各10MWの熱上限は合計約3,531t/日で同じ。分散による運搬削減と設備費の増加を比較します。</p>
+        <p><a href="../docs/regional_melting.md">配置案の根拠・探索条件・集中と分散の比較を読む ↗</a></p>
+      </div>
+      <div id="dc-sites" class="site-grid"></div>
+      <div class="panel"><h3>DC規模別の融雪と搬入</h3><p id="dc-assumptions" class="fineprint"></p><div class="table-scroll"><table><thead><tr><th>IT容量</th><th>融雪 t/日</th><th>雪 m³/日</th><th>8t積み 便/日</th><th>投雪レーン数</th></tr></thead><tbody id="dc-scenarios"></tbody></table></div><p class="fineprint">レーン数：搬入16時間、1便8分、稼働率70%の仮定。融雪は24時間。敷地内の雪の一時貯留が必要です。</p><h3>IX・回線を立地条件にする</h3><p id="dc-network"></p><p><a href="../docs/dc_feasibility.md">候補地の検証・受電条件・IX誘致案を読む ↗</a></p></div>
+      <h3>比較対象：既存の融雪施設</h3>
       <p class="section-intro">調査順は既存設備との接続を重視した設計判断です。全候補で、用地確保・受電余力・通信冗長性・敷地別浸水深は未確認です。建設適地の認定や経済性の順位ではありません。</p>
       <div class="site-grid" id="site-grid"></div>
     </section>
     <section id="fleet">
       <div class="section-title"><div><span class="eyebrow">04 / EQUIPMENT INVENTORY</span><h2>保有台数と、使える台数を分ける。</h2></div></div>
-      <div class="panel"><div class="panel-heading"><h3>保有機械を公開する4社</h3><a href="../data/processed/contractors.csv" download>CSVを保存 ↓</a></div><p class="fineprint">会社公表値で、掲載値の基準日は不明。会社全体の台数を表示しており、地図の所在地への配備や今年度契約への使用可能数は未確認です。</p><div class="table-scroll"><table><thead><tr><th>業者・公開所在地</th><th>公開保有機械</th><th>根拠</th></tr></thead><tbody id="contractor-table"></tbody></table></div></div>
+      <div class="panel"><div class="panel-heading"><h3>保有機械を公開する4社</h3><a href="../data/processed/contractors.csv" download>CSVを保存 ↓</a></div><p class="fineprint">会社公表値で、掲載値の基準日は不明。全社一覧の関連機種抜粋と土木事業部の掲載値が混在していたため、下表で対象範囲を分けました。試算30台は選択した機種の合計で、実配備数ではありません。除外機種が除雪に使えないことを意味しません。<a href="../docs/contractor_audit.md">2026-09-08 照合記録</a></p><div class="table-scroll"><table><thead><tr><th>業者・公開所在地</th><th>掲載値と対象範囲</th><th>試算への採用・除外</th><th>根拠</th></tr></thead><tbody id="contractor-table"></tbody></table></div></div>
       <div class="panel fleet-panel"><div class="panel-heading"><h3>2026年度・23地区の機械計画</h3><a href="../data/processed/district_fleet.csv" download>CSVを保存 ↓</a></div><p class="fineprint">市貸与車の計画と、貸与車を含む最低必要台数。事業者の実保有台数ではありません。グレーダ系は除雪グレーダと除雪トラックの合計です。</p><div class="table-scroll"><table><thead><tr><th>地区</th><th>市貸与車・全機種</th><th>最低グレーダ系</th><th>最低タイヤショベル</th><th>最低10tダンプ</th></tr></thead><tbody id="district-table"></tbody></table></div></div>
       <details class="panel"><summary>協会掲載209件の所在地一覧 <span>保有台数未確認の母集団</span></summary><div class="search-row"><label for="company-search">会社名・住所で検索</label><input id="company-search" type="search" placeholder="例：北区、建設"><span id="company-count"></span></div><div class="table-scroll directory"><table><thead><tr><th>会社名</th><th>公開住所</th><th>保有台数</th></tr></thead><tbody id="directory-table"></tbody></table></div></details>
     </section>
     <section id="sources"><div class="section-title"><div><span class="eyebrow">05 / EVIDENCE & LIMITS</span><h2>根拠を辿れる、更新できる。</h2></div><a href="../docs/design.md">設計書 ↗</a></div>
       <div class="panel"><div class="panel-heading"><h3>2025年度の実降雪・積雪</h3><a href="https://www.city.sapporo.jp/kensetsu/yuki/weather-data.html" target="_blank" rel="noreferrer">札幌市の観測データ ↗</a></div><div class="table-scroll"><table><thead><tr><th>観測点</th><th>累計降雪</th><th>最大日降雪</th><th>10cm超の日数</th><th>最大積雪深</th></tr></thead><tbody id="weather-table"></tbody></table></div><p class="fineprint" id="weather-note"></p></div>
-      <div class="evidence-grid"><div class="panel explanation"><h3>取得済み</h3><ul><li>協会掲載所在地209件と4社の公開機械数</li><li>2026年度の市貸与車計画・最低必要台数</li><li>既存融雪施設の能力・位置・熱源</li><li>2025年度の市内13観測点の降雪・積雪</li><li>八軒周辺のOpenStreetMap道路</li></ul></div><div class="panel explanation"><h3>実配車に必要な追加データ</h3><ul><li>機械所有調書・使用調書・当日の稼働数</li><li>実車庫・出入口・担当工区・運転者シフト</li><li>公式除雪路線・作業幅・必要回数・右左折制約</li><li>GPS実績・積込時間・雪堆積場の待ち時間</li><li>受電回答・用地・浸水深・排水余力</li></ul></div></div>
+      <div class="evidence-grid"><div class="panel explanation"><h3>取得済み</h3><ul><li>協会掲載所在地209件と4社の公開機械数</li><li>2026年度の市貸与車計画・最低必要台数</li><li>既存融雪施設の能力・位置・熱源</li><li>2025年度の市内13観測点の降雪・積雪</li><li>札幌市域と近郊のOpenStreetMap道路</li></ul></div><div class="panel explanation"><h3>実配車に必要な追加データ</h3><ul><li>機械所有調書・使用調書・当日の稼働数</li><li>実車庫・出入口・担当工区・運転者シフト</li><li>公式除雪路線・作業幅・必要回数・右左折制約</li><li>GPS実績・積込時間・雪堆積場の待ち時間</li><li>受電回答・用地・浸水深・排水余力</li></ul></div></div>
       <details class="panel"><summary>出典・原本・取得日時</summary><div id="source-list"></div></details>
       <p class="footnote">道路データ © OpenStreetMap contributors（ODbL）。原本はdata/raw、出典・取得日時・SHA-256はdata/sources.json。背景地図は国土地理院。2026年度の機械数は予定資料です。</p>
     </section>
     <footer>SAPPORO SNOW LAB <span>雪と暮らす都市のための、検討用ワークスペース。</span></footer>
   </main>
-  <script src="vendor/leaflet.js"></script><script src="data.js"></script><script src="app.js"></script>
+  <script src="vendor/leaflet.js"></script><script src="data.js"></script><script src="city-data.js"></script><script src="boundary-data.js"></script><script src="dispatch-data.js"></script><script src="app.js"></script><script src="city.js"></script><script src="contractors.js"></script><script src="snow-data.js"></script><script src="snow-model.js"></script><script src="snow-ui.js"></script>
 </body>
 </html>

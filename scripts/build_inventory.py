@@ -3,6 +3,7 @@ import csv
 import json
 from pathlib import Path
 from bs4 import BeautifulSoup
+from contractor_evidence import annotate
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT/'data/processed'
@@ -77,7 +78,7 @@ def main():
     ]
     for c in contractors:
         c.update(latitude=None,longitude=None,available_now=None,fleet_as_of=None,fleet_scope='会社公表保有数。所在地への配備内訳、除雪装備、当日稼働台数は未確認',location_status='公開住所／出入口未確認')
-    save('contractors',contractors)
+    save('contractors',[annotate(c) for c in contractors])
     sites=[
       ('shinkawa','新川融雪槽・周辺','札幌市西区八軒9条西7丁目1番65号',14000,'既存',1,'既存槽への排熱追加を優先調査。市街地からの運搬と増強履歴を検証できる。','住宅近接・既存施設との施工干渉・追加受入余力',FAC+'r7yuusetusou.pdf',2),
       ('atsubetsu','厚別融雪槽・周辺','札幌市厚別区厚別町山本1073-21',10000,'既存',1,'既存の搬入・融雪機能と隣接雪堆積場を組み合わせる実証候補。','融雪槽と水再生プラザの住所は異なる。接続距離・土地権利・浸水',FAC+'r7yuusetusou.pdf',1),

@@ -1,0 +1,7 @@
+{
+  "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3Brel%5Bboundary%3Dadministrative%5D%5Bname%3D%22%E6%9C%AD%E5%B9%8C%E5%B8%82%22%5D%3Bout+geom%3B",
+  "query": "[out:json][timeout:90];rel[boundary=administrative][name=\"\u672d\u5e4c\u5e02\"];out geom;",
+  "retrieved_at": "2026-09-08T03:55:56.064177+00:00",
+  "sha256": "8814969c26afb5cdac1f442d94b82de2806c11d1aee8178d983195f684e0c7fb",
+  "license": "ODbL 1.0"
+}

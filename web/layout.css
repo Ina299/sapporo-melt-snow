@@ -1,0 +1,56 @@
+/* Responsive layout corrections, applied after the original component styles. */
+.sidebar { overflow-y: auto; }
+.sidebar nav { flex-shrink: 0; }
+.stat-value { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
+.stat-value small { margin-left: 0; white-space: nowrap; }
+input[type="range"] { margin-left: 0; margin-right: 0; }
+
+#regional-melting {
+  padding: 24px;
+  margin-bottom: 24px;
+}
+#regional-melting h3 { font-size: 17px; line-height: 1.7; margin-bottom: 14px; }
+#regional-melting p { font-size: 12px; line-height: 1.9; color: var(--muted); }
+#regional-melting p:last-child { margin-bottom: 0; }
+#regional-melting .fineprint { padding: 0; margin: 14px 0; font-size: 11px; }
+#regional-melting .table-scroll { border: 1px solid var(--line); border-radius: 6px; }
+#regional-melting table { table-layout: fixed; white-space: normal; }
+#regional-melting td, #regional-melting th { vertical-align: top; overflow-wrap: anywhere; }
+#regional-melting th:first-child { width: 25%; }
+#regional-melting th:nth-child(2) { width: 30%; }
+
+.snow-input-grid { align-items: stretch; }
+.snow-input-grid label { display: flex; flex-direction: column; align-items: stretch; }
+.snow-input-grid label small { display: block; margin-bottom: 4px; }
+.snow-input-grid input, .snow-input-grid select { margin-top: auto; }
+.snow-input-grid label:has(select) { gap: 7px; }
+.snow-input-grid select { width: 100%; }
+#snow-management summary { line-height: 1.8; }
+#snow-management .stat-value { font-size: clamp(21px, 2.2vw, 28px); }
+
+@media (min-width: 801px) and (max-width: 1100px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .route-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 800px) {
+  #regional-melting { padding: 20px; }
+  .sidebar { flex-wrap: wrap; gap: 12px; }
+  .sidebar nav { flex-wrap: wrap; }
+}
+@media (max-width: 600px) {
+  #regional-melting .table-scroll { border: 0; }
+  #regional-melting table, #regional-melting tbody { display: block; }
+  #regional-melting thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  #regional-melting tr { display: block; padding: 14px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 6px; }
+  #regional-melting td { display: block; padding: 0; border: 0; }
+  #regional-melting td:first-child { font-weight: 600; font-size: 12px; color: var(--green); margin-bottom: 9px; }
+  #regional-melting td:nth-child(2)::before { content: "役割の仮説"; }
+  #regional-melting td:nth-child(3)::before { content: "主な確認事項"; }
+  #regional-melting td:not(:first-child)::before { display: block; color: var(--muted); font-size: 10px; margin: 8px 0 3px; }
+  .snow-input-grid { gap: 18px 14px; }
+}
+@media (max-width: 380px) {
+  .route-stats { grid-template-columns: 1fr; }
+  .heat-sub { flex-wrap: wrap; gap: 16px; }
+  header { height: auto; min-height: 58px; flex-wrap: wrap; gap: 8px; padding: 12px 0; }
+}

@@ -1,0 +1,6 @@
+{
+  "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28trunk%7Ctrunk_link%7Cservice%29%24%22%5D%2843.0%2C140.95%2C43.08%2C141.55%29%3Bout+geom%3B",
+  "query": "[out:json][timeout:180];way[highway~\"^(trunk|trunk_link|service)$\"](43.0,140.95,43.08,141.55);out geom;",
+  "retrieved_at": "2026-09-08T03:38:05.095259+00:00",
+  "sha256": "e5f9093bff453551ea406a54d00cf205fd33e115200668aa32cc3237655f2841"
+}

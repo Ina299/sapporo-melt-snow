@@ -1,0 +1,43 @@
+{
+  "bbox": [
+    42.75,
+    140.95,
+    43.26,
+    141.55
+  ],
+  "sources": [
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28trunk%7Ctrunk_link%7Cservice%29%24%22%5D%2842.75%2C140.95%2C42.9%2C141.55%29%3Bout+geom%3B",
+      "query": "[out:json][timeout:180];way[highway~\"^(trunk|trunk_link|service)$\"](42.75,140.95,42.9,141.55);out geom;",
+      "retrieved_at": "2026-09-08T03:35:45.486262+00:00",
+      "sha256": "2a88853f83ab9843e3baa4c435e02f4bf418cc07ceb9b1c33593e12c00150922"
+    },
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28trunk%7Ctrunk_link%7Cservice%29%24%22%5D%2842.9%2C140.95%2C43.0%2C141.55%29%3Bout+geom%3B",
+      "query": "[out:json][timeout:180];way[highway~\"^(trunk|trunk_link|service)$\"](42.9,140.95,43.0,141.55);out geom;",
+      "retrieved_at": "2026-09-08T03:35:49.643816+00:00",
+      "sha256": "48cb1267ccec5728414b924b0a742b883dd9988bfaf67f222e837193a3f81dd3"
+    },
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28trunk%7Ctrunk_link%7Cservice%29%24%22%5D%2843.0%2C140.95%2C43.08%2C141.55%29%3Bout+geom%3B",
+      "query": "[out:json][timeout:180];way[highway~\"^(trunk|trunk_link|service)$\"](43.0,140.95,43.08,141.55);out geom;",
+      "retrieved_at": "2026-09-08T03:38:05.095259+00:00",
+      "sha256": "e5f9093bff453551ea406a54d00cf205fd33e115200668aa32cc3237655f2841"
+    },
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28trunk%7Ctrunk_link%7Cservice%29%24%22%5D%2843.08%2C140.95%2C43.16%2C141.55%29%3Bout+geom%3B",
+      "query": "[out:json][timeout:180];way[highway~\"^(trunk|trunk_link|service)$\"](43.08,140.95,43.16,141.55);out geom;",
+      "retrieved_at": "2026-09-08T03:38:08.134536+00:00",
+      "sha256": "4b82848e9851fd17744a030a58e3758d92acb8bfad3df3317480e480309ff16e"
+    },
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28trunk%7Ctrunk_link%7Cservice%29%24%22%5D%2843.16%2C140.95%2C43.26%2C141.55%29%3Bout+geom%3B",
+      "query": "[out:json][timeout:180];way[highway~\"^(trunk|trunk_link|service)$\"](43.16,140.95,43.26,141.55);out geom;",
+      "retrieved_at": "2026-09-08T03:38:59.082416+00:00",
+      "sha256": "cbda4b244e77ec2018ae76a4fe79fb636ee938bcfa4a3c98bf3af5671d8a04d1"
+    }
+  ],
+  "license": "ODbL 1.0",
+  "attribution": "© OpenStreetMap contributors",
+  "scope": "札幌市域を広く覆う矩形と北部近郊。行政界による切抜き・市公式除雪路線照合は未実施。右左折制限relationは未取得。"
+}

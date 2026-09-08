@@ -1,0 +1,6 @@
+{
+  "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5Bhighway~%22%5E%28primary%7Csecondary%7Ctertiary%7Cunclassified%7Cresidential%7Cliving_street%7Cprimary_link%7Csecondary_link%7Ctertiary_link%29%24%22%5D%2842.75%2C140.95%2C42.9%2C141.55%29%3Bout+geom%3B",
+  "query": "[out:json][timeout:180];way[highway~\"^(primary|secondary|tertiary|unclassified|residential|living_street|primary_link|secondary_link|tertiary_link)$\"](42.75,140.95,42.9,141.55);out geom;",
+  "retrieved_at": "2026-09-08T03:16:32.302976+00:00",
+  "sha256": "c2b56e57481628f772dd43e075d6ef9a5e310b2eac0f6e445c8a44a62a2a3ebd"
+}
