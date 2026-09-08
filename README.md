@@ -70,7 +70,8 @@ python scripts/run_city.py            # 市域閉路の計算
 python scripts/build_boundary.py      # 市境の取得（docs/wide_dispatch.md）
 python scripts/run_dispatch.py        # 会社担当固定の広域配車
 python scripts/run_dispatch.py --joint
-python scripts/improve_dispatch.py    # 区域・直行経路の現行データ（docs/direct_routing.md）
+python scripts/improve_dispatch.py    # 区域別配車の現行データ（docs/direct_routing.md）。末尾で画面用データも再生成
+python scripts/build_web_geometry.py  # 画面用データだけを再生成（共有座標表＋頂点番号列）
 python scripts/build_snow_management.py  # 日別雪収支（docs/snow_management.md）
 python scripts/build_grid_ix.py           # 変電所・送電線・IX・工業団地の一律評価（docs/dc_feasibility.md）
 ```

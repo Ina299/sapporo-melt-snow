@@ -1,5 +1,5 @@
 'use strict';
-let CR=window.JOINT_ROUTES;
+let CR=decodeRoutes(window.JOINT_ROUTES);
 if(CR){
   const layer=L.featureGroup().addTo(map);
   const detailLayer=L.layerGroup().addTo(map);
@@ -233,7 +233,7 @@ if(CR){
         $('dispatch-mode-note').textContent='会社担当固定の配車データを読み込んでいます…';
         await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='dispatch-data.js';script.onload=resolve;script.onerror=()=>{script.remove();reject(new Error('配車データを読み込めませんでした'));};document.body.appendChild(script);});
       }
-      CR=el.value==='joint'?window.JOINT_ROUTES:window.CONTRACTOR_ROUTES;
+      CR=el.value==='joint'?decodeRoutes(window.JOINT_ROUTES):decodeRoutes(window.CONTRACTOR_ROUTES);
       missing.clearLayers();missing.addData(CR.unassigned_geometry);
       const wasCompany=mode==='company';
       selectCompany($('route-company').value);updateSummary();

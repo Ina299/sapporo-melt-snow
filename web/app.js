@@ -1,6 +1,30 @@
 /* Public facts are loaded from the local reproducible bundle. No external API calls. */
 'use strict';
 const D=window.SAPPORO_DATA;
+/* Shared node table: roads and routes are shipped as node-index lists (see scripts/build_web_geometry.py). */
+const NODES=window.SAPPORO_NODES;
+const nodeCoord=i=>[NODES.xy[i*2]/NODES.scale+NODES.lon0,NODES.xy[i*2+1]/NODES.scale+NODES.lat0];
+const decodeLine=(arr,from)=>{const out=new Array(arr.length-from);for(let i=from;i<arr.length;i++)out[i-from]=nodeCoord(arr[i]);return out;};
+const decodeFeature=(a,trip)=>({type:'Feature',properties:{trip,service:a[0]===1},geometry:{type:'LineString',coordinates:decodeLine(a,1)}});
+function decodeRoutes(d){
+  if(!d||d.geometry!=='nodes')return d;
+  const decodeTrip=t=>{t.features=t.features.map(a=>decodeFeature(a,t.id));t.incoming_features=(t.incoming_features||[]).map(a=>decodeFeature(a,t.id));};
+  for(const c of d.companies){
+    c.trips.forEach(decodeTrip);
+    for(const s of c.scenarios){
+      for(const r of s.routes){r.head_features=(r.head_features||[]).map(a=>decodeFeature(a,-1));r.tail_features=(r.tail_features||[]).map(a=>decodeFeature(a,-1));r.incoming_features=(r.incoming_features||[]).map(inc=>inc.map(a=>decodeFeature(a,-1)));}
+      if(s.trips)s.trips.forEach(decodeTrip);
+    }
+  }
+  const ug=d.unassigned_geometry;
+  d.unassigned_geometry={type:'FeatureCollection',features:ug.features.map(a=>({type:'Feature',properties:{task_id:a[0],reason:a[1]??ug.reason},geometry:{type:'LineString',coordinates:decodeLine(a,2)}}))};
+  d.geometry='geojson';return d;
+}
+function decodeRoads(c){
+  if(!c||c.geometry!=='nodes')return c;
+  c.roads={type:'FeatureCollection',features:c.roads_enc.map(([way_id,name,included,flat])=>{const segs=[];for(let i=0;i<flat.length;i+=2)segs.push([nodeCoord(flat[i]),nodeCoord(flat[i+1])]);return {type:'Feature',properties:{way_id,name,included:included===1},geometry:{type:'MultiLineString',coordinates:segs}};})};
+  delete c.roads_enc;c.geometry='geojson';return c;
+}
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'未確認').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num=(v,d=0)=>Number(v).toLocaleString('ja-JP',{minimumFractionDigits:d,maximumFractionDigits:d});

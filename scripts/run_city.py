@@ -40,7 +40,8 @@ def main():
         (out/(name+'.json')).write_text(json.dumps(obj,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
     roads=dict(type='FeatureCollection',features=features)
     (out/'city_roads.geojson').write_text(json.dumps(roads,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
-    (ROOT/'web/city-data.js').write_text('window.SAPPORO_CITY = '+json.dumps(dict(summary=summary,roads=roads),ensure_ascii=False,separators=(',',':'))+';',encoding='utf-8')
+    from build_web_geometry import main as build_web_geometry
+    build_web_geometry()  # web bundles use the shared node table
     print(json.dumps(audit),flush=True)
 
 if __name__=='__main__':main()

@@ -1,5 +1,5 @@
 'use strict';
-const C=window.SAPPORO_CITY;
+const C=decodeRoads(window.SAPPORO_CITY);
 let cityRoadLayer=null;
 if(C){
   const layer=L.geoJSON(C.roads,{style:()=>({color:'#82988d',weight:1,opacity:.3}),onEachFeature:(f,l)=>l.bindPopup(`${esc(f.properties.name)}<br>OSM way ${f.properties.way_id}<br>取得した作業対象道路の下図。担当は事業者別レイヤーで表示。`)}).addTo(map);

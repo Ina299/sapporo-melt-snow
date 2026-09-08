@@ -242,8 +242,9 @@ def main():
         with gzip.open(out/f'{prefix}_ordered_routes.json.gz','wt',encoding='utf-8') as file:json.dump(archive,file,ensure_ascii=False,separators=(',',':'))
         (out/f'{prefix}.json').write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
         (out/f'{prefix}_summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
-        name='joint-dispatch-data.js' if mode=='joint' else 'dispatch-data.js';variable='JOINT_ROUTES' if mode=='joint' else 'CONTRACTOR_ROUTES'
-        (ROOT/('web/'+name)).write_text('window.'+variable+' = '+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';',encoding='utf-8')
         print(mode,summary['total_hours'],summary['baseline_makespan_hours'],summary['total_deadhead_km'],flush=True)
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    main()
+    from build_web_geometry import main as build_web_geometry
+    build_web_geometry()
