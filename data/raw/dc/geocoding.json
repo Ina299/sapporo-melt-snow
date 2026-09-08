@@ -145,5 +145,47 @@
     ],
     "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%A4%A7%E9%80%9A%E6%9D%B13%E4%B8%81%E7%9B%AE4",
     "retrieved_at": "2026-09-08T10:32:54.949322+00:00"
+  },
+  "札幌市中央区南21条西16丁目": {
+    "query": "札幌市中央区南21条西16丁目",
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.336273,
+            43.030685
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市中央区南二十一条西十六丁目"
+        }
+      }
+    ],
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%8D%9721%E6%9D%A1%E8%A5%BF16%E4%B8%81%E7%9B%AE",
+    "retrieved_at": "2026-09-08T11:04:50.021616+00:00"
+  },
+  "札幌市西区宮の沢1条1丁目": {
+    "query": "札幌市西区宮の沢1条1丁目",
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.275116,
+            43.089222
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市西区宮の沢一条一丁目"
+        }
+      }
+    ],
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E8%A5%BF%E5%8C%BA%E5%AE%AE%E3%81%AE%E6%B2%A21%E6%9D%A11%E4%B8%81%E7%9B%AE",
+    "retrieved_at": "2026-09-08T11:04:50.104687+00:00"
   }
 }

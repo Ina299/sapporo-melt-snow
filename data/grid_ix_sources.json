@@ -3,28 +3,28 @@
     "id": "hepco_substations",
     "url": "https://hello.hepco.co.jp/wp-content/uploads/geojson/SWSS_260407.geojson",
     "path": "data/raw/grid_ix/hepco_substations.geojson",
-    "retrieved_at": "2026-09-08T10:33:33.814798+00:00",
+    "retrieved_at": "2026-09-08T11:04:50.685234+00:00",
     "sha256": "89198b1a694ca90946a0bf28cd1abdacbf11ba7ee6be3eddd7fc8998f0ae493f"
   },
   {
     "id": "hepco_lines",
     "url": "https://hello.hepco.co.jp/wp-content/uploads/geojson/NDI_ALL_Hokkaido_260611b.geojson",
     "path": "data/raw/grid_ix/hepco_lines.geojson",
-    "retrieved_at": "2026-09-08T10:33:34.169090+00:00",
+    "retrieved_at": "2026-09-08T11:04:51.045125+00:00",
     "sha256": "758369355af74755a66288cedbdcf1f6c6aed4a3ad7368a7bae3e7d6ebc7efb9"
   },
   {
     "id": "hepco_industrial_parks",
     "url": "https://hello.hepco.co.jp/wp-content/uploads/geojson/qgis_kogyo_danchi1.geojson",
     "path": "data/raw/grid_ix/hepco_industrial_parks.geojson",
-    "retrieved_at": "2026-09-08T10:33:34.403920+00:00",
+    "retrieved_at": "2026-09-08T11:04:51.333776+00:00",
     "sha256": "819e780689fd62e9dcb8c8b65dac7abd163f5ad7226e445226a2c153a8d269a7"
   },
   {
     "id": "hix_location",
     "url": "https://www.h-ix.jp/location/",
     "path": "data/raw/grid_ix/hix_location.html",
-    "retrieved_at": "2026-09-08T10:33:34.553496+00:00",
+    "retrieved_at": "2026-09-08T11:04:51.521819+00:00",
     "sha256": "4e6c2535a002821a2781d0f7b1381edad4a2a702956609d8c1b5257d29fad129"
   },
   {
@@ -32,8 +32,8 @@
     "url": "https://overpass-api.de/api/interpreter",
     "query": "[out:json][timeout:120];(node[\"power\"=\"substation\"](42.9,141.1,43.3,141.65);way[\"power\"=\"substation\"](42.9,141.1,43.3,141.65);relation[\"power\"=\"substation\"](42.9,141.1,43.3,141.65););out center;",
     "path": "data/raw/grid_ix/osm_substations.json",
-    "retrieved_at": "2026-09-08T10:34:08.227665+00:00",
-    "sha256": "5f1aed8d3ee0f88146b3cb851e75a65cb47fdcd912afed24b0e9f425f7b29d31",
+    "retrieved_at": "2026-09-08T11:04:54.364994+00:00",
+    "sha256": "0f4300c2bf9141868875039e64a0abbe4518f3245047202eb8cf357c08401c7b",
     "license": "ODbL 1.0 © OpenStreetMap contributors"
   }
 ]

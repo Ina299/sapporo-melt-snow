@@ -323,7 +323,7 @@
     },
     {
       "id": "shinkawa",
-      "name": "札幌市新川・発寒の工業地区",
+      "name": "札幌市新川・発寒北の工業地区",
       "verdict": "用地探索",
       "land": "まとまった現行売地は今回未確認。市有地売払は新川西の宅地小区画のみでDC規模ではない。既存工業用地の更新・共同利用を探索。",
       "rationale": "西区・北区からの運搬を短縮できる可能性。既存融雪場そのものを空地と扱わない。",
@@ -511,36 +511,36 @@
       }
     },
     {
-      "id": "maruyama",
-      "name": "札幌市中央区 円山・宮の森方面（参考）",
-      "verdict": "参考・用地未発見",
-      "land": "OSMの土地利用では半径3.5km内にまとまった工業・遊休地がなく、大きな区画は競技場・公園・駐車場・市電車両センター（約1ha）・藻岩浄水場・中央卸売市場・札幌競馬場。いずれも売地ではない。",
-      "rationale": "中央区西部の雪を近距離で処理する仮説。変電所・IXの近さと用地の無さを同じ表で比較するために残す。",
-      "hazard": "住宅密集地への搬入、円山公園・北海道神宮周辺の景観・交通、藻岩山側の斜面を確認。",
-      "source_url": "https://www.openstreetmap.org/copyright",
+      "id": "yamahana",
+      "name": "札幌市中央区 山鼻・南22条橋方面（参考）",
+      "verdict": "参考・公共用地の転用前提",
+      "land": "OSMの土地利用（半径2.5km、987区画）に民間の工業・遊休地はない。大区画は陸上自衛隊札幌駐屯地（12.5ha）、市電車両センター（約1ha）、藻岩浄水場、学校・大学・病院。成立するのは市有地・公共用地の転用か河川敷雪堆積場との一体整備を政策として扱う場合に限る。",
+      "rationale": "中央区南部・西部の雪を近距離で処理する仮説。市の配置案では中央区南地区の雪堆積場が五輪大橋・南22条橋の河川敷で、雪の流れと合う。円山より受電・IX・用地の条件が良いため参考地区を円山から山鼻に置き換えた。",
+      "hazard": "豊平川の洪水、住宅密集地への搬入、藻岩山側の斜面、公共施設の機能維持を確認。",
+      "source_url": "https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/3-taisekijoitiran.pdf",
       "municipality": "札幌市",
       "buildable_confirmed": false,
       "grid_connection_confirmed": false,
       "network_routes_confirmed": false,
       "parcel_flood_depth_m": null,
-      "latitude": 43.051479,
-      "longitude": 141.306641,
-      "map_address": "札幌市中央区宮ケ丘",
-      "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%AE%AE%E3%82%B1%E4%B8%98",
+      "latitude": 43.030685,
+      "longitude": 141.336273,
+      "map_address": "札幌市中央区南21条西16丁目",
+      "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%8D%9721%E6%9D%A1%E8%A5%BF16%E4%B8%81%E7%9B%AE",
       "location_status": "調査地区の代表点。売地区画・敷地境界・入口を示すものではありません。",
-      "geocoded_title": "北海道札幌市中央区宮ケ丘",
+      "geocoded_title": "北海道札幌市中央区南二十一条西十六丁目",
       "grid_ix": {
         "nearest_substation_187kv": {
           "name": "南九条",
-          "distance_km": 3.33,
+          "distance_km": 2.15,
           "primary_kv": 187,
           "secondary_kv": 66.0,
           "capacity_label": "要照会",
           "capacity_code": 0
         },
         "nearest_substation_66kv": {
-          "name": "円山",
-          "distance_km": 1.8,
+          "name": "山鼻",
+          "distance_km": 0.89,
           "primary_kv": 66,
           "secondary_kv": 6.6,
           "capacity_label": "要照会",
@@ -548,29 +548,36 @@
         },
         "substations_within_3km": [
           {
+            "name": "山鼻",
+            "distance_km": 0.89,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "藻岩",
+            "distance_km": 1.93,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "南九条",
+            "distance_km": 2.15,
+            "primary_kv": 187,
+            "secondary_kv": 66.0,
+            "capacity_label": "要照会"
+          },
+          {
             "name": "円山",
-            "distance_km": 1.8,
+            "distance_km": 2.36,
             "primary_kv": 66,
             "secondary_kv": 6.6,
             "capacity_label": "要照会"
           },
           {
-            "name": "桑園",
-            "distance_km": 2.38,
-            "primary_kv": 66,
-            "secondary_kv": 6.6,
-            "capacity_label": "要照会"
-          },
-          {
-            "name": "山の手",
-            "distance_km": 2.51,
-            "primary_kv": 66,
-            "secondary_kv": 6.6,
-            "capacity_label": "要照会"
-          },
-          {
-            "name": "二十四軒",
-            "distance_km": 2.97,
+            "name": "澄川",
+            "distance_km": 2.86,
             "primary_kv": 66,
             "secondary_kv": 6.6,
             "capacity_label": "要照会"
@@ -578,20 +585,20 @@
         ],
         "nearest_lines": {
           "66": {
-            "name": "円山地中線",
-            "distance_km": 1.74,
+            "name": "南九条山鼻地中線",
+            "distance_km": 0.87,
             "capacity_label": "要照会",
             "ord_cur": 0.0
           },
           "187": {
             "name": "南九条線",
-            "distance_km": 0.98,
+            "distance_km": 1.91,
             "capacity_label": "要照会",
             "ord_cur": 0.0
           },
           "275": {
             "name": "275kV 道央北幹線",
-            "distance_km": 4.72,
+            "distance_km": 7.94,
             "capacity_label": "300～499MW",
             "ord_cur": 500.0
           }
@@ -599,14 +606,14 @@
         "nearest_osm_substation": {
           "name": "円山変電所",
           "voltage": "66000",
-          "distance_km": 1.8,
+          "distance_km": 2.36,
           "osm_id": "way/166967538"
         },
         "ix": [
           {
             "id": "hix",
             "name": "H-IXデータセンター（北海道インターネット・エクスチェンジ）",
-            "distance_km": 4.61,
+            "distance_km": 4.04,
             "note": "ほくでん情報テクノロジー運営。住所は公式サイトで公開。ポート空き・料金・接続条件は未照会。"
           },
           {
@@ -619,7 +626,123 @@
         "nearest_industrial_park": {
           "name": "発寒木工",
           "municipality": "札幌市西区",
-          "distance_km": 5.5,
+          "distance_km": 8.71,
+          "area_ha": "17.8",
+          "sold_ha": "13.4",
+          "year": "1973"
+        }
+      }
+    },
+    {
+      "id": "miyanosawa",
+      "name": "札幌市西区 宮の沢・発寒木工団地南端",
+      "verdict": "用地探索",
+      "land": "発寒木工団地（17.8ha）まで1.9km、発寒鉄工団地（54.7ha）まで2.7kmで、工業地区の南西端に接する。駅周辺は住宅・商業が主で、まとまった遊休地は未確認。現行売地未確認。",
+      "rationale": "中央区西部・西区南部（円山・三角山側）の雪を受けるDC4の西側の受け口。新川・発寒北（DC4）は北区・手稲側に寄るため、同じ発寒工業地区の南端で運搬距離を比較する。",
+      "hazard": "琴似発寒川の洪水・内水、住宅地への搬入経路、既存工場との交錯を確認。",
+      "source_url": "https://hello.hepco.co.jp/map/?v=es",
+      "municipality": "札幌市",
+      "buildable_confirmed": false,
+      "grid_connection_confirmed": false,
+      "network_routes_confirmed": false,
+      "parcel_flood_depth_m": null,
+      "latitude": 43.089222,
+      "longitude": 141.275116,
+      "map_address": "札幌市西区宮の沢1条1丁目",
+      "geocode_source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E8%A5%BF%E5%8C%BA%E5%AE%AE%E3%81%AE%E6%B2%A21%E6%9D%A11%E4%B8%81%E7%9B%AE",
+      "location_status": "調査地区の代表点。売地区画・敷地境界・入口を示すものではありません。",
+      "geocoded_title": "北海道札幌市西区宮の沢一条一丁目",
+      "grid_ix": {
+        "nearest_substation_187kv": {
+          "name": "西札幌",
+          "distance_km": 3.64,
+          "primary_kv": 187,
+          "secondary_kv": 66.0,
+          "capacity_label": "50～99MW",
+          "capacity_code": 100
+        },
+        "nearest_substation_66kv": {
+          "name": "西野三条",
+          "distance_km": 1.01,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会",
+          "capacity_code": 0
+        },
+        "substations_within_3km": [
+          {
+            "name": "西野三条",
+            "distance_km": 1.01,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "宮の沢",
+            "distance_km": 1.27,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "琴似",
+            "distance_km": 2.1,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          },
+          {
+            "name": "山の手",
+            "distance_km": 2.41,
+            "primary_kv": 66,
+            "secondary_kv": 6.6,
+            "capacity_label": "要照会"
+          }
+        ],
+        "nearest_lines": {
+          "66": {
+            "name": "西野三条地中支線",
+            "distance_km": 0.11,
+            "capacity_label": "要照会",
+            "ord_cur": 0.0
+          },
+          "187": {
+            "name": "187kV 室蘭西幹線",
+            "distance_km": 1.65,
+            "capacity_label": "50～99MW",
+            "ord_cur": 100.0
+          },
+          "275": {
+            "name": "275kV 道央北幹線",
+            "distance_km": 1.65,
+            "capacity_label": "300～499MW",
+            "ord_cur": 500.0
+          }
+        },
+        "nearest_osm_substation": {
+          "name": "宮の沢変電所",
+          "voltage": "66000;6600",
+          "distance_km": 1.27,
+          "osm_id": "way/200915482"
+        },
+        "ix": [
+          {
+            "id": "hix",
+            "name": "H-IXデータセンター（北海道インターネット・エクスチェンジ）",
+            "distance_km": 7.64,
+            "note": "ほくでん情報テクノロジー運営。住所は公式サイトで公開。ポート空き・料金・接続条件は未照会。"
+          },
+          {
+            "id": "jpnap_sapporo",
+            "name": "JPNAP札幌（NTT東日本 北海道第2データセンター内）",
+            "distance_km": null,
+            "note": "POP所在ビルの住所は非公開。距離は算出しない。100G/10G/1G掲載、400Gは要照会。"
+          }
+        ],
+        "nearest_industrial_park": {
+          "name": "発寒木工",
+          "municipality": "札幌市西区",
+          "distance_km": 0.78,
           "area_ha": "17.8",
           "sold_ha": "13.4",
           "year": "1973"

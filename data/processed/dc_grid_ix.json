@@ -901,7 +901,7 @@
       "osm_id": "way/182529428",
       "name": "月寒変電所",
       "voltage": "66000",
-      "operator": "北海道電力",
+      "operator": "北海道電力ネットワーク",
       "substation": null,
       "lat": 43.0328686,
       "lon": 141.4128732
@@ -928,7 +928,7 @@
       "osm_id": "way/182538867",
       "name": null,
       "voltage": null,
-      "operator": "北海道電力",
+      "operator": "北海道電力ネットワーク",
       "substation": null,
       "lat": 42.9770755,
       "lon": 141.4803925
@@ -937,7 +937,7 @@
       "osm_id": "way/182551910",
       "name": "大麻変電所",
       "voltage": "66000",
-      "operator": "北海道電力",
+      "operator": "北海道電力ネットワーク",
       "substation": "distribution",
       "lat": 43.0661907,
       "lon": 141.4797196
@@ -982,7 +982,7 @@
       "osm_id": "way/182674676",
       "name": "白石変電所",
       "voltage": "66000",
-      "operator": "北海道電力",
+      "operator": "北海道電力ネットワーク",
       "substation": "distribution",
       "lat": 43.0591905,
       "lon": 141.4058003
@@ -1117,7 +1117,7 @@
       "osm_id": "way/408497737",
       "name": null,
       "voltage": null,
-      "operator": "北海道電力",
+      "operator": "北海道電力ネットワーク",
       "substation": "transmission",
       "lat": 43.0190561,
       "lon": 141.367637
@@ -51860,7 +51860,7 @@
     },
     {
       "id": "shinkawa",
-      "name": "札幌市新川・発寒の工業地区",
+      "name": "札幌市新川・発寒北の工業地区",
       "nearest_substation_187kv": {
         "name": "西札幌",
         "distance_km": 0.34,
@@ -52012,19 +52012,19 @@
       }
     },
     {
-      "id": "maruyama",
-      "name": "札幌市中央区 円山・宮の森方面（参考）",
+      "id": "yamahana",
+      "name": "札幌市中央区 山鼻・南22条橋方面（参考）",
       "nearest_substation_187kv": {
         "name": "南九条",
-        "distance_km": 3.33,
+        "distance_km": 2.15,
         "primary_kv": 187,
         "secondary_kv": 66.0,
         "capacity_label": "要照会",
         "capacity_code": 0
       },
       "nearest_substation_66kv": {
-        "name": "円山",
-        "distance_km": 1.8,
+        "name": "山鼻",
+        "distance_km": 0.89,
         "primary_kv": 66,
         "secondary_kv": 6.6,
         "capacity_label": "要照会",
@@ -52032,29 +52032,36 @@
       },
       "substations_within_3km": [
         {
+          "name": "山鼻",
+          "distance_km": 0.89,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会"
+        },
+        {
+          "name": "藻岩",
+          "distance_km": 1.93,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会"
+        },
+        {
+          "name": "南九条",
+          "distance_km": 2.15,
+          "primary_kv": 187,
+          "secondary_kv": 66.0,
+          "capacity_label": "要照会"
+        },
+        {
           "name": "円山",
-          "distance_km": 1.8,
+          "distance_km": 2.36,
           "primary_kv": 66,
           "secondary_kv": 6.6,
           "capacity_label": "要照会"
         },
         {
-          "name": "桑園",
-          "distance_km": 2.38,
-          "primary_kv": 66,
-          "secondary_kv": 6.6,
-          "capacity_label": "要照会"
-        },
-        {
-          "name": "山の手",
-          "distance_km": 2.51,
-          "primary_kv": 66,
-          "secondary_kv": 6.6,
-          "capacity_label": "要照会"
-        },
-        {
-          "name": "二十四軒",
-          "distance_km": 2.97,
+          "name": "澄川",
+          "distance_km": 2.86,
           "primary_kv": 66,
           "secondary_kv": 6.6,
           "capacity_label": "要照会"
@@ -52062,20 +52069,20 @@
       ],
       "nearest_lines": {
         "66": {
-          "name": "円山地中線",
-          "distance_km": 1.74,
+          "name": "南九条山鼻地中線",
+          "distance_km": 0.87,
           "capacity_label": "要照会",
           "ord_cur": 0.0
         },
         "187": {
           "name": "南九条線",
-          "distance_km": 0.98,
+          "distance_km": 1.91,
           "capacity_label": "要照会",
           "ord_cur": 0.0
         },
         "275": {
           "name": "275kV 道央北幹線",
-          "distance_km": 4.72,
+          "distance_km": 7.94,
           "capacity_label": "300～499MW",
           "ord_cur": 500.0
         }
@@ -52083,14 +52090,14 @@
       "nearest_osm_substation": {
         "name": "円山変電所",
         "voltage": "66000",
-        "distance_km": 1.8,
+        "distance_km": 2.36,
         "osm_id": "way/166967538"
       },
       "ix": [
         {
           "id": "hix",
           "name": "H-IXデータセンター（北海道インターネット・エクスチェンジ）",
-          "distance_km": 4.61,
+          "distance_km": 4.04,
           "note": "ほくでん情報テクノロジー運営。住所は公式サイトで公開。ポート空き・料金・接続条件は未照会。"
         },
         {
@@ -52103,7 +52110,105 @@
       "nearest_industrial_park": {
         "name": "発寒木工",
         "municipality": "札幌市西区",
-        "distance_km": 5.5,
+        "distance_km": 8.71,
+        "area_ha": "17.8",
+        "sold_ha": "13.4",
+        "year": "1973"
+      }
+    },
+    {
+      "id": "miyanosawa",
+      "name": "札幌市西区 宮の沢・発寒木工団地南端",
+      "nearest_substation_187kv": {
+        "name": "西札幌",
+        "distance_km": 3.64,
+        "primary_kv": 187,
+        "secondary_kv": 66.0,
+        "capacity_label": "50～99MW",
+        "capacity_code": 100
+      },
+      "nearest_substation_66kv": {
+        "name": "西野三条",
+        "distance_km": 1.01,
+        "primary_kv": 66,
+        "secondary_kv": 6.6,
+        "capacity_label": "要照会",
+        "capacity_code": 0
+      },
+      "substations_within_3km": [
+        {
+          "name": "西野三条",
+          "distance_km": 1.01,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会"
+        },
+        {
+          "name": "宮の沢",
+          "distance_km": 1.27,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会"
+        },
+        {
+          "name": "琴似",
+          "distance_km": 2.1,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会"
+        },
+        {
+          "name": "山の手",
+          "distance_km": 2.41,
+          "primary_kv": 66,
+          "secondary_kv": 6.6,
+          "capacity_label": "要照会"
+        }
+      ],
+      "nearest_lines": {
+        "66": {
+          "name": "西野三条地中支線",
+          "distance_km": 0.11,
+          "capacity_label": "要照会",
+          "ord_cur": 0.0
+        },
+        "187": {
+          "name": "187kV 室蘭西幹線",
+          "distance_km": 1.65,
+          "capacity_label": "50～99MW",
+          "ord_cur": 100.0
+        },
+        "275": {
+          "name": "275kV 道央北幹線",
+          "distance_km": 1.65,
+          "capacity_label": "300～499MW",
+          "ord_cur": 500.0
+        }
+      },
+      "nearest_osm_substation": {
+        "name": "宮の沢変電所",
+        "voltage": "66000;6600",
+        "distance_km": 1.27,
+        "osm_id": "way/200915482"
+      },
+      "ix": [
+        {
+          "id": "hix",
+          "name": "H-IXデータセンター（北海道インターネット・エクスチェンジ）",
+          "distance_km": 7.64,
+          "note": "ほくでん情報テクノロジー運営。住所は公式サイトで公開。ポート空き・料金・接続条件は未照会。"
+        },
+        {
+          "id": "jpnap_sapporo",
+          "name": "JPNAP札幌（NTT東日本 北海道第2データセンター内）",
+          "distance_km": null,
+          "note": "POP所在ビルの住所は非公開。距離は算出しない。100G/10G/1G掲載、400Gは要照会。"
+        }
+      ],
+      "nearest_industrial_park": {
+        "name": "発寒木工",
+        "municipality": "札幌市西区",
+        "distance_km": 0.78,
         "area_ha": "17.8",
         "sold_ha": "13.4",
         "year": "1973"
