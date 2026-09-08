@@ -8,6 +8,8 @@ web/app.js decodes them back to GeoJSON on load.
 """
 import json
 from pathlib import Path
+from shapely.geometry import shape, Point
+from shapely.prepared import prep
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'data/processed'
@@ -43,6 +45,9 @@ def encode_dispatch(nodes, data):
                 r['head_features'] = [encode_feature(nodes, f) for f in r.get('head_features', [])]
                 r['tail_features'] = [encode_feature(nodes, f) for f in r.get('tail_features', [])]
                 r['incoming_features'] = [[encode_feature(nodes, f) for f in inc] for inc in r.get('incoming_features', [])]
+                for sh in r.get('shifts', []):
+                    sh['head_features'] = [encode_feature(nodes, f) for f in sh.get('head_features', [])]
+                    sh['tail_features'] = [encode_feature(nodes, f) for f in sh.get('tail_features', [])]
             if s.get('trips'):
                 for t in s['trips']:
                     t['features'] = [encode_feature(nodes, f) for f in t['features']]
@@ -55,14 +60,16 @@ def encode_dispatch(nodes, data):
     data['geometry'] = 'nodes'
     return data
 
-def encode_roads(nodes, roads):
+def encode_roads(nodes, roads, city_poly):
     out = []
     for f in roads['features']:
         p = f['properties']
         flat = []
         for seg in f['geometry']['coordinates']:  # MultiLineString of 2-point segments
             flat.extend(nodes.line(seg))
-        out.append([p['way_id'], p.get('name'), 1 if p.get('included') else 0, flat])
+        seg0 = f['geometry']['coordinates'][0]
+        mid = Point((seg0[0][0] + seg0[-1][0]) / 2, (seg0[0][1] + seg0[-1][1]) / 2)
+        out.append([p['way_id'], p.get('name'), 1 if p.get('included') else 0, 1 if city_poly.contains(mid) else 0, flat])
     return out
 
 def dump_js(path, var, obj):
@@ -72,7 +79,9 @@ def main():
     nodes = NodeTable()
     load = lambda p: json.loads((OUT / p).read_text(encoding='utf-8'))
     city = load('city_analysis.json'); roads = load('city_roads.geojson')
-    dump_js(WEB / 'city-data.js', 'SAPPORO_CITY', dict(summary=city, geometry='nodes', roads_enc=encode_roads(nodes, roads)))
+    boundary = load('sapporo_boundary.geojson')
+    city_poly = prep(shape(boundary['geometry'] if boundary.get('type') == 'Feature' else boundary['features'][0]['geometry']))
+    dump_js(WEB / 'city-data.js', 'SAPPORO_CITY', dict(summary=city, geometry='nodes', roads_enc=encode_roads(nodes, roads, city_poly)))
     for prefix, var, name in [('dispatch', 'CONTRACTOR_ROUTES', 'dispatch-data.js'), ('joint_dispatch', 'JOINT_ROUTES', 'joint-dispatch-data.js')]:
         dump_js(WEB / name, var, encode_dispatch(nodes, load(prefix + '.json')))
     dump_js(WEB / 'nodes-data.js', 'SAPPORO_NODES', dict(lon0=LON0, lat0=LAT0, scale=SCALE, xy=nodes.xy))

@@ -3,10 +3,14 @@ import gzip,json,sys
 from collections import Counter,defaultdict
 from pathlib import Path
 import networkx as nx
+from shapely.geometry import shape,Point
+from shapely.prepared import prep
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from src.routing import build_graph,travel_graph,distance,metrics,DRIVABLE
 from src.spatial_routing import bisect_groups,improve_order
 from scripts.run_dispatch import LIMITS
+
+SHIFT_HOURS=8  # one shift: leave the depot, work, return; the next shift restarts from the depot
 
 def main():
     out=ROOT/'data/processed';load=lambda p:json.loads((ROOT/p).read_text(encoding='utf-8'))
@@ -38,6 +42,12 @@ def main():
                 features.append(dict(type='Feature',properties=dict(trip=trip,service=s['service']),geometry=dict(type='LineString',coordinates=[[round(g.nodes[s['u']]['lon'],6),round(g.nodes[s['u']]['lat'],6)]])))
             features[-1]['geometry']['coordinates'].append([round(g.nodes[s['v']]['lon'],6),round(g.nodes[s['v']]['lat'],6)])
         return features
+    boundary=load('data/processed/sapporo_boundary.geojson')
+    city_poly=prep(shape(boundary['geometry'] if boundary.get('type')=='Feature' else boundary['features'][0]['geometry']))
+    def in_city(st):
+        a,b_=g.nodes[st['u']],g.nodes[st['v']]
+        return city_poly.contains(Point((a['lon']+b_['lon'])/2,(a['lat']+b_['lat'])/2))
+    out_of_scope=[]  # service arcs outside the Sapporo boundary: not part of the work set
     jobs=[]
     def add_job(steps,tour=None,pos=None):
         # tour/pos remember the Euler-circuit origin: consecutive chunks of one circuit join
@@ -46,13 +56,22 @@ def main():
     for ti,tour in enumerate(load('data/processed/city_routes.json')):
         chunk=[];elapsed=0;pos=0
         for s in tour['steps']:
+            if s['service'] and not in_city(s):
+                # out-of-city arc: close the current chunk and leave this arc out of the work set
+                out_of_scope.append(s)
+                if chunk:add_job(chunk,ti,pos);pos+=1
+                chunk=[];elapsed=0;continue
+            if not chunk and not s['service']:continue  # a chunk starts with work, not with a connector
             if chunk and (elapsed>=900 or distance(g.nodes[chunk[0]['u']],g.nodes[s['v']])>750):
                 add_job(chunk,ti,pos);pos+=1;chunk=[];elapsed=0
             chunk.append(s);elapsed+=s['service_s'] if s['service'] else s['cost']/1000
         add_job(chunk,ti,pos)
     for e in load('data/processed/city_excluded_arcs.json'):
         a=work[e['u']][e['v']][e['task_id']]
-        add_job([dict(u=e['u'],v=e['v'],task_id=e['task_id'],original_key=e['task_id'],service=True,length_m=a['length_m'],service_s=a['service_s'],cost=a['cost'])])
+        st=dict(u=e['u'],v=e['v'],task_id=e['task_id'],original_key=e['task_id'],service=True,length_m=a['length_m'],service_s=a['service_s'],cost=a['cost'])
+        if in_city(st):add_job([st])
+        else:out_of_scope.append(st)
+    print('Out-of-city service arcs excluded',len(out_of_scope),flush=True)
     valid=[];unassigned=[]
     for j in jobs:
         steps=j['steps'];sample=[steps[0]['u'],steps[len(steps)//2]['u'],steps[-1]['v']]
@@ -76,7 +95,8 @@ def main():
         step=.001/(1+iteration/30)
         for i,c in enumerate(companies):offsets[i]+=step*(h[i]/c['fleet_limit']-average)
     plans['joint']=best[1]
-    required={k for u,v,k in work.edges(keys=True)}
+    out_ids={s['task_id'] for s in out_of_scope}
+    required={k for u,v,k in work.edges(keys=True)}-out_ids
     for mode,owner in plans.items():
         results=[];covered=Counter();archive={'jobs':[],'scenarios':[]};prefix='joint_dispatch' if mode=='joint' else 'dispatch'
         for ci,c in enumerate(companies):
@@ -178,7 +198,7 @@ def main():
                 pth=[dst]
                 while pth[-1] not in sources:pth.append(par[pth[-1]])
                 return pth[::-1]
-            def chunk_trips(walk,base_id):
+            def chunk_trips(walk,base_id,return_steps=False):
                 """Cut a vehicle walk into ~15 min / 750 m display units (trips) without breaking continuity."""
                 trips=[];chunk=[];elapsed=0
                 for st in walk:
@@ -186,12 +206,13 @@ def main():
                         trips.append(chunk);chunk=[];elapsed=0
                     chunk.append(st);elapsed+=st['service_s'] if st['service'] else st['cost']/1000
                 if chunk:trips.append(chunk)
+                trip_steps=trips
                 records=[]
                 for k,steps in enumerate(trips):
                     tid=base_id+k
                     records.append(dict(id=tid,task_count=sum(st['service'] for st in steps),start_node=steps[0]['u'],end_node=steps[-1]['v'],
                                         incoming_features=[],features=geometry(steps,tid),incoming_metrics=metrics([]),**metrics(steps)))
-                return records
+                return (records,trip_steps) if return_steps else records
             scenarios=[];standard_trips=[]
             counts=[c['fleet_limit']]  # standard fleet only in both modes; a fleet sweep made the page 131 MB
             total_tasks=sum(sum(st['service'] for st in j['steps']) for j in company_jobs)
@@ -211,10 +232,30 @@ def main():
                         if k and steps[k-1]['v']!=st['u']:raise AssertionError('Disconnected route')
                     for st in core:
                         if st['service']:served[st['task_id']]+=1
-                    trips=chunk_trips(core,next_id);next_id+=len(trips);scenario_trips.extend(trips)
-                    routes.append(dict(vehicle_id=vi,trip_ids=[t['id'] for t in trips],head_features=geometry(head,-1),tail_features=geometry(tail,-1),
-                                       incoming_features=[[] for _ in trips],**metrics(steps)))
-                    scenario_archive.append(dict(vehicle=vi,head=head,core=core,tail=tail))
+                    trips,trip_steps=chunk_trips(core,next_id,return_steps=True);next_id+=len(trips);scenario_trips.extend(trips)
+                    # Split into shifts: each shift leaves the depot, works at most SHIFT_HOURS including the
+                    # return trip, and the next shift starts again from the depot.
+                    shifts=[];cur=None;cur_end=None
+                    def close(cur,cur_end):
+                        tail_=access(cur_end,bp,True);cur['steps'].extend(tail_);cur['tail']=tail_;shifts.append(cur)
+                    for k,chunk in enumerate(trip_steps):
+                        body_=chunk
+                        if cur is None or cur['hours']+metrics(chunk)['hours']+b[chunk[-1]['v']]/1000/3600>SHIFT_HOURS and cur['trip_idx']:
+                            if cur is not None:close(cur,cur_end)
+                            while len(body_)>1 and not body_[0]['service']:body_=body_[1:]  # a new shift heads straight to the work
+                            head_=access(body_[0]['u'],fp);cur=dict(steps=head_[:],head=head_,trip_idx=[],hours=metrics(head_)['hours'])
+                        cur['steps'].extend(body_);cur['trip_idx'].append(k);cur['hours']+=metrics(body_)['hours'];cur_end=body_[-1]['v']
+                    close(cur,cur_end)
+                    steps=[st for sh in shifts for st in sh['steps']]
+                    for k,st in enumerate(steps):
+                        if not g.has_edge(st['u'],st['v'],st['original_key']):raise AssertionError('Illegal direction')
+                        if k and steps[k-1]['v']!=st['u']:raise AssertionError('Disconnected route')
+                    for sh in shifts:
+                        if sh['steps'][0]['u']!=c['depot_node'] or sh['steps'][-1]['v']!=c['depot_node']:raise AssertionError('Shift not closed')
+                    shift_records=[dict(shift=i+1,trip_ids=[trips[k]['id'] for k in sh['trip_idx']],head_features=geometry(sh['head'],-1),tail_features=geometry(sh['tail'],-1),**metrics(sh['steps'])) for i,sh in enumerate(shifts)]
+                    routes.append(dict(vehicle_id=vi,trip_ids=[t['id'] for t in trips],head_features=shift_records[0]['head_features'],tail_features=shift_records[-1]['tail_features'],
+                                       incoming_features=[[] for _ in trips],shifts=shift_records,shift_count=len(shift_records),shift_hours=SHIFT_HOURS,**metrics(steps)))
+                    scenario_archive.append(dict(vehicle=vi,shifts=[dict(head=sh['head'],core=[st for k in sh['trip_idx'] for st in trip_steps[k]],tail=sh['tail']) for sh in shifts]))
                 expected=Counter(st['task_id'] for j in company_jobs for st in j['steps'] if st['service'])
                 if served!=expected:raise AssertionError('Cell coverage mismatch')
                 scenarios.append(dict(vehicles=count,routes=routes,trips=None if count==counts[-1] else scenario_trips,validation=dict(valid=True,covered=total_tasks,closed_at_depot=True)))
@@ -231,13 +272,17 @@ def main():
                      total_hours=sum(r['hours'] for r in baseline),total_deadhead_km=sum(r['deadhead_km'] for r in baseline),
                      total_service_km=sum(r['service_km'] for r in baseline),baseline_makespan_hours=max(r['hours'] for r in baseline),
                      all_tasks_assigned=not missing,valid_assigned_routes=True,trip_count=sum(len(c['trips']) for c in results),previous=previous[mode],
-                     territory_offsets_hours=best[2] if mode=='joint' else [0]*4)
-        missing_geometry=load('data/processed/dispatch_unassigned.geojson')
+                     territory_offsets_hours=best[2] if mode=='joint' else [0]*4,
+                     out_of_scope_arcs=len(out_ids),scope_note='札幌市境（OSM行政界）の内側の区間のみを作業対象とし、市外区間は対象外として除外。',
+                     shift_hours=SHIFT_HOURS,baseline_days=max(r['shift_count'] for r in baseline),total_shifts=sum(r['shift_count'] for r in baseline))
+        reason='追加した回送道路を含めても、公開4社の出発道路ノードから往復可能な経路を確認できない市内区間。'
+        missing_geometry=dict(type='FeatureCollection',features=[dict(type='Feature',properties=dict(task_id=s['task_id'],reason=reason),geometry=dict(type='LineString',coordinates=[[round(g.nodes[s['u']]['lon'],6),round(g.nodes[s['u']]['lat'],6)],[round(g.nodes[s['v']]['lon'],6),round(g.nodes[s['v']]['lat'],6)]])) for s in unassigned])
         if {f['properties']['task_id'] for f in missing_geometry['features']}!=missing:raise AssertionError('Unassigned map differs from audit')
+        (out/f'{prefix}_unassigned.geojson').write_text(json.dumps(missing_geometry,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
         data=dict(mode=mode,route_format='direct_jobs',companies=results,summary=summary,unassigned_geometry=missing_geometry,
-                  scope='広域431,116方向区間の仮の割当。実契約地区ではない。',
-                  method='道路往復時間で会社の区域を作成し、作業時間が均等になるよう地理的に二分割を繰り返して車両ごとの連続した担当区域に分割。各区域では担当区間を郵便配達人問題として解き直し（不足する接続を道路最短経路で補い、成分ごとにEuler閉路）、成分の訪問順は帰庫コストを含めて最寄り順＋Or-optで決めて最初に出発・最後に帰庫。'+('全社台数で区域境界を調整。' if mode=='joint' else '会社所在地への近さを優先。')+'近似解で最適性・区域の完全な連結性の保証なし。',
-                  transit_note='市外も含む。車種別通行・右左折制限・雪量・実稼働は未検証。',
+                  scope='札幌市内の方向区間の仮の割当（市外区間は対象外）。実契約地区ではない。',
+                  method='道路往復時間で会社の区域を作成し、作業時間が均等になるよう地理的に二分割を繰り返して車両ごとの連続した担当区域に分割。各区域では担当区間を郵便配達人問題として解き直し（不足する接続を道路最短経路で補い、成分ごとにEuler閉路）、成分の訪問順は帰庫コストを含めて最寄り順＋Or-optで決めて最初に出発・最後に帰庫。各車両の経路は8時間のシフトに分け、シフトごとに所在地から出発して帰庫する。'+('全社台数で区域境界を調整。' if mode=='joint' else '会社所在地への近さを優先。')+'近似解で最適性・区域の完全な連結性の保証なし。',
+                  transit_note='回送は市外道路も通行可。車種別通行・右左折制限・雪量・実稼働は未検証。',
                   fleet_note='両方式とも台数は公表主要機種による標準台数で固定。機種は公表主要機種の仮定。',origin_note='入口と道路の未確認接続は未算入。')
         with gzip.open(out/f'{prefix}_ordered_routes.json.gz','wt',encoding='utf-8') as file:json.dump(archive,file,ensure_ascii=False,separators=(',',':'))
         (out/f'{prefix}.json').write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')),encoding='utf-8')

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>区域と直行経路の改善（2026-09-08）</title><style>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>区域と直行経路の改善（2026-09-08、2026-09-09 更新）</title><style>
 :root{--ink:#1d2a2c;--muted:#5d6f6b;--green:#207f69;--line:#dfe6e0;--bg:#f6f8f4}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.9 "Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
 main{max-width:960px;margin:0 auto;padding:32px 24px 64px;background:#fff;min-height:100vh}
@@ -11,7 +11,41 @@ th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;verti
 img{max-width:100%;border:1px solid var(--line);border-radius:6px}
 nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{margin-right:14px}
 </style></head>
-<body><main><nav class="docnav"><a href="../web/">画面へ戻る</a><a href="design.html">設計・調査結果</a><a href="dc_feasibility.html">DC候補地</a><a href="direct_routing.html">配車</a><a href="snow_management.html">雪収支</a><a href="../README.md">README</a></nav><h1 id="2026-09-08">区域と直行経路の改善（2026-09-08）</h1>
+<body><main><nav class="docnav"><a href="../web/">画面へ戻る</a><a href="design.html">設計・調査結果</a><a href="dc_feasibility.html">DC候補地</a><a href="direct_routing.html">配車</a><a href="snow_management.html">雪収支</a><a href="../README.md">README</a></nav><h1 id="2026-09-082026-09-09">区域と直行経路の改善（2026-09-08、2026-09-09 更新）</h1>
+<h2 id="2026-09-09-8">2026-09-09 更新：市内限定と8時間シフト</h2>
+<p>作業対象を札幌市境（OSM行政界）の内側の方向区間に限定し、各車両の経路を8時間のシフトに分けた。1シフトは所在地を出て作業し、帰庫までを8時間以内に収める。次のシフトは所在地から再出庫する。休憩・給油・交代の時間は未算入。対象431,116区間のうち市外128,767区間を対象外とし、市内302,349区間のうち300,081区間を割当、2,268区間は往復到達を確認できず未割当。作業延長は12,345.60方向km。</p>
+<table>
+<thead>
+<tr>
+<th>方式（標準30台）</th>
+<th style="text-align: right;">割当区間</th>
+<th style="text-align: right;">最長車両</th>
+<th style="text-align: right;">シフト数（最大/合計）</th>
+<th style="text-align: right;">回送距離</th>
+<th style="text-align: right;">総車両時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>所在地への近さで区域作成（会社担当固定）</td>
+<td style="text-align: right;">300,081</td>
+<td style="text-align: right;">217.54時間</td>
+<td style="text-align: right;">28 / 237</td>
+<td style="text-align: right;">3,962.21km</td>
+<td style="text-align: right;">1,741.31時間</td>
+</tr>
+<tr>
+<td><strong>全社台数に応じ区域調整（現行の初期表示）</strong></td>
+<td style="text-align: right;">300,081</td>
+<td style="text-align: right;">67.47時間</td>
+<td style="text-align: right;">9 / 242</td>
+<td style="text-align: right;">4,922.69km</td>
+<td style="text-align: right;">1,789.33時間</td>
+</tr>
+</tbody>
+</table>
+<p>回送が旧対象の2,111kmから4,923kmへ増えたのは、シフトごとに所在地へ戻り再出庫する往復が加わったため。1シフトの平均は約7.4時間。会社担当固定方式は3台のKRSに市南部の広い区域が集まり、1台あたり28シフトを要する。前版（市外を含む対象・帰庫なしの一筆書き）の数値は以下に比較用として残す。現行データは <code>python scripts/improve_dispatch.py</code> で再生成する。</p>
+<h2 id="431116">前版（市外を含む431,116区間・シフト分割なし）</h2>
 <p><strong>現行方式は、道路上の近さで仮の割当区域を作り、作業場所間を直接移動して最後に帰庫する近似計算。</strong> 各作業単位ごとに会社へ戻る旧制約を撤廃した。所在地マーカーは全社とも元の座標に置き、サツイチの札をずらす処理も撤廃した。</p>
 <h2 id="_1">同じ作業対象での比較</h2>
 <table>
@@ -111,7 +145,7 @@ nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{mar
 </tr>
 </tbody>
 </table>
-<p>作業対象の被覆は全方式で421,029方向区間。対象431,116区間のうち10,087区間は未到達。作業延長は18,063.91方向kmで変わらない。旧回送距離は保存した総車両時間から作業時間（作業延長÷8km/h）を引き、回送速度20km/hで換算したもの。同じ時間・距離モデルによる厳密な復元だが表示は丸めている。</p>
+<p>この節の作業対象の被覆は全方式で421,029方向区間。対象431,116区間のうち10,087区間は未到達（市外を含む旧対象）。作業延長は18,063.91方向kmで変わらない。旧回送距離は保存した総車両時間から作業時間（作業延長÷8km/h）を引き、回送速度20km/hで換算したもの。同じ時間・距離モデルによる厳密な復元だが表示は丸めている。</p>
 <p><strong>車両ごとの担当区域（2026-09-08 追加）。</strong> 中間版は会社の全作業を1本の最寄り順路で回り、それを累積時間で車両に切っていた。最寄り順路は取り残した作業を後で拾いに戻るため、後半の車両ほど担当が市内各所に散る飛び地になった。飛び地をなくすため区域を先に作る方式に変え、5段階で回送を詰めた。</p>
 <ol>
 <li>扇形版：所在地を中心とした方位で車両数ぶんの扇形区域を作り、各区域で作業単位ごとに最寄り順。飛び地は消えたが回送は3,425km（中間版1,869km）に増えた。回送の内訳は作業間の接続2,859km、帰庫445kmで、接続が約1万1千件あり1件0.25kmでも積み上がっていた。</li>

@@ -1,16 +1,16 @@
 {
-  "required_arcs": 431116,
-  "assigned_arcs": 421029,
-  "unassigned_arcs": 10087,
+  "required_arcs": 302349,
+  "assigned_arcs": 300081,
+  "unassigned_arcs": 2268,
   "duplicate_service_arcs": 0,
   "fleet": 30,
-  "total_hours": 2359.0570329922202,
-  "total_deadhead_km": 2021.3661020476325,
-  "total_service_km": 18063.909963937702,
-  "baseline_makespan_hours": 297.0311845015872,
+  "total_hours": 1741.3106744578747,
+  "total_deadhead_km": 3962.205662467206,
+  "total_service_km": 12345.603402329614,
+  "baseline_makespan_hours": 217.53569737383577,
   "all_tasks_assigned": false,
   "valid_assigned_routes": true,
-  "trip_count": 11539,
+  "trip_count": 7253,
   "previous": {
     "required_arcs": 431116,
     "assigned_arcs": 421029,
@@ -29,5 +29,10 @@
     0,
     0,
     0
-  ]
+  ],
+  "out_of_scope_arcs": 128767,
+  "scope_note": "札幌市境（OSM行政界）の内側の区間のみを作業対象とし、市外区間は対象外として除外。",
+  "shift_hours": 8,
+  "baseline_days": 28,
+  "total_shifts": 237
 }

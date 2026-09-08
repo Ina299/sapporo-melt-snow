@@ -12,7 +12,7 @@ function decodeRoutes(d){
   for(const c of d.companies){
     c.trips.forEach(decodeTrip);
     for(const s of c.scenarios){
-      for(const r of s.routes){r.head_features=(r.head_features||[]).map(a=>decodeFeature(a,-1));r.tail_features=(r.tail_features||[]).map(a=>decodeFeature(a,-1));r.incoming_features=(r.incoming_features||[]).map(inc=>inc.map(a=>decodeFeature(a,-1)));}
+      for(const r of s.routes){r.head_features=(r.head_features||[]).map(a=>decodeFeature(a,-1));r.tail_features=(r.tail_features||[]).map(a=>decodeFeature(a,-1));r.incoming_features=(r.incoming_features||[]).map(inc=>inc.map(a=>decodeFeature(a,-1)));for(const sh of (r.shifts||[])){sh.head_features=(sh.head_features||[]).map(a=>decodeFeature(a,-1));sh.tail_features=(sh.tail_features||[]).map(a=>decodeFeature(a,-1));}}
       if(s.trips)s.trips.forEach(decodeTrip);
     }
   }
@@ -22,7 +22,7 @@ function decodeRoutes(d){
 }
 function decodeRoads(c){
   if(!c||c.geometry!=='nodes')return c;
-  c.roads={type:'FeatureCollection',features:c.roads_enc.map(([way_id,name,included,flat])=>{const segs=[];for(let i=0;i<flat.length;i+=2)segs.push([nodeCoord(flat[i]),nodeCoord(flat[i+1])]);return {type:'Feature',properties:{way_id,name,included:included===1},geometry:{type:'MultiLineString',coordinates:segs}};})};
+  c.roads={type:'FeatureCollection',features:c.roads_enc.map(([way_id,name,included,in_city,flat])=>{const segs=[];for(let i=0;i<flat.length;i+=2)segs.push([nodeCoord(flat[i]),nodeCoord(flat[i+1])]);return {type:'Feature',properties:{way_id,name,included:included===1,in_city:in_city===1},geometry:{type:'MultiLineString',coordinates:segs}};})};
   delete c.roads_enc;c.geometry='geojson';return c;
 }
 const $=id=>document.getElementById(id);

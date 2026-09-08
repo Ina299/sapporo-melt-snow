@@ -2,7 +2,9 @@
 const C=decodeRoads(window.SAPPORO_CITY);
 let cityRoadLayer=null;
 if(C){
-  const layer=L.geoJSON(C.roads,{style:()=>({color:'#82988d',weight:1,opacity:.3}),onEachFeature:(f,l)=>l.bindPopup(`${esc(f.properties.name)}<br>OSM way ${f.properties.way_id}<br>取得した作業対象道路の下図。担当は事業者別レイヤーで表示。`)}).addTo(map);
+  const roadStyle=f=>f.properties.in_city?{color:'#82988d',weight:1,opacity:.3}:{color:'#b9ad9c',weight:1,opacity:.35,dashArray:'2 5'};
+  const layer=L.geoJSON(C.roads,{style:roadStyle,onEachFeature:(f,l)=>l.bindPopup(`${esc(f.properties.name)}<br>OSM way ${f.properties.way_id}<br>${f.properties.in_city?'札幌市内：作業対象の下図。担当は事業者別レイヤーで表示。':'札幌市外：作業対象外（回送の通行のみ）。'}`,{autoPan:false})}).addTo(map);
+  window.cityRoadStyle=roadStyle;
   cityRoadLayer=layer;
   $('city-roads-toggle').onchange=e=>e.target.checked?layer.addTo(map):map.removeLayer(layer);
   $('city-roads-view').onclick=()=>{layer.addTo(map);$('city-roads-toggle').checked=true;map.fitBounds(layer.getBounds());$('map').scrollIntoView({behavior:'smooth',block:'center'});};
