@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>堆雪・排雪・融雪の日別収支モデル</title><style>
+:root{--ink:#1d2a2c;--muted:#5d6f6b;--green:#207f69;--line:#dfe6e0;--bg:#f6f8f4}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.9 "Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+main{max-width:960px;margin:0 auto;padding:32px 24px 64px;background:#fff;min-height:100vh}
+h1{font-size:24px;line-height:1.5;margin:0 0 20px}h2{font-size:18px;margin:36px 0 12px;padding-top:12px;border-top:1px solid var(--line)}h3{font-size:15px;margin:24px 0 8px}
+a{color:var(--green)}p,li{font-size:13px}code{background:#f0f4ee;padding:1px 5px;border-radius:3px;font-size:12px}
+pre{background:#f0f4ee;padding:12px 14px;border-radius:6px;overflow:auto;font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:12px;margin:12px 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:#f7f9f5;color:var(--muted);font-weight:500;white-space:nowrap}
+img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{margin-right:14px}
+</style></head>
+<body><main><nav class="docnav"><a href="../web/">画面へ戻る</a><a href="design.html">設計・調査結果</a><a href="dc_feasibility.html">DC候補地</a><a href="direct_routing.html">配車</a><a href="snow_management.html">雪収支</a><a href="../README.md">README</a></nav><h1 id="_1">堆雪・排雪・融雪の日別収支モデル</h1>
+<p>道路脇に残す雪、近接の一時堆雪、雪堆積場への搬出、DCでの融雪を分けて計算する。全量を融雪点へ運ぶ前提を置かず、道路の置き場と車両・施設の能力に応じて雪を翌日に持ち越す。<a href="../web/index.html#snow-management">画面の「堆雪と搬出」</a>で操作できる。</p>
+<p>これは選択観測点の実降雪を使う仮定道路群の感度分析。市全体・行政区全体の需要推計、特定のDC候補地の効果、運用可能な実配車を認定したものではない。</p>
+<h2 id="_2">公開資料と仮定の境界</h2>
+<p><a href="https://www.city.sapporo.jp/kensetsu/yuki/josetsu_info.html">札幌市の新雪除雪の説明</a>では、新雪を道路脇へ寄せる作業と、路面整正・拡幅・運搬排雪が区別されている。<a href="https://www.city.sapporo.jp/kensetsu/yuki/yukishisetsu/index.html">雪対策施設の説明</a>では、運搬された雪を貯める雪堆積場と融雪等の施設が説明されている。<a href="https://www.city.sapporo.jp/kensetsu/yuki/taisekijou/index.html">雪堆積場の利用案内</a>には受入時間や一時閉鎖などの条件がある。これらを踏まえて複数の処理経路と有限の受入枠を設けた。各場の最新の運営枠・閉鎖情報を接続したわけではない。</p>
+<table>
+<thead>
+<tr>
+<th>入力</th>
+<th>根拠・扱い</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日別降雪</td>
+<td>取得済み2025年度の市内13観測点。2025-11-01〜2026-04-10の161日。原本・取得記録は既存のweatherデータとsources.json</td>
+</tr>
+<tr>
+<td>道路延長・除雪対象幅</td>
+<td>利用者が仮定する対象面積。OSMの方向区間の延長をそのまま面積へ転用しない。同じ道路の往復を二重計上しない</td>
+</tr>
+<tr>
+<td>道路脇・一時堆雪の余地</td>
+<td>入力仮定。実測した歩道・車道幅、出入口・交差点の見通しを確認していない</td>
+</tr>
+<tr>
+<td>密度</td>
+<td>新雪100kg/m³、堆雪・運搬雪400kg/m³が初期仮定。観測した深さから質量への換算には新雪密度を使う</td>
+</tr>
+<tr>
+<td>ダンプ</td>
+<td>この道路群に使用する仮定台数。KRS等のショベル台数や市の必要ダンプ台数から自動転記しない</td>
+</tr>
+<tr>
+<td>距離・時間</td>
+<td>片道距離、速度、積込・投雪・待機の入力仮定。除雪車の作業経路ではなく排雪運搬の条件</td>
+</tr>
+<tr>
+<td>堆積場・DC</td>
+<td>この道路群へ配分する日受入量・貯留枠・熱・排水。実施設の公表総能力を独占利用できるとは仮定しない</td>
+</tr>
+<tr>
+<td>自然融解</td>
+<td>全屋外在庫に適用する日定率の感度パラメータ。初期0％。気温・雨・日射に基づく予測ではない</td>
+</tr>
+</tbody>
+</table>
+<p>観測値には原資料の参考値期間が含まれる。画面とJSONに注記を維持する。欠測・負の降雪・日付の欠落を0で埋めずエラーにする。現在の降雪系列に欠測はない。積雪深の減少をそのまま融解量にせず、圧密による体積変化と質量の消失を区別する。</p>
+<h2 id="_3">日別の計算</h2>
+<p>内部は全てトンで保持する。日降雪量は <code>道路延長(m) × 除雪対象幅(m) × 降雪(cm)/100 × 新雪密度(kg/m³)/1000</code>。例えば1km・幅10m・新雪10cm・100kg/m³なら100t。堆雪容量は <code>体積(m³) × 堆雪密度/1000</code> でトンへ換算する。圧密は質量を減らさない。</p>
+<p>初日在庫は0。各日は以下の順に処理する。</p>
+<ol>
+<li>前日から残る道路脇・一時堆雪・雪堆積場の雪に、設定した自然融解率を適用する。DCの融雪待ち在庫は、当日の熱・排水上限まで先に融雪する。</li>
+<li>当日の新雪を道路脇へ追加する。除雪そのものは当日中に実施できたと置く。新雪除雪の出動基準や路面の圧雪はこのモデルでは再現しない。</li>
+<li>道路脇が上限の80％を超えると、50％へ減らす量を搬出対象にする。80％・50％は計算上の方針で、市の出動基準ではない。</li>
+<li>近接一時堆雪に空きがあれば、ローダーの日移動能力以内で移す。その後、道路からの必要搬出を優先し、一時堆雪の雪も外へ運ぶ。</li>
+<li>受入可能な搬出先を所要時間順、またはDC優先で選び、ダンプごとの残り時間で完了できる往復便を割り当てる。部分積載でも1往復分の時間を計上する。</li>
+<li>どこにも運べない雪は元の在庫に残す。道路上限を超えた雪も消去せず、日末超過量・超過日数として記録する。</li>
+</ol>
+<p>近接一時堆雪はローダーで扱える隣接の使用可能な置き場を仮定している。離れた空地への移送を無料で計上するための枠ではない。遠隔地へ一度運び、後日別施設へ再搬出する二段階のダンプ輸送は未実装。</p>
+<h2 id="_4">車両と受入施設の制約</h2>
+<p>1便の積載量は重量上限と荷台容積×堆雪密度の小さい方。所要時間は <code>片道距離×2/速度＋(積込＋投雪＋待機)/60</code>。各車両に1日分の時間を配り、往復を終えられる場合だけ運ぶ。初期値は2台・各8時間、8t・20m³、20km/h、積込20分・投雪8分・待機20分。全て感度値で、運転実績ではない。</p>
+<p>雪堆積場は日受入枠と残り貯留枠を両方制約にする。自然融解率0％なら季節を通じて有限の貯留量を消費する。自然融解があればその分だけ翌日の空きが戻る。搬入だけで処理完了・消失とは数えない。</p>
+<p>DCの熱上限は既存の熱モデルと同じ式。初期は、この道路群に配分するIT容量0.5MW・稼働率90％・回収率80％・雪−5℃・排水2℃・24時間。<code>有効熱(MW)×86,400 / (333.5＋2.1×|雪温|＋4.186×排水温)</code> でt/日を求める。IT全体の設備容量と、この道路群に配分する熱は区別する。</p>
+<p>日融雪量は熱上限と排水枠の小さい方。日搬入量は、日受入枠と「当日残る融雪能力＋未融雪貯留の空き」の小さい方以下にする。融雪できない分はバッファに残す。熱または排水が0ならDCへの新規搬入を止める方針。既存槽の処理能力とDC熱上限を単純加算しない。</p>
+<p>1日内の流入順序と処理をまとめたモデルのため、投雪レーンやローダーの同時稼働、時間帯ごとの渋滞・待ち行列・夜間受入は再現しない。入力待機時間は固定値である。搬出先の選択は日ごとの貪欲法で、将来の大雪に備えた貯留予約や費用の全期間最適化ではない。</p>
+<h2 id="_5">比較と読み方</h2>
+<p>同じ降雪・道路・ダンプ・堆積場条件で「堆積場のみ」「堆積場＋DC」「搬出先をDCに限定」を並べる。どの方式でも道路脇の堆雪は許容する。DCを追加して搬出量が増えれば、総走行も増える場合がある。雪を運べず放置する方式の走行距離が短くても、それだけで優良な方式とは判断しない。上限超過と道路・一時残雪を先に比較する。</p>
+<p>期末収支は <code>累積発生＝道路脇＋一時堆雪＋雪堆積場＋DC未融雪＋累積DC融雪＋累積自然融解</code>。搬出量は移動した量なので右辺に加えない。毎日の収支誤差も検証する。自然融解率0％の初期値では春の残雪が過大になり得るため、通年の実残雪予測とは呼ばない。</p>
+<p>日末の超過は仮定した置き場に収まらない質量で、実際の交通閉塞を直接示す指標ではない。新雪追加直後の超過もJSONに保存するが、画面の超過日数は搬出後の日末で数える。</p>
+<h2 id="_6">再現・検証</h2>
+<p><code>npm run build:snow</code> で取得済み降雪から入力データを再生成する。<code>npm run test:snow</code> が質量保存、有限貯留、積載重量・容積、往復時間、DC待ち在庫、熱・排水停止、自然融解、欠測拒否と全13系列を検証する。<code>npm test</code> は画面の比較・入力変更・無効入力・JSON保存・モバイル幅を確認する。</p>
+<p>画面のJSON保存は入力全項目、観測点・注記、日別収支、比較サマリーを含む。共通計算実装は <a href="../web/snow-model.js">snow-model.js</a>、取得済み降雪の小さな配信用データは <a href="../data/processed/snow_management.json">snow_management.json</a>。画面とNodeテストで同じ計算関数を使う。</p>
+<p>実道路計画へ進めるには、路線ごとの対象幅・堆雪余地・積込場所、各施設の入口・日別共有枠・開設日、ダンプとローダーの配置・稼働を接続する必要がある。現在の全道路被覆経路の約88時間は除雪車の作業と回送の指標で、このモデルの累積ダンプ車両時間とは別。単純に足して除排雪完了時間にはできない。</p></main></body></html>

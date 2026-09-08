@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DC併設融雪の立地検証（2026-09-08）</title><style>
+:root{--ink:#1d2a2c;--muted:#5d6f6b;--green:#207f69;--line:#dfe6e0;--bg:#f6f8f4}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.9 "Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+main{max-width:960px;margin:0 auto;padding:32px 24px 64px;background:#fff;min-height:100vh}
+h1{font-size:24px;line-height:1.5;margin:0 0 20px}h2{font-size:18px;margin:36px 0 12px;padding-top:12px;border-top:1px solid var(--line)}h3{font-size:15px;margin:24px 0 8px}
+a{color:var(--green)}p,li{font-size:13px}code{background:#f0f4ee;padding:1px 5px;border-radius:3px;font-size:12px}
+pre{background:#f0f4ee;padding:12px 14px;border-radius:6px;overflow:auto;font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:12px;margin:12px 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:#f7f9f5;color:var(--muted);font-weight:500;white-space:nowrap}
+img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{margin-right:14px}
+</style></head>
+<body><main><nav class="docnav"><a href="../web/">画面へ戻る</a><a href="design.html">設計・調査結果</a><a href="dc_feasibility.html">DC候補地</a><a href="direct_routing.html">配車</a><a href="snow_management.html">雪収支</a><a href="../README.md">README</a></nav><h1 id="dc2026-09-08">DC併設融雪の立地検証（2026-09-08）</h1>
+<p><strong>候補地は札幌市内に限定する。</strong> 札幌市の施策として検討するため、石狩湾新港・銭函の分譲地は候補から外し、当初の検討記録としてだけ本書末尾に残す。画面の紫色のDC1–DC7は国土地理院住所検索による地区代表点で、個別売地区画の位置・境界を示さない。表示基準はDC1手稲山口・前田方面＝手稲山口、DC2真駒内・石山方面＝石山1条1丁目、DC3大谷地流通業務団地・北野方面＝流通センター、DC4新川・発寒北＝新川西1条1丁目、DC5東米里・米里＝東米里、DC6山鼻・南22条橋方面（参考）＝南21条西16丁目、DC7宮の沢・発寒木工団地南端＝宮の沢1条1丁目。全点が取得したOSM行政界の内側にあることを座標で確認した。DC6は民間用地が見つかっていない参考地区で、公共用地の転用を政策として扱う場合にだけ成立する。検索原本とURLは <code>data/raw/dc/geocoding.json</code>、座標と精度説明は <code>data/processed/dc_feasibility.json</code> に保存。<code>python scripts/geocode_dc.py</code> でキャッシュから再生成できる。</p>
+<p><strong>現時点の提案は、DC4（新川・発寒北）・DC5（東米里・米里）の融雪機能増強と、DC1（手稲北部）・DC2（南西）・DC3（南東）・DC7（宮の沢、中央区西部の受け口）への新設DC融雪拠点を市内で比較すること。</strong> <a href="regional_melting.html">分散案</a>に地域配置と根拠を整理した。地区の探索段階であり、土地取得・建築・受電の可否が確定した候補地ではない。</p>
+<p>DCの建設自体は所与。従来の設計書にある「DC単独の採算を先に確認する」という優先順を、この検討には適用しない。DCの全消費電力を融雪に計上せず、同じ計算処理を行うDCの冷却のみの場合との差額・差分エネルギーを比較する。一等地、住宅との競合が強い敷地、住宅街を通る大量搬入は避ける。印西の特定案件の事情を札幌へそのまま当てはめた評価ではない。</p>
+<h2 id="_1">用地の検証</h2>
+<p>札幌市内で、一等地と住宅密集地を避け、雪の発生地に近い工業・物流・公共の既利用地区を探索単位とした。市の<a href="https://www.city.sapporo.jp/kensetsu/yochikanri/nyuusatsu.html">市有地売払ページ</a>（2026年8月5日更新）に掲載された物件は新川西・新発寒の宅地6件で、面積は281〜441m²。DC規模の売地は市の公開売払には現在ない。したがって全候補は「用地探索」の段階で、売地の発見ではない。</p>
+<table>
+<thead>
+<tr>
+<th>地区</th>
+<th>根拠と判断</th>
+<th>残る条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DC1 手稲区手稲山口・前田方面</td>
+<td><a href="../data/raw/procurement_2026_3-taisekijoitiran_1.png">市の2026年度配置案</a>で手稲北地区の雪堆積場は石狩新港西地区、手稲南地区は第一新川橋下流左岸・前田第6地区。市外への搬出を市内処理へ置き換える比較</td>
+<td>まとまった用地の有無、新川下流・沿岸低地の洪水・内水・津波、地盤、受電・回線</td>
+</tr>
+<tr>
+<td>DC2 南区真駒内・石山方面</td>
+<td>配置案で南区の雪処理施設欄は空欄。石山大橋・五輪大橋・藻南橋周辺の河川敷雪堆積場に依存</td>
+<td>住宅地を避けた既利用地・公共用地の転用可否、豊平川の洪水、斜面、橋・冬季渋滞</td>
+</tr>
+<tr>
+<td>DC3 大谷地流通業務団地・北野方面</td>
+<td>配置案で清田区の雪処理施設欄は空欄。<a href="https://www.city.sapporo.jp/keizai/ooyachi/koudokavision.html">高度化ビジョン</a>は流通機能の維持・更新を示す</td>
+<td>更新方針は売地・DC用途許可の証拠ではない。現物流機能との両立、厚別川・月寒川の洪水、北野側住宅</td>
+</tr>
+<tr>
+<td>DC4 新川・発寒北工業地区</td>
+<td>北区・手稲側に寄る。既存工業用地の更新を探索</td>
+<td>現行のまとまった売地を未確認。既存融雪施設を空地扱いしない</td>
+</tr>
+<tr>
+<td>DC5 東米里・米里物流地区</td>
+<td>白石・厚別側を受け持つ比較案。東部融雪槽・東米里雪堆積場と近い</td>
+<td>現行売地未確認。既存物流施設は取得可能用地の証拠ではない</td>
+</tr>
+<tr>
+<td>DC6 中央区 山鼻・南22条橋方面（参考）</td>
+<td>OSMの土地利用（半径2.5km、987区画）に民間の工業・遊休地はない。大区画は陸上自衛隊札幌駐屯地12.5ha、市電車両センター約1ha、藻岩浄水場、学校・大学・病院。配置案の中央区南地区の雪堆積場（五輪大橋・南22条橋河川敷）と近い</td>
+<td>市有地・公共用地の転用か河川敷堆雪場との一体整備を政策として扱う場合のみ。豊平川の洪水、住宅密集地への搬入</td>
+</tr>
+<tr>
+<td>DC7 西区 宮の沢・発寒木工団地南端</td>
+<td>発寒木工団地（17.8ha）0.8km、発寒鉄工団地（54.7ha）2.7kmで工業地区の南西端に接する。半径2.5kmにマルハニチロ札幌工場等の工業区画</td>
+<td>駅周辺は住宅・商業。現行売地未確認。琴似発寒川の洪水・内水、住宅地への搬入</td>
+</tr>
+</tbody>
+</table>
+<p>配置案は予定資料で、供用状況や市内全施設の不存在を証明しない。河川敷雪堆積場の存在をDC建設用地の根拠にしない。工業・物流地区という名称だけでDC用途が許可されると判断しない。土地価格は市内地区ごとの個別見積が必要で、本書では計上していない。</p>
+<p>ハザードは敷地境界が未確定のため浸水深・住宅離隔を数値認定していない。<a href="https://www.city.sapporo.jp/kikikanri/higoro/fuusui/ssh_map.html">札幌市洪水ハザードマップ</a>で敷地と搬入・避難経路を照合する。災害条件は点数で相殺せず、必要な事業継続条件を満たせない区画を外す。現段階で「建設適地」とは断定しない。</p>
+<h2 id="_2">受電：近い変電所と使える電力は別</h2>
+<p><strong>全候補を同じ基準で評価できるようにした。</strong> <a href="https://hello.hepco.co.jp/map/?v=es">ほくでんネットワーク需要側供給余力マップ</a>の公開レイヤーから、変電所（2026年4月版）、送電線（2026年6月版）、工業団地（国土数値情報L05）を取得し、OSMの変電所オブジェクトと<a href="https://www.h-ix.jp/location/">H-IXの公開住所</a>（札幌市中央区大通東3丁目4）を加えて、各候補の代表点から直線距離で集計した。再現は <code>python scripts/build_grid_ix.py</code>、結果は <a href="../data/processed/dc_grid_ix.json">dc_grid_ix.json</a>、出典とハッシュは <a href="../data/grid_ix_sources.json">grid_ix_sources.json</a>。</p>
+<table>
+<thead>
+<tr>
+<th>候補</th>
+<th>最寄り187kV変電所</th>
+<th>最寄り66kV変電所（3km内の数）</th>
+<th>最寄り187kV系送電線（公開区分）</th>
+<th style="text-align: right;">H-IXまで</th>
+<th>最寄り工業団地</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DC1 手稲山口・前田</td>
+<td>西札幌 6.0km（50〜99MW）</td>
+<td>手稲 2.4km（1）</td>
+<td>室蘭西幹線 6.1km（50〜99MW）／275kV石狩火力幹線 5.8km</td>
+<td style="text-align: right;">15.1km</td>
+<td>手稲山口軽工業 1.7km</td>
+</tr>
+<tr>
+<td>DC2 真駒内・石山</td>
+<td>南九条 7.7km（要照会）</td>
+<td>川沿 1.1km（2）</td>
+<td>南九条線 6.9km（要照会）</td>
+<td style="text-align: right;">9.4km</td>
+<td>ハイテクヒル真栄 7.3km</td>
+</tr>
+<tr>
+<td>DC3 大谷地・北野</td>
+<td>南札幌 2.5km（50〜99MW）</td>
+<td>大谷地 1.4km（5）</td>
+<td>南札幌幹線 0.2km（50〜99MW）</td>
+<td style="text-align: right;">7.0km</td>
+<td>札幌テクノパーク 5.0km</td>
+</tr>
+<tr>
+<td>DC4 新川・発寒北</td>
+<td>西札幌 0.3km（50〜99MW）</td>
+<td>宮の沢 2.2km（2）</td>
+<td>室蘭西幹線 0.2km（50〜99MW）／275kV道央北幹線 0.2km</td>
+<td style="text-align: right;">8.8km</td>
+<td>新川地区 0.4km</td>
+</tr>
+<tr>
+<td>DC5 東米里・米里</td>
+<td>苗穂 3.9km（50〜99MW）</td>
+<td>大麻 3.5km（0）</td>
+<td>南札幌幹線 2.4km（50〜99MW）</td>
+<td style="text-align: right;">7.9km</td>
+<td>丘珠鉄工 5.4km</td>
+</tr>
+<tr>
+<td>DC6 山鼻・南22条橋（参考）</td>
+<td>南九条 2.2km（要照会）</td>
+<td>山鼻 0.9km（5）</td>
+<td>南九条線 1.9km（要照会）</td>
+<td style="text-align: right;">4.0km</td>
+<td>発寒木工 8.7km</td>
+</tr>
+<tr>
+<td>DC7 宮の沢・発寒木工団地南端</td>
+<td>西札幌 3.6km（50〜99MW）</td>
+<td>西野三条 1.0km（4）</td>
+<td>室蘭西幹線 1.7km（50〜99MW）／275kV道央北幹線 1.7km</td>
+<td style="text-align: right;">7.6km</td>
+<td>発寒木工 0.8km</td>
+</tr>
+</tbody>
+</table>
+<p>読み方の注意。</p>
+<ul>
+<li>距離は直線で、ケーブル経路・道路占用・河川横断・引込み費を含まない。公開区分は「要照会」が公開値なしを意味し、供給枠・接続可否・工事時期ではない。区分の閾値は公開マップのスクリプト（<code>getRankOfMv</code>）を移植した。</li>
+<li>公開マップ上の変電所は全て「要照会」表示になる仕様で、表の変電所区分はレイヤーデータ内のコードを同じ閾値で読んだ参考値。変電所名の近さは受電の可否ではない。</li>
+<li>66kV/6.6kVの配電用変電所からは特別高圧の受電はできない。20MW以上の需要は187kV系または66kV送電線への直接受電が前提になるため、187kV変電所と187kV系送電線の距離を主指標にした。</li>
+<li>山鼻は南九条変電所・南九条線が近いが公開値は要照会で、H-IXには全候補で最も近い。中央区側が候補から外れてきたのは受電・IXの条件ではなく用地の問題である。宮の沢は187kV系の室蘭西幹線・275kV道央北幹線が1.7kmにあり、66kV変電所も1km圏に2か所ある。</li>
+<li>10MW超の需要は<a href="https://www.hepco.co.jp/network/con_service/supply_overview/connection/flow.html">需要側接続の事前相談</a>の対象。相談はまだ送信していない。20MW ITをPUE1.2で満負荷運転すれば24MW、50MWなら60MWの受電を要する（設計余裕は別）。平均IT稼働率で契約容量を小さくしない。</li>
+<li><a href="https://www.tokyu-dc.com/dc_ishikari.html">東急の石狩DCの公表仕様</a>には66kV・15MW受電、複数キャリア対応、通信引込み3ルートがある。近隣圏の実装例として参照するだけで、札幌市内の候補地に同条件で供給される証拠にはならない。</li>
+</ul>
+<h2 id="ix">IX・通信の検証と誘致案</h2>
+<p><a href="https://www.jpnap.net/ix/pop">JPNAPの公式POP一覧</a>には、NTT東日本 北海道第2データセンターのJPNAP札幌が掲載されている。100G・10G・1Gが掲載、400Gは個別照会。POP所在ビルの住所は非公開のため候補からの距離は算出していない。<a href="https://www.h-ix.jp/">H-IX</a>（北海道インターネット・エクスチェンジ、ほくでん情報テクノロジー）は中央区大通東3丁目4の住所を公開しており、上の表の距離はこの地点までの直線距離。ポート空き・料金・接続条件は未照会。<a href="https://www.jpnap.net/ix/option">公式オプション</a>には札幌から大阪への中継接続もある。POPがあることだけでは、本計画の接続相手・ポート空き・契約条件・到達帯域は確定しない。</p>
+<p><a href="https://www.city.ishikari.hokkaido.jp/shisei/shiseiunei/1001911/1003728.html">石狩市の協定</a>は2023年11月締結。H-IXにSapporoIX PoC環境を整備し、複数DC・クラウド運用や再エネ需給連携を検証する内容。既存の連携基盤として有用だが、PoCを商用IXのSLAや参加ASの保証に読み替えない。</p>
+<p>採用案は段階的にする。</p>
+<ol>
+<li>開業時：キャリア中立の回線接続室を用意し、物理的に異なる経路の2回線、既存IX接続と必要なIPトランジットを確保する。異なる事業者でも同じ管路・橋・局舎・道外区間を使う場合があるため、共通故障点まで確認する。</li>
+<li>集積時：既存IX事業者の現地POP、キャリアPOP、CDNキャッシュを誘致する。参加希望AS、ピーク帯域、域内交換率、回線費削減、障害時容量を確認して投資する。新設DCのMWから必要通信帯域を推測しない。</li>
+<li>独立した地域IX：複数の参加事業者と中立運営・保守費の負担が揃う場合に比較する。スイッチ設置だけでは相互接続の価値は生まれない。</li>
+</ol>
+<p>回線提案書に必要なのは、実ルートの分離説明、札幌・東京・大阪と主要利用先へのRTT測定、平常時と片系故障時の保証帯域、開通日、初期費・月額・増速費、参加AS・ピアリング条件。AI学習主体と配信主体では必要条件を分ける。低地・河川沿いに電力と通信をまとめて冗長性を失わない設計にする。</p>
+<h2 id="_3">熱・搬入・排水の定量比較</h2>
+<p>再現データ：<a href="../data/processed/dc_feasibility.json">dc_feasibility.json</a>。IT稼働90%、熱回収80%、雪-5℃、密度400kg/m³、排水2℃、融雪24時間という仮定。回収率は融雪へ届く正味熱を表す。実測値ではない。</p>
+<table>
+<thead>
+<tr>
+<th>IT容量</th>
+<th style="text-align: right;">有効熱</th>
+<th style="text-align: right;">融雪 t/日</th>
+<th style="text-align: right;">雪 m³/日</th>
+<th style="text-align: right;">搬入便/日（8t積み）</th>
+<th style="text-align: right;">投雪レーン</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5MW</td>
+<td style="text-align: right;">3.6MW</td>
+<td style="text-align: right;">883</td>
+<td style="text-align: right;">2,207</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>20MW</td>
+<td style="text-align: right;">14.4MW</td>
+<td style="text-align: right;">3,531</td>
+<td style="text-align: right;">8,827</td>
+<td style="text-align: right;">441</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr>
+<td>50MW</td>
+<td style="text-align: right;">36MW</td>
+<td style="text-align: right;">8,827</td>
+<td style="text-align: right;">22,068</td>
+<td style="text-align: right;">1,103</td>
+<td style="text-align: right;">14</td>
+</tr>
+</tbody>
+</table>
+<p>レーンは1便8分、搬入16時間、稼働率70%で切上げ。端数は表示丸め。8tの雪はこの密度で20m³なので、実ダンプの荷台容積・積載制限次第で便数は増える。便数は毎日の到着回数で保有台数ではない。車両数は往復・待機・積込み時間から求める。</p>
+<p>20MW案では排水も約3,531m³/日（平均147m³/時）。閉ループ温度差10K、合計圧損200kPa、ポンプ効率70%なら循環ポンプ約98kW、約2.36MWh/日。ただしローダー、排水ポンプ、除砂、外気冷却からの差分は含まない。温度差と汚れを含む熱交換器設計で14.4MWを実際に受け渡せるかを確認する。汚れた雪水とDC冷却水は熱交換器で分離し、ゴミ・土砂・油分・塩分の処理と排水先を設計する。</p>
+<p>雪到着がない日や夏は通常冷却に戻す。日処理量は熱上限、搬入、投雪、排水、貯留の最小値。到着量の時系列をまだ接続していないため、年間実処理量を日上限×冬の日数で確定しない。</p>
+<p>エネルギー比較は <code>Δ電力 = 熱回収補機 + 排水処理 + 必要なら昇温用電力 − DC冷却電力の削減</code> と <code>Δ燃料 = 新しい運搬・構内作業 − 従来の運搬・構内作業 − 置換できた融雪燃料</code> に分ける。自然融解の雪堆積場を置換する場合、回収した熱量をそのまま省エネルギー量として加算しない。</p>
+<p>例えば20MW案で片道が従来より5km延び、燃費2km/Lなら追加軽油は約2,207L/日。これは仮定の感度計算で実経路の結果ではない。熱が余っていても、遠方の雪まで集めることが最善とは限らない。北西側を手稲・新川、東側を米里・大谷地、南側を真駒内・石山方面で分担する案を、実運搬道路で比較する必要がある。</p>
+<p>雪氷熱利用は冬終盤に一部を貯め夏の冷却へ回す選択肢として残す。融雪済みの同じ雪を夏の蓄冷量にも数えない。外気冷却で十分な冬と夏を分け、貯雪損失、断熱、必要土地、冷却電力の実削減を比較する。</p>
+<h2 id="_4">到達点と次の判断</h2>
+<p>候補を札幌市内6地区（＋参考1地区）に限定した。変電所・送電線・IX・工業団地は全候補を同じ公開データで一律に評価した。市の配置案と市有地売払を確認し、DC規模の公開売地が市内にないことを前提に用地探索の段階と位置づけた。電力は公開系統データ、通信は既存商用IXと実証環境を区別し、熱・搬入・排水の規模を計算した。新設案を採用候補へ進めるには、地区ごとの用地所有者・区画図、需要側受電回答、キャリアの異経路提案、敷地別ハザード、排水受入条件、実運搬距離が必要。これらはまだ取得していないため、価格順位・建設可否・年間省エネルギーを確定していない。</p>
+<h2 id="2026-09-08">記録：中央区西部・北西部の用地調査（2026-09-08）</h2>
+<p>「円山付近が薄い」という指摘を受け、円山・三角山・山鼻・宮の沢の周辺をOSMの土地利用（工業・商業・遊休・建設中・駐車場・競技場・公共施設等）で同じ方法により調べた。原本は <code>data/raw/grid_ix/osm_landuse_*.json</code> と <code>osm_maruyama_*.json</code>。</p>
+<table>
+<thead>
+<tr>
+<th>地区</th>
+<th>範囲</th>
+<th>結果</th>
+<th>扱い</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>円山・宮の森</td>
+<td>半径3.5km、1,177区画</td>
+<td>工業・遊休地は市電車両センター約1haのみ。大区画は競技場・公園・駐車場・藻岩浄水場・中央卸売市場・札幌競馬場</td>
+<td>用地なし。受電・IXは良い（南九条3.3km、H-IX 4.6km）が候補にしない</td>
+</tr>
+<tr>
+<td>三角山（西区山の手・宮の森）</td>
+<td>半径2.5km、318区画</td>
+<td>0.5ha以上は学校とジャンプ競技場のみ</td>
+<td>根拠なし。候補にしない</td>
+</tr>
+<tr>
+<td>山鼻（中央区南部）</td>
+<td>半径2.5km、987区画</td>
+<td>民間の工業・遊休地なし。自衛隊札幌駐屯地12.5ha、市電車両センター、藻岩浄水場、河川敷雪堆積場が2km圏に集まる</td>
+<td>DC6参考地区。公共用地の転用を政策として扱う場合のみ</td>
+</tr>
+<tr>
+<td>宮の沢（西区）</td>
+<td>半径2.5km、192区画</td>
+<td>発寒鉄工団地170ha（3.2km）・発寒木工団地（1.9km）に接し、マルハニチロ札幌工場1.8ha等の工業区画がある</td>
+<td>DC7として追加。DC4の西側の受け口</td>
+</tr>
+</tbody>
+</table>
+<p>OSMの土地利用は網羅的ではなく、未記入の区画や用途地域と一致しない区画がある。売地・地権者・用途許可は別途確認が必要。</p>
+<h2 id="_5">記録：当初検討した市外候補</h2>
+<p>2026年9月8日の当初版では、<a href="https://www.ishikari-dev.co.jp/bunjyo/">石狩開発の分譲案内</a>を根拠に石狩市新港中央1丁目・小樽市銭函4丁目・石狩市新港南2丁目を候補に含めていた。札幌市の施策として市内に限定する方針により、同日中に候補・地図・データから除外した。分譲図の取得原本も削除し、<code>data/dc_sources.json</code> から該当出典を外した。市の配置案に載る石狩市内の雪堆積場（石狩新港西地区、石狩市緑苑台地区、花川地区）は現状の搬出先として記録し、DC候補には数えない。</p></main></body></html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>広域道路と事業者別経路（2026-09-08）</title><style>
+:root{--ink:#1d2a2c;--muted:#5d6f6b;--green:#207f69;--line:#dfe6e0;--bg:#f6f8f4}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.9 "Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+main{max-width:960px;margin:0 auto;padding:32px 24px 64px;background:#fff;min-height:100vh}
+h1{font-size:24px;line-height:1.5;margin:0 0 20px}h2{font-size:18px;margin:36px 0 12px;padding-top:12px;border-top:1px solid var(--line)}h3{font-size:15px;margin:24px 0 8px}
+a{color:var(--green)}p,li{font-size:13px}code{background:#f0f4ee;padding:1px 5px;border-radius:3px;font-size:12px}
+pre{background:#f0f4ee;padding:12px 14px;border-radius:6px;overflow:auto;font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:12px;margin:12px 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:#f7f9f5;color:var(--muted);font-weight:500;white-space:nowrap}
+img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{margin-right:14px}
+</style></head>
+<body><main><nav class="docnav"><a href="../web/">画面へ戻る</a><a href="design.html">設計・調査結果</a><a href="dc_feasibility.html">DC候補地</a><a href="direct_routing.html">配車</a><a href="snow_management.html">雪収支</a><a href="../README.md">README</a></nav><h1 id="2026-09-08">広域道路と事業者別経路（2026-09-08）</h1>
+<p><strong>最新の事業者配車は<a href="wide_dispatch.html">広域の事業者・車両割当</a>へ更新済み。</strong> 以下の八軒に限定した事業者別試算は旧版の記録です。主画面では42万1,029方向区間を4社で分担します。</p>
+<h2 id="_1">広域の被覆計算</h2>
+<p>OSM車道を南42.75・西140.95・北43.26・東141.55の矩形で取得した。緯度帯5件を重複除去して39,910 waysを取得。行政界による切抜きではなく、札幌市域と周辺を含む。対象種別は primary / secondary / tertiary / unclassified / residential / living_street と主要リンク道。高速道路・trunk・構内道路・歩道などは対象外。市管理道路・公式除雪対象路線との照合は未実施。</p>
+<table>
+<thead>
+<tr>
+<th>検証</th>
+<th style="text-align: right;">結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>抽出した方向区間</td>
+<td style="text-align: right;">431,116</td>
+</tr>
+<tr>
+<td>閉路の被覆を検証できた方向区間</td>
+<td style="text-align: right;">430,517</td>
+</tr>
+<tr>
+<td>接続成分間のため未計算</td>
+<td style="text-align: right;">599</td>
+</tr>
+<tr>
+<td>閉路を計算した強連結成分</td>
+<td style="text-align: right;">280</td>
+</tr>
+</tbody>
+</table>
+<p>各成分の有向郵便配達人問題を最小費用流で解き、閉路の連続性・合法方向・対象区間の被覆を検証。孤立した成分へ実車両を配置できる保証はない。全市で実行できる一つの配車計画ではない。成分をつなぐため架空の道路を追加していない。道路形状点間の区間を数えており、道路の「本数」ではない。往復道路は方向を別に数える。</p>
+<p>取得クエリ・日時・SHA-256は <code>data/city_roads_source.json</code> と <code>data/raw/city/band*_source.json</code>。右左折禁止relationは今回未取得で、制限ゼロを意味しない。道路のway単位accessとonewayのみ反映。位置・機種・車幅・道路幅・時間規制等の現場照合が必要。</p>
+<h2 id="_2">事業者別の実証経路</h2>
+<p>台数・所在地が公表されている4社を対象とした。各社が独立に、同じ八軒の1,236方向区間を担当する比較である。各社の実契約地区・共同配車・市全域の担当割当ではない。各社の所在地を広域道路網へスナップし、作業区間までの往復経路を接続した。地図の灰色点線は住所代表点から道路接続点までの未確認の接続で、走行時間・距離には加算していない。</p>
+<table>
+<thead>
+<tr>
+<th>会社</th>
+<th>比較台数</th>
+<th>上限の根拠</th>
+<th style="text-align: right;">所在地と道路接続点の差（概数）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>東洋ロードメンテナンス</td>
+<td>1〜10台</td>
+<td>グレーダ3・ショベルローダ7</td>
+<td style="text-align: right;">192m</td>
+</tr>
+<tr>
+<td>鹿島舗道工業</td>
+<td>1〜13台</td>
+<td>グレーダ3・タイヤショベル10</td>
+<td style="text-align: right;">49m</td>
+</tr>
+<tr>
+<td>サツイチ</td>
+<td>1〜4台</td>
+<td>タイヤショベル4</td>
+<td style="text-align: right;">56m</td>
+</tr>
+<tr>
+<td>KRS</td>
+<td>1〜3台</td>
+<td>2m³ショベル1・1.5m³ショベル2</td>
+<td style="text-align: right;">166m</td>
+</tr>
+</tbody>
+</table>
+<p>ダンプ・大型ロータリ・小型ショベルを同じ除雪車として混算していない。ただし含めた機種も同じ作業速度の仮定で、除雪装備・当日の配備・対象道路への適合性は未確認。公表上限は稼働台数ではない。</p>
+<p>既存の実証閉路を各社の往復回送が短い開始点へ回転し、作業・回送時間に応じて連続分割。分割の両端と所在地道路ノードを広域道路上の最短時間経路で結ぶ。各車両は同じ会社の出発道路ノードへ戻る。作業8km/h・回送20km/h。出発位置・分割の同時最適化ではなく近似解。実証道路は従来スナップショットを保持し、広域取得の接続網へ統合している。</p>
+<p>全30シナリオで被覆・経路連続・合法方向・所在地道路ノードへの帰着を検証した。車両別の距離・時間と、走行順に作業/回送を分けたGeoJSONは <code>data/processed/contractor_routes.json</code> に保存。全市域の閉路の詳細は <code>data/processed/city_routes.json</code>。</p>
+<h2 id="_3">再生成</h2>
+<pre><code class="language-powershell">python scripts/expand_roads.py
+python scripts/run_city.py
+python scripts/run_contractors.py
+</code></pre>
+<p>取得はキャッシュを再利用する。原本の更新は取得原本と対応するメタデータを揃えて管理する。画面用の <code>web/city-data.js</code> と <code>web/contractor-data.js</code> は上記スクリプトで生成され、直接HTMLを開いても動作する。広域データは従来より大きいため、初回読込み・地図描画には追加の処理時間がかかる。</p></main></body></html>

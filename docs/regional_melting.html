@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>南側へのDC融雪拠点の分散案（2026-09-08）</title><style>
+:root{--ink:#1d2a2c;--muted:#5d6f6b;--green:#207f69;--line:#dfe6e0;--bg:#f6f8f4}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.9 "Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+main{max-width:960px;margin:0 auto;padding:32px 24px 64px;background:#fff;min-height:100vh}
+h1{font-size:24px;line-height:1.5;margin:0 0 20px}h2{font-size:18px;margin:36px 0 12px;padding-top:12px;border-top:1px solid var(--line)}h3{font-size:15px;margin:24px 0 8px}
+a{color:var(--green)}p,li{font-size:13px}code{background:#f0f4ee;padding:1px 5px;border-radius:3px;font-size:12px}
+pre{background:#f0f4ee;padding:12px 14px;border-radius:6px;overflow:auto;font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:12px;margin:12px 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:#f7f9f5;color:var(--muted);font-weight:500;white-space:nowrap}
+img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{margin-right:14px}
+</style></head>
+<body><main><nav class="docnav"><a href="../web/">画面へ戻る</a><a href="design.html">設計・調査結果</a><a href="dc_feasibility.html">DC候補地</a><a href="direct_routing.html">配車</a><a href="snow_management.html">雪収支</a><a href="../README.md">README</a></nav><h1 id="dc2026-09-08">南側へのDC融雪拠点の分散案（2026-09-08）</h1>
+<p>提案は、DC4（新川・発寒）とDC5（東米里・米里）で既存融雪機能との接続・増強を調べながら、南西・南東に新設DCと融雪設備を組み合わせる地区を探すこと。候補地は札幌市内に限定し、雪の発生地に近い複数拠点への分散を比較する。市の配置案で手稲北地区・北区西地区が使う石狩市内の雪堆積場は現状の搬出先として記録するが、新設DCの候補には含めない。中央部・すすきの周辺の一等地は新設用地の探索対象から外す。</p>
+<h2 id="_1">北側への偏りをどう判断するか</h2>
+<p><a href="https://www.city.sapporo.jp/kensetsu/yuki/jigyosha/documents/3-taisekijoitiran.pdf">札幌市の雪堆積場等配置一覧（案）</a>の取得済み2026年度資料では、南区と清田区の雪処理施設欄は空欄。南区には石山大橋・五輪大橋・藻南橋周辺等、清田区には真栄地区・北野橋周辺等の雪堆積場が掲載されている。この範囲では、南側の融雪機能を検討する理由がある。配置案であり、供用状況や市内全施設の不存在を証明する資料ではない。<a href="../data/raw/procurement_2026_3-taisekijoitiran_0.png">確認画像1</a>・<a href="../data/raw/procurement_2026_3-taisekijoitiran_1.png">確認画像2</a>。</p>
+<p>現在の地図の7点はDC排熱との接続を調べるために選んだ施設で、市内の全雪処理施設ではない。同じ配置案には月寒公園、アクセスサッポロ、伏古公園北等も載る。さらに東部は供用計画、発寒は現行稼働未確認を含む。「南側には雪を処理する場所がない」「北側の能力が何％」とはまだ言えない。施設種別、稼働、受入対象、日処理量、地区別排雪量を揃えた評価が必要。</p>
+<h2 id="7">比較する7つの役割</h2>
+<table>
+<thead>
+<tr>
+<th>方面・探索地区</th>
+<th>受け持つ雪の仮説</th>
+<th>検討する設備</th>
+<th>採否を左右する条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DC1：手稲山口・前田方面</td>
+<td>手稲・新川側</td>
+<td>手稲北部でDC＋融雪槽＋一時貯雪。市外（石狩新港西地区）への搬出を市内処理へ置き換える比較</td>
+<td>新川下流・沿岸低地の洪水・内水・津波、地盤、受電・回線、住宅地からの搬入経路</td>
+</tr>
+<tr>
+<td>DC4：新川・発寒北</td>
+<td>西・北側</td>
+<td>新設DCと新川・発寒方面の既存融雪機能との接続・増強</td>
+<td>既存熱源との重複、追加投雪・排水能力、隣接用地、実配管距離</td>
+</tr>
+<tr>
+<td>DC7：宮の沢・発寒木工団地南端</td>
+<td>中央区西部・西区南部（円山・三角山側）</td>
+<td>発寒工業地区南端でDC＋融雪槽＋一時貯雪。DC4（新川・発寒北）と運搬距離を比較</td>
+<td>用地、住宅地への搬入、琴似発寒川の洪水、受電（187kV系1.7km）</td>
+</tr>
+<tr>
+<td>DC6：山鼻・南22条橋方面（参考）</td>
+<td>中央区南部</td>
+<td>公共用地の転用か河川敷雪堆積場との一体整備を政策として扱う場合の小規模DC＋融雪槽</td>
+<td>民間用地なし。市有地・公共用地の転用可否が唯一の関門。受電・IXは全候補で最も都心に近い</td>
+</tr>
+<tr>
+<td>DC5：東米里・米里</td>
+<td>白石・厚別側</td>
+<td>新設DCと東部・厚別方面の融雪機能を比較</td>
+<td>DC5の地区代表点と各施設は別地点。東部の供用条件、敷地・配管・排水余力</td>
+</tr>
+<tr>
+<td>DC2 南西：真駒内・石山方面</td>
+<td>南区、中央区南側</td>
+<td>幹線道路に接続できる既利用地でDC＋独立融雪槽＋一時貯雪</td>
+<td>住宅地回避、橋の横断・冬季渋滞、洪水・斜面、受電・異経路回線・排水</td>
+</tr>
+<tr>
+<td>DC3 南東：大谷地流通業務団地・北野方面</td>
+<td>清田・豊平東側、厚別南側</td>
+<td>物流用地の更新に合わせたDC＋融雪・貯雪</td>
+<td>現物流機能との両立、用途・用地、住宅への搬入影響、DC5との運搬時間比較</td>
+</tr>
+</tbody>
+</table>
+<p>南西・南東は本検討の探索仮説であり、取得可能な区画の発見ではない。地区代表点を新しい建設候補地として確定せず、まず用地を探す。河川敷の雪堆積場の存在をDC建設用地の根拠にしない。</p>
+<p>石山・真駒内は住宅地が多い。南西を工業地区と一括して扱わず、条件に合う既利用地が見つからなければこの案を見送る。駒岡方面を代替探索する場合も、<a href="https://www.city.sapporo.jp/seiso/gomi/netu.html">既存の清掃工場余熱利用</a>とDC熱を重ねて便益計上しない。</p>
+<p>南東の用地探索は、<a href="https://www.city.sapporo.jp/keizai/ooyachi/koudokavision.html">大谷地流通業務団地高度化ビジョン</a>が示す流通機能の維持・更新の文脈で検討する。更新方針は空地、売地、DC用途の許可、安価な土地の証拠ではない。東米里は清田の雪を受けるには北寄りなので、大谷地・北野案との実道路比較が必要。</p>
+<h2 id="dc">同じDC総容量で集中と分散を比べる</h2>
+<p>例えば追加IT容量20MWを1地点に置く案と、南西10MW＋南東10MWの2地点に置く案を比較する。既存の熱モデルと同じ稼働率90％・回収率80％等なら、合計の熱上限はどちらも約3,531t/日。分散しただけで融雪熱量は増えない。各10MW地点は約1,765t/日、8t積みで約221便/日、同じ搬入条件なら3レーンが目安。これは南側に20MWを配分する感度例で、DC容量の決定ではない。</p>
+<p>仮に各便の往復が10km短くなれば、約441便/日・燃費2km/Lで軽油約2,207L/日の削減になる。実道路による結果ではなく、満量搬入時の感度計算。分散で増える受変電・回線・冷却・融雪設備の費用と対比し、実際の雪到着量が少ない日も含めて判断する。</p>
+<p>既存槽の公表能力にDCの熱上限をそのまま足さない。追加能力は、熱、投雪、排水、一時貯雪、搬入の各余力で制限される。下水熱や焼却余熱の置換だけなら、総処理量は増えない場合もある。</p>
+<p>次の計算には、地区別の搬出雪量・積込点、各施設の時間別受入量、ダンプの積載量・出発点、搬入時間帯が必要。現在の除雪車による全道路被覆経路は排雪ダンプの運搬経路を計算したものではない。受入容量と待機を含む運搬先割当を別に組み、現状、DC4・5増強、南西追加、南東追加、両方追加を同じ総IT容量・雪量で比較する。現在の88時間等をこの案の短縮効果には転用しない。</p></main></body></html>

@@ -4,6 +4,8 @@
 
 **[画面を開く](web/index.html)** · **[設計・調査結果](docs/design.md)** · **[データ辞書](docs/data_dictionary.md)**
 
+公開版：**https://ina299.github.io/sapporo-melt-snow/** （GitHub Pages。`main` へのpushで `.github/workflows/pages.yml` が自動配信。文書は `python scripts/build_docs_html.py` でHTML化したものを同梱）
+
 **更新：[堆雪・排雪・融雪の日別収支](docs/snow_management.md)**。13観測点の実降雪を使い、道路脇に残す雪、一時堆雪、堆積場への搬出、DC融雪を分けました。車両・受入・貯留・熱・排水の制約で残雪を翌日に繰り越し、3方式を画面で比較・JSON保存できます。道路面積・堆雪余地・運搬距離等は変更できる仮定です。`npm run build:snow` / `npm run test:snow` で再生成・検証します。
 
 **更新：[南西・南東へのDC融雪拠点の分散案](docs/regional_melting.md)**。DC4・DC5の既存融雪機能との連携に加え、真駒内・石山方面と大谷地・北野方面の用地探索を比較。市の配置案と地図の収録範囲を区別し、同じ総IT容量で運搬と設備費を評価します。個別区画と実運搬効果は未確定です。[事業者所在地・台数の照合](docs/contractor_audit.md)では公表台数と拠点配備を分けています。

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>事業者所在地・機械数の照合（2026-09-08）</title><style>
+:root{--ink:#1d2a2c;--muted:#5d6f6b;--green:#207f69;--line:#dfe6e0;--bg:#f6f8f4}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.9 "Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+main{max-width:960px;margin:0 auto;padding:32px 24px 64px;background:#fff;min-height:100vh}
+h1{font-size:24px;line-height:1.5;margin:0 0 20px}h2{font-size:18px;margin:36px 0 12px;padding-top:12px;border-top:1px solid var(--line)}h3{font-size:15px;margin:24px 0 8px}
+a{color:var(--green)}p,li{font-size:13px}code{background:#f0f4ee;padding:1px 5px;border-radius:3px;font-size:12px}
+pre{background:#f0f4ee;padding:12px 14px;border-radius:6px;overflow:auto;font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:12px;margin:12px 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:#f7f9f5;color:var(--muted);font-weight:500;white-space:nowrap}
+img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{margin-right:14px}
+</style></head>
+<body><main><nav class="docnav"><a href="../web/">画面へ戻る</a><a href="design.html">設計・調査結果</a><a href="dc_feasibility.html">DC候補地</a><a href="direct_routing.html">配車</a><a href="snow_management.html">雪収支</a><a href="../README.md">README</a></nav><h1 id="2026-09-08">事業者所在地・機械数の照合（2026-09-08）</h1>
+<p>現在の4地点を、機械配備が確認された出動拠点として扱うことはできない。公開住所は確認したが、配備数と出動場所の組合せは4社とも不明。確認済みが0件という意味であり、配備台数が0台という意味ではない。</p>
+<table>
+<thead>
+<tr>
+<th>会社</th>
+<th>住所の根拠</th>
+<th>掲載値から試算に採用</th>
+<th>掲載値のうち試算から除外</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>東洋ロードメンテナンス</td>
+<td>発寒事業所。本社とは別</td>
+<td>グレーダ3＋ショベルローダ7＝10台</td>
+<td>大型ロータリ2・4tダンプ2</td>
+</tr>
+<tr>
+<td>鹿島舗道工業</td>
+<td>資材センター・モータープール。本社とは別</td>
+<td>グレーダ3＋大型タイヤショベル10＝13台</td>
+<td>大型ロータリ1・小型ショベル3・4tダンプ9</td>
+</tr>
+<tr>
+<td>サツイチ</td>
+<td>本社に土木事業部の連絡先を掲載</td>
+<td>土木事業部のタイヤショベル4台</td>
+<td>同部門の10tダンプ23台</td>
+</tr>
+<tr>
+<td>KRS</td>
+<td>工事事務所。本社とは別</td>
+<td>2m³ショベル1＋1.5m³ショベル2＝3台</td>
+<td>小型ショベル4・ダンプ9</td>
+</tr>
+</tbody>
+</table>
+<p>採用した30台は実配備でも稼働可能な上限でもない。ダンプ・ロータリ・小型ショベルの除外は現行の単純な路面作業モデルでの選択であり、現場で使えないという判定ではない。採用機種も装備・車幅・運転者・契約拘束を確認していない。異なる機種を同じ作業速度8km/hで扱う仮定も残る。</p>
+<p>東洋・鹿島・KRSの台帳は会社一覧から関連機種のみを抜粋しており、全車両の総数ではない。サツイチは土木事業部ページの台数であり、会社全体の台数と記した説明を訂正した。同社には川下の札幌営業所（運輸・重機）と流通センター支店もあるが、土木部門の車両がそこにあるとも断定できない。</p>
+<p>4地点とも国土地理院の検索結果は地番まで（1080、1775、708、577）で、公開住所の枝番（29、5、3、87）まで一致していない。単一候補でも敷地・出入口の精度は保証されない。従来の点を移動せず、住所代表点による仮想出発地として表示する。サツイチのアイコンの表示位置も補正しない。</p>
+<p>したがって現在の経路・88時間等は「この代表点にこの台数を集中配備した場合」の比較に限る。実際の会社の担当区域や運用可能な計画を示していない。基礎条件が変われば区域境界・回送距離・必要時間を再計算する必要がある。</p>
+<p>実配車へ進めるには、会社IDと別の拠点IDを設け、各拠点の出入口座標、機種別配備、当日の使用可能数、装備、担当工区、運転者を対応付ける必要がある。不明値はnullを維持し、会社保有数から各拠点へ自動転記しない。</p>
+<p>一次資料： <a href="https://toyoroad.co.jp/about/">東洋</a> / <a href="https://kashimahodou.jp/">鹿島</a> / <a href="https://www.satsuichi.co.jp/about/">サツイチ所在地</a> / <a href="https://www.satsuichi.co.jp/engineering/">サツイチ土木事業部</a> / <a href="https://www.krs-sapporo.co.jp/business/">KRS</a>。当日の取得ファイルとSHA-256は <a href="../data/contractor_audit_sources.json">取得記録</a> に保存。公表台数の基準日は確認できない。</p></main></body></html>

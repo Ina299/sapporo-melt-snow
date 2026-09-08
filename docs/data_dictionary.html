@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>データ辞書</title><style>
+:root{--ink:#1d2a2c;--muted:#5d6f6b;--green:#207f69;--line:#dfe6e0;--bg:#f6f8f4}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.9 "Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+main{max-width:960px;margin:0 auto;padding:32px 24px 64px;background:#fff;min-height:100vh}
+h1{font-size:24px;line-height:1.5;margin:0 0 20px}h2{font-size:18px;margin:36px 0 12px;padding-top:12px;border-top:1px solid var(--line)}h3{font-size:15px;margin:24px 0 8px}
+a{color:var(--green)}p,li{font-size:13px}code{background:#f0f4ee;padding:1px 5px;border-radius:3px;font-size:12px}
+pre{background:#f0f4ee;padding:12px 14px;border-radius:6px;overflow:auto;font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:12px;margin:12px 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:#f7f9f5;color:var(--muted);font-weight:500;white-space:nowrap}
+img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{margin-right:14px}
+</style></head>
+<body><main><nav class="docnav"><a href="../web/">画面へ戻る</a><a href="design.html">設計・調査結果</a><a href="dc_feasibility.html">DC候補地</a><a href="direct_routing.html">配車</a><a href="snow_management.html">雪収支</a><a href="../README.md">README</a></nav><h1 id="_1">データ辞書</h1>
+<p>共通：座標はWGS84、緯度経度は十進度、未確認値は <code>null</code>。<code>0</code> は資料で0と判定できる値だけに使います。数値は取得日時時点に公開されていた内容で、当日稼働数ではありません。</p>
+<table>
+<thead>
+<tr>
+<th>ファイル</th>
+<th>主な項目</th>
+<th>解釈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>contractor_directory</td>
+<td>name, address, ward_category, source_url</td>
+<td>協会の掲載209件。分類区と実際の所在地は一致しない場合がある。会社・営業所単位であり重複排除した法人全数ではない</td>
+</tr>
+<tr>
+<td>contractors</td>
+<td>fleet, fleet_scope, address, location_type</td>
+<td>4社の公表保有数。会社合計と拠点配備を区別。小型ショベル等は除雪適合性未確認</td>
+</tr>
+<tr>
+<td>contractors</td>
+<td>available_now, fleet_as_of</td>
+<td>当日稼働台数、保有台数の基準日。どちらも未確認</td>
+</tr>
+<tr>
+<td>contractors / candidates</td>
+<td>latitude, longitude, geocoded_title</td>
+<td>国土地理院住所検索の単一候補。地番や丁目代表点を含む。出入口・建物中心・候補区画とは限らない</td>
+</tr>
+<tr>
+<td>district_fleet</td>
+<td>city_loan</td>
+<td>2026年度市貸与車配置の予定台数。9機種。括弧内の増減や部分集合は加算しない</td>
+</tr>
+<tr>
+<td>district_fleet</td>
+<td>minimum_including_city_loan</td>
+<td>最低必要台数の予定。市貸与を含む。資料4の値をさらに加算しない</td>
+</tr>
+<tr>
+<td>candidates</td>
+<td>existing_capacity_m3_day</td>
+<td>公表融雪能力。搬入雪体積のm³/日。排水量・槽容量とは異なる。新川・厚別等は昼夜分を合計</td>
+</tr>
+<tr>
+<td>candidates</td>
+<td>incremental_capacity_m3_day</td>
+<td>DC排熱による現地実増分。全候補で未確認</td>
+</tr>
+<tr>
+<td>candidates</td>
+<td>investigation_tier</td>
+<td>1:最初の設備接続調査、2:比較候補、3:都心小規模連携。設計者の判断であり数値最適化結果ではない</td>
+</tr>
+<tr>
+<td>weather_daily</td>
+<td>value_cm, kind, date, station</td>
+<td>公表日次の降雪量/積雪深。Xはnull。参考値期間はsummaryの注記を参照</td>
+</tr>
+<tr>
+<td>weather_summary</td>
+<td>snowfall_sum_cm</td>
+<td>取得期間の有効日量の合計。欠測があれば真の累計ではない</td>
+</tr>
+<tr>
+<td>roads.geojson</td>
+<td>task_id, way_id, included</td>
+<td>OSM way内の隣接ノード間・方向ごとのタスク。道路名ごとや交差点間リンク数とは異なる</td>
+</tr>
+<tr>
+<td>analysis</td>
+<td>scenarios[].routes[].steps</td>
+<td>u,vの順で連続した走行。service=trueのみ担当作業。falseは回送。original_keyは元の有向辺</td>
+</tr>
+<tr>
+<td>analysis</td>
+<td>audit</td>
+<td>対象道路数、未計算数、道路種別除外数、境界除外数、未反映制約</td>
+</tr>
+<tr>
+<td>routes.geojson</td>
+<td>scenario, vehicle, depot</td>
+<td>台数別の仮定シナリオ。同一シナリオ内の車両ごとに順序付きLineString</td>
+</tr>
+<tr>
+<td>excluded_arcs</td>
+<td>task_id, u,v</td>
+<td>強連結性のため計算しなかった有向辺。消去せず保存</td>
+</tr>
+</tbody>
+</table>
+<p><code>analysis.json</code> のサービス速度8km/h、回送速度20km/h、時間単価12,000円/台h、6時間上限、車両1/2/4/8台はすべて仮定です。時間単価には実際の見積根拠はありません。画面の速度・単価変更は固定経路に対する感度計算で、経路分担の再最適化ではありません。</p>
+<p><code>data.js</code> は画面用の計算結果のコピーです。更新するには <code>scripts/run_analysis.py</code> を実行します。ルートの全ステップは容量削減のため画面用コピーから外し、<code>analysis.json</code> に保持しています。</p></main></body></html>
