@@ -60,6 +60,11 @@ if(CR){
     (r.tail_features??[]).forEach(f=>push(f,r.trip_ids.length+1));
     return {features:out,seq,hours:clock};
   }
+  function vehicleStart(c,r){
+    const trips=new Map(c.trips.map(t=>[t.id,t]));
+    for(const id of r.trip_ids){const t=trips.get(id);const f=t.features.find(x=>x.properties.service)??t.features[0];if(f){const [lon,lat]=f.geometry.coordinates[0];return [lat,lon];}}
+    return null;
+  }
   function styleFor(f,focus){
     const p=f.properties;
     const faded=timeLimit!=null&&p.start_h>timeLimit;
@@ -82,13 +87,14 @@ if(CR){
        onEachFeature:(f,l)=>{const p=f.properties;l.bindPopup(`${esc(companyLabel(c))}<br>車両 ${p.vehicle} / ${p.service?'除雪作業':'往復・区間間の回送'}${p.seq?`<br>作業 ${p.seq} 番目 / 出発から ${num(p.start_h,1)}〜${num(p.end_h,1)} 時間`:''}${focus?'':`<br><button class="text-button" data-popup-focus="${p.vehicle}">この車両の作業順序・方向を見る →</button>`}`,{autoPan:false});
          if(focus&&p.seq)l.on('click',()=>selectTrip(p.seq,false));}}).addTo(layer);
     // Start markers: one per vehicle (all vehicles) or one per job (focused vehicle).
-    if(!focus){
-      const started=new Set();
-      for(const f of features){const v=f.properties.vehicle;if(!f.properties.service||started.has(v))continue;started.add(v);const [lon,lat]=f.geometry.coordinates[0];
-        L.marker([lat,lon],{icon:L.divIcon({className:'vehicle-start',html:`<span style="background:${color(v)}">${v}</span>`,iconSize:[22,22]}),title:`車両 ${v} の作業開始点。クリックで作業順序・方向を表示`,zIndexOffset:2000}).addTo(layer).bindTooltip(`車両 ${v}：クリックで順序・方向・経過時間を表示`,{direction:'top',offset:[0,-12]}).on('click',()=>focusVehicle(v));}
-    }else{
-      drawDetail(c,built[0]);
+    // Start markers for every vehicle (車N). In the focused view the other vehicles stay as faded,
+    // clickable markers so the user can jump between vehicles without leaving the view.
+    for(const r of s.routes){
+      const start=vehicleStart(c,r);if(!start)continue;const v=r.vehicle_id,other=focus&&v!==focus;
+      L.marker(start,{icon:L.divIcon({className:'vehicle-start'+(other?' is-other':''),html:`<span style="background:${color(v)}">車${v}</span>`,iconSize:[30,20],iconAnchor:[15,10]}),title:`車両 ${v} の作業開始点。クリックで作業順序・方向を表示`,zIndexOffset:other?1800:2000})
+        .addTo(layer).bindTooltip(`車両 ${v}：クリックで${other?'この車両に切替':'順序・方向・経過時間を表示'}`,{direction:'top',offset:[0,-12]}).on('click',()=>focusVehicle(v));
     }
+    if(focus)drawDetail(c,built[0]);
     const source=D.contractors.find(x=>x.id===c.id);
     L.polyline([[source.latitude,source.longitude],[c.depot.lat,c.depot.lon]],{color:'#687278',dashArray:'2 5',weight:2}).addTo(layer).bindPopup(`道路への未確認接続 ${num(c.snap_distance_m)}m。走行距離・時間に未算入。`,{autoPan:false});
     $('company-route-note').textContent=`${c.name} / 広域担当${num(s.validation.covered)}方向区間。試算設定の最大${c.fleet_limit}台：${c.fleet_basis}。実際の上限・稼働・拠点配備は未確認。所在地と道路接続点の差：約${num(c.snap_distance_m)}m。${CR.mode==='joint'?'全社方式では台数は固定です。':'台数変更は固定担当区間内の再配分です。'}`;
@@ -96,12 +102,16 @@ if(CR){
     $('company-route-table').innerHTML=s.routes.map(r=>`<tr class="${focus===r.vehicle_id?'selected-row':''}" data-vehicle="${r.vehicle_id}"><td><i class="legend-line" style="background:${color(r.vehicle_id)}"></i>${r.vehicle_id}</td><td>${num(r.service_km,2)} km</td><td>${num(r.deadhead_km,2)} km</td><td>${num(r.hours,2)} h</td><td class="${r.hours<=SHIFT_HOURS?'ok':'bad'}">${r.hours<=SHIFT_HOURS?'範囲内':'超過'}</td><td><button class="text-button" data-focus-vehicle="${r.vehicle_id}">順序を見る</button></td></tr>`).join('');
     document.querySelectorAll('[data-focus-vehicle]').forEach(b=>b.onclick=()=>{$('company-vehicle-focus').value=b.dataset.focusVehicle;selectedTrip=null;timeLimit=null;draw(false);});
     renderTripPanel(c,focus,built[0]);
-    const chips=routes.map(r=>`<span class="vehicle-chip"><i style="background:${color(r.vehicle_id)}"></i>車両 ${r.vehicle_id}</span>`).join('');
+    const chips=s.routes.map(r=>`<button class="vehicle-chip${focus===r.vehicle_id?' is-selected':''}" data-vehicle-chip="${r.vehicle_id}" title="車両 ${r.vehicle_id} の順序・方向を表示"><i style="background:${color(r.vehicle_id)}"></i>車${r.vehicle_id}</button>`).join('');
+    const prev=focus?((focus-2+s.routes.length)%s.routes.length)+1:0,next=focus?(focus%s.routes.length)+1:0;
+    const nav=focus?`<button id="prev-vehicle" class="text-button">← 車${prev}</button><button id="next-vehicle" class="text-button">車${next} →</button>`:'';
     const bandLegend=focus?`<div class="time-bands">${bands.map(([limit,col],i)=>`<span><i style="background:${col}"></i>${i?`${bands[i-1][0]}〜`:'0〜'}${limit===Infinity?'':limit}時間${limit===Infinity?'超':''}</span>`).join('')}</div>`:'';
-    $('company-map-legend').innerHTML=`<b>${esc(companyLabel(c))} / ${s.vehicles}台${focus?` / 車両${focus}を表示`:''}</b><span>${focus?'色：出発からの経過時間　番号：作業の順序　矢印：進行方向　破線：回送':'実線：作業　破線：回送　番号：作業開始点（クリックでその車両の順序・方向・経過時間）'}　灰色点線：未確認接続</span>${bandLegend}<div>${chips}</div><div class="legend-actions">${focus?'<button id="all-vehicles-view" class="text-button">全車両に戻る</button>':''}<button id="fit-company" class="text-button">この表示範囲に合わせる</button><button id="all-companies-view" class="text-button">全社表示に戻る</button><a href="#company-routing">事業者・台数・表示車両を変更 ↓</a></div>`;
+    $('company-map-legend').innerHTML=`<b>${esc(companyLabel(c))} / ${s.vehicles}台${focus?` / 車両${focus}を表示`:''}</b><span>${focus?'色：出発からの経過時間　丸数字：作業の順序　矢印：進行方向　破線：回送　薄い車N：他車両の開始点（クリックで切替）':'実線：作業　破線：回送　車N：作業開始点（クリックでその車両の順序・方向・経過時間）'}　灰色点線：未確認接続</span>${bandLegend}<div>${chips}</div><div class="legend-actions">${nav}${focus?'<button id="all-vehicles-view" class="text-button">全車両に戻る</button>':''}<button id="fit-company" class="text-button">この表示範囲に合わせる</button><button id="all-companies-view" class="text-button">全社表示に戻る</button><a href="#company-routing">事業者・台数・表示車両を変更 ↓</a></div>`;
     $('fit-company').onclick=()=>{if(layer.getLayers().length)map.fitBounds(layer.getBounds(),{padding:[45,45],maxZoom:15});};
     $('all-companies-view').onclick=()=>allCompanies(false);
     const back=$('all-vehicles-view');if(back)back.onclick=()=>focusVehicle(0);
+    document.querySelectorAll('#company-map-legend [data-vehicle-chip]').forEach(b=>b.onclick=()=>focusVehicle(+b.dataset.vehicleChip===focus?0:+b.dataset.vehicleChip));
+    if(focus){$('prev-vehicle').onclick=()=>focusVehicle(prev);$('next-vehicle').onclick=()=>focusVehicle(next);}
     if(fit&&layer.getLayers().length){map.fitBounds(layer.getBounds(),{padding:[45,45],maxZoom:15});revealMap();}
   }
   // Direction arrows and job-order numbers for a single vehicle.
@@ -139,6 +149,8 @@ if(CR){
     const slider=$('time-slider');slider.max=Math.ceil(total*2)/2;slider.step=.5;slider.value=timeLimit??slider.max;
     $('time-slider-value').textContent=timeLimit==null?'全行程':`出発から ${num(timeLimit,1)} 時間まで`;
     const done=timeLimit==null?b.seq.length:b.seq.filter(t=>t.end_h<=timeLimit).length;
+    $('trip-nav').innerHTML=Array.from({length:+$('company-vehicles').value},(_,i)=>i+1).map(v=>`<button class="vehicle-chip${v===focus?' is-selected':''}" data-vehicle-chip="${v}"><i style="background:${color(v)}"></i>車${v}</button>`).join('');
+    document.querySelectorAll('#trip-nav [data-vehicle-chip]').forEach(b2=>b2.onclick=()=>focusVehicle(+b2.dataset.vehicleChip));
     $('trip-summary').textContent=`車両 ${focus}：作業 ${b.seq.length} 件、行程 ${num(total,2)} 時間。${timeLimit==null?'':`${num(timeLimit,1)} 時間時点で完了 ${done} 件。`}6時間以内に完了する作業は ${b.seq.filter(t=>t.end_h<=SHIFT_HOURS).length} 件。`;
     $('trip-table').innerHTML=b.seq.map(t=>`<tr data-seq="${t.seq}" class="${selectedTrip===t.seq?'selected-row':''}${timeLimit!=null&&t.start_h>timeLimit?' faded-row':''}"><td><i class="legend-dot" style="background:${bandColor(t.end_h)}"></i>${t.seq}</td><td>${num(t.start_h,2)} h</td><td>${num(t.end_h,2)} h</td><td>${num(t.trip.service_km,2)} km</td><td>${num(t.trip.deadhead_km+(t.seq>1?t.trip.incoming_metrics?.deadhead_km??0:0),2)} km</td><td class="${t.end_h<=SHIFT_HOURS?'ok':'bad'}">${t.end_h<=SHIFT_HOURS?'範囲内':'超過'}</td><td><button class="text-button" data-trip-go="${t.seq}">地図で見る</button></td></tr>`).join('');
     document.querySelectorAll('#trip-table tr[data-seq]').forEach(row=>row.onclick=e=>{if(e.target.closest('button'))return;selectTrip(+row.dataset.seq,false);});

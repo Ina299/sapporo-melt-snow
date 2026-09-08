@@ -75,7 +75,14 @@ test('wide coverage and company-origin fleet routes are selectable',async({page}
   await expect(page.locator('#company-route-table')).toContainText('超過');
   await page.locator('#company-vehicle-focus').selectOption('2');
   await expect(page.locator('#company-map-legend')).toContainText('車両2を表示');
-  await expect(page.locator('#company-map-legend .vehicle-chip')).toHaveCount(1);
+  await expect(page.locator('#company-map-legend .vehicle-chip')).toHaveCount(3);
+  await expect(page.locator('#company-map-legend .vehicle-chip.is-selected')).toHaveText(/車2/);
+  await page.locator('#next-vehicle').click();
+  await expect(page.locator('#company-vehicle-focus')).toHaveValue('3');
+  await page.locator('#company-map-legend [data-vehicle-chip="1"]').click();
+  await expect(page.locator('#company-vehicle-focus')).toHaveValue('1');
+  await expect(page.locator('.vehicle-start.is-other')).toHaveCount(2);
+  await expect(page.locator('#trip-nav .vehicle-chip')).toHaveCount(3);
   await page.locator('#city-view').click();
   const before=await page.evaluate(()=>[map.getZoom(),map.getCenter().lat,map.getCenter().lng]);
   await page.locator('.contractor-marker[title="KRS株式会社"]').hover();
