@@ -69,3 +69,12 @@ tr.faded-row td{opacity:.4}
 .legend-tag.legend-circle{border-radius:50%;min-width:14px;padding:0}
 .vehicle-chip.is-selected{border-color:var(--green);box-shadow:0 0 0 1px var(--green)}
 button.vehicle-chip{cursor:pointer;color:var(--ink)}
+
+/* Back navigation */
+.primary-button{background:var(--green);color:#fff;border:0;border-radius:6px;padding:7px 12px;font-size:11px;font-weight:bold;box-shadow:0 1px 3px #0002}
+.primary-button:hover{filter:brightness(1.08)}
+.map-back-control{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.map-back-control:empty{display:none}
+.map-back-title{background:#fff;border:1px solid var(--line);border-radius:6px;padding:4px 9px;font-size:11px;font-weight:bold;box-shadow:0 1px 3px #0002;max-width:260px}
+.map-back-control .text-button{background:#fff;border:1px solid var(--line);border-radius:6px;padding:5px 9px}
+.map-back-hint{font-size:9px;color:var(--muted);background:#fffc;padding:1px 4px;border-radius:3px}

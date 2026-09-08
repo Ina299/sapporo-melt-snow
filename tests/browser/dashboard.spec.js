@@ -81,6 +81,17 @@ test('wide coverage and company-origin fleet routes are selectable',async({page}
   await expect(page.locator('#company-vehicle-focus')).toHaveValue('3');
   await page.locator('#company-map-legend [data-vehicle-chip="1"]').click();
   await expect(page.locator('#company-vehicle-focus')).toHaveValue('1');
+  await expect(page.locator('.map-back-control [data-back="vehicles"]')).toBeVisible();
+  const scrollBefore=await page.evaluate(()=>scrollY);
+  await page.locator('#map').click({position:{x:30,y:400}});
+  await expect(page.locator('#company-vehicle-focus')).toHaveValue('0');
+  await expect(page.locator('#trip-panel')).toBeHidden();
+  expect(await page.evaluate(()=>scrollY)).toBe(scrollBefore);
+  await page.locator('.map-back-control [data-back="companies"]').click();
+  await expect(page.locator('#company-map-legend')).toContainText('仮定配備による割当');
+  await expect(page.locator('.map-back-control')).toBeEmpty();
+  await page.locator('#route-company').selectOption('kashima');
+  await page.locator('#company-vehicle-focus').selectOption('1');
   await expect(page.locator('.vehicle-start.is-other')).toHaveCount(2);
   await expect(page.locator('#trip-nav .vehicle-chip')).toHaveCount(3);
   await page.locator('#city-view').click();

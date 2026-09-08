@@ -106,12 +106,13 @@ if(CR){
     const prev=focus?((focus-2+s.routes.length)%s.routes.length)+1:0,next=focus?(focus%s.routes.length)+1:0;
     const nav=focus?`<button id="prev-vehicle" class="text-button">← 車${prev}</button><button id="next-vehicle" class="text-button">車${next} →</button>`:'';
     const bandLegend=focus?`<div class="time-bands">${bands.map(([limit,col],i)=>`<span><i style="background:${col}"></i>${i?`${bands[i-1][0]}〜`:'0〜'}${limit===Infinity?'':limit}時間${limit===Infinity?'超':''}</span>`).join('')}</div>`:'';
-    $('company-map-legend').innerHTML=`<b>${esc(companyLabel(c))} / ${s.vehicles}台${focus?` / 車両${focus}を表示`:''}</b><span>${focus?'色：出発からの経過時間　丸数字：作業の順序　矢印：進行方向　破線：回送　薄い車N：他車両の開始点（クリックで切替）':'実線：作業　破線：回送　車N：作業開始点（クリックでその車両の順序・方向・経過時間）'}　灰色点線：未確認接続</span>${bandLegend}<div>${chips}</div><div class="legend-actions">${nav}${focus?'<button id="all-vehicles-view" class="text-button">全車両に戻る</button>':''}<button id="fit-company" class="text-button">この表示範囲に合わせる</button><button id="all-companies-view" class="text-button">全社表示に戻る</button><a href="#company-routing">事業者・台数・表示車両を変更 ↓</a></div>`;
+    $('company-map-legend').innerHTML=`<b>${esc(companyLabel(c))} / ${s.vehicles}台${focus?` / 車両${focus}を表示`:''}</b><span>${focus?'色：出発からの経過時間　丸数字：作業の順序　矢印：進行方向　破線：回送　薄い車N：他車両の開始点（クリックで切替）':'実線：作業　破線：回送　車N：作業開始点（クリックでその車両の順序・方向・経過時間）'}　灰色点線：未確認接続</span>${bandLegend}<div>${chips}</div><div class="legend-actions">${focus?'<button id="all-vehicles-view" class="primary-button">◀ 全車両に戻る</button>':''}<button id="all-companies-view" class="${focus?'text-button':'primary-button'}">◀ 全社表示に戻る</button>${nav}<button id="fit-company" class="text-button">この表示範囲に合わせる</button><a href="#company-routing">事業者・台数・表示車両を変更 ↓</a></div>`;
     $('fit-company').onclick=()=>{if(layer.getLayers().length)map.fitBounds(layer.getBounds(),{padding:[45,45],maxZoom:15});};
     $('all-companies-view').onclick=()=>allCompanies(false);
     const back=$('all-vehicles-view');if(back)back.onclick=()=>focusVehicle(0);
     document.querySelectorAll('#company-map-legend [data-vehicle-chip]').forEach(b=>b.onclick=()=>focusVehicle(+b.dataset.vehicleChip===focus?0:+b.dataset.vehicleChip));
     if(focus){$('prev-vehicle').onclick=()=>focusVehicle(prev);$('next-vehicle').onclick=()=>focusVehicle(next);}
+    updateBackControl();
     if(fit&&layer.getLayers().length){map.fitBounds(layer.getBounds(),{padding:[45,45],maxZoom:15});revealMap();}
   }
   // Direction arrows and job-order numbers for a single vehicle.
@@ -135,11 +136,25 @@ if(CR){
     });
   }
   map.on('zoomend',()=>{if(mode==='company'&&+$('company-vehicle-focus').value)draw(false);});
+  let popupWasOpen=false;
+  map.on('preclick',()=>{popupWasOpen=!!map._popup;});
+  map.on('click',()=>{if(popupWasOpen)return;if(mode==='company'&&+$('company-vehicle-focus').value)focusVehicle(0);});
+  // Floating "back" control on the map itself so the way out is always visible.
+  const backControl=L.control({position:'topright'});
+  backControl.onAdd=()=>{const div=L.DomUtil.create('div','map-back-control');L.DomEvent.disableClickPropagation(div);div.innerHTML='';return div;};
+  backControl.addTo(map);
+  function updateBackControl(){
+    const div=document.querySelector('.map-back-control');if(!div)return;
+    const focus=mode==='company'?+$('company-vehicle-focus').value:0;
+    const c=mode==='company'?company():null;
+    div.innerHTML=mode==='all'?'':`<div class="map-back-title">${esc(companyLabel(c))}${focus?` / 車両 ${focus}`:''}</div>${focus?'<button class="primary-button" data-back="vehicles">◀ 全車両に戻る</button>':''}<button class="${focus?'text-button':'primary-button'}" data-back="companies">◀ 全社表示に戻る</button><span class="map-back-hint">${focus?'地図の何もない所をクリックしても全車両に戻ります':''}</span>`;
+    div.querySelectorAll('[data-back]').forEach(b=>b.onclick=()=>b.dataset.back==='vehicles'?focusVehicle(0):allCompanies(false));
+  }
   function selectTrip(seq,move){
     selectedTrip=selectedTrip===seq?null:seq;
     draw(false);
     if(move&&selectedTrip!=null){const t=tripIndex.find(x=>x.seq===selectedTrip);if(t){map.setView([t.lat,t.lon],Math.max(map.getZoom(),14));revealMap();}}
-    document.querySelector(`#trip-table tr[data-seq="${selectedTrip}"]`)?.scrollIntoView({block:'nearest'});
+    if(!move){const row=document.querySelector(`#trip-table tr[data-seq="${selectedTrip}"]`);const box=row?.closest('.trip-scroll');if(row&&box)box.scrollTop=row.offsetTop-box.clientHeight/2;}
   }
   function renderTripPanel(c,focus,b){
     const panel=$('trip-panel');
@@ -174,6 +189,7 @@ if(CR){
     document.querySelectorAll('[data-company-toggle]').forEach(b=>b.onclick=()=>{const id=b.dataset.companyToggle;if(hiddenCompanies.has(id)){hiddenCompanies.delete(id);companyLayers[id].addTo(layer);}else{hiddenCompanies.add(id);layer.removeLayer(companyLayers[id]);}b.classList.toggle('is-off',hiddenCompanies.has(id));});
     $('unassigned-toggle').onchange=e=>e.target.checked?missing.addTo(map):map.removeLayer(missing);
     $('fit-all').onclick=()=>{if(layer.getLayers().length)map.fitBounds(layer.getBounds(),{padding:[35,35]});};
+    updateBackControl();
     if(fit&&layer.getLayers().length)map.fitBounds(layer.getBounds(),{padding:[35,35]});
   }
   const missing=L.geoJSON(CR.unassigned_geometry,{style:()=>({color:'#d13932',weight:3,opacity:.8}),onEachFeature:(f,l)=>l.bindPopup(`未割当：${esc(f.properties.reason)}`,{autoPan:false})}).addTo(map);
