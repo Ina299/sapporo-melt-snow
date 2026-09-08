@@ -48,7 +48,7 @@
       <div class="section-title"><div><span class="eyebrow">CITYWIDE / JOINT DISPATCH</span><h2>広域道路を4社で分担し、車両ごとに配車する。</h2></div></div>
       <p class="section-intro">番号付きの事業者マーカーから、その会社の広域担当経路を表示。各区間を4社のいずれかへ重複なく割り当てます。実契約地区ではなく、所在地・公表機種数に基づく仮定配車です。</p>
       <div class="notice" id="dispatch-audit"></div>
-      <div class="panel explanation"><label for="dispatch-mode">割当方式</label><select id="dispatch-mode"><option value="fixed">所在地に近い区域で配車</option><option value="joint">全社の台数で区域・経路を調整</option></select><p id="dispatch-mode-note">会社内の台数を変更できます。</p><div class="table-scroll"><table><thead><tr><th>方式</th><th>仮定台数</th><th>完了まで</th><th>総車両時間</th></tr></thead><tbody id="dispatch-comparison"></tbody></table></div></div>
+      <div class="panel explanation"><label for="dispatch-mode">割当方式</label><select id="dispatch-mode"><option value="joint" selected>全社の台数で区域・経路を調整</option><option value="fixed">所在地に近い区域で配車（比較用）</option></select><p id="dispatch-mode-note">各社の仮定台数を考慮して区域境界を調整します。</p><div class="table-scroll"><table><thead><tr><th>方式</th><th>仮定台数</th><th>完了まで</th><th>総車両時間</th></tr></thead><tbody id="dispatch-comparison"></tbody></table></div></div>
       <div class="panel company-controls"><label>出発する事業者<select id="route-company"></select></label><label>試算する作業車両数<select id="company-vehicles"></select></label><label>地図に表示する車両<select id="company-vehicle-focus"></select></label><button id="company-route-view" class="text-button">出発点と往復経路を表示 ↑</button></div>
       <p class="section-intro" id="company-route-note"></p>
       <div class="stats route-stats" id="company-route-stats"></div>
@@ -129,6 +129,6 @@
     </section>
     <footer>SAPPORO SNOW LAB <span>雪と暮らす都市のための、検討用ワークスペース。</span></footer>
   </main>
-  <script src="vendor/leaflet.js"></script><script src="data.js"></script><script src="city-data.js"></script><script src="boundary-data.js"></script><script src="dispatch-data.js"></script><script src="app.js"></script><script src="city.js"></script><script src="contractors.js"></script><script src="snow-data.js"></script><script src="snow-model.js"></script><script src="snow-ui.js"></script>
+  <script src="vendor/leaflet.js"></script><script src="data.js"></script><script src="city-data.js"></script><script src="boundary-data.js"></script><script src="joint-dispatch-data.js"></script><script src="app.js"></script><script src="city.js"></script><script src="contractors.js"></script><script src="snow-data.js"></script><script src="snow-model.js"></script><script src="snow-ui.js"></script>
 </body>
 </html>

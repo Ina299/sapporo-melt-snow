@@ -1,5 +1,5 @@
 'use strict';
-let CR=window.CONTRACTOR_ROUTES;
+let CR=window.JOINT_ROUTES;
 if(CR){
   const layer=L.featureGroup().addTo(map);
   let mode='all';
@@ -13,6 +13,7 @@ if(CR){
     const c=company();
     $('company-vehicles').innerHTML=c.scenarios.map(s=>`<option value="${s.vehicles}">${s.vehicles}台</option>`).join('');
     $('company-vehicles').value=String(CR.mode==='joint'?c.fleet_limit:(selectedCounts[id]??c.fleet_limit));
+    $('company-vehicles').disabled=CR.mode==='joint';
     updateFocus();draw(fit);
   }
   function updateFocus(){
@@ -63,7 +64,7 @@ if(CR){
   $('top-stats').lastElementChild.outerHTML=stat('広域の仮定割当',num(a.assigned_arcs),'方向区間',`${num(a.unassigned_arcs)}区間は未割当`);
   $('city-stats').innerHTML=stat('対象の方向区間',num(a.required_arcs),'区間','市域と周辺のOSM車道')+stat('事業者・車両へ配車',num(a.assigned_arcs),'区間','4社が重複なく担当')+stat('仮定の試算台数',a.fleet,'台','公表主要機種による仮定')+stat('往復できず未割当',num(a.unassigned_arcs),'区間','架空の接続は追加しません');
   $('city-audit').textContent=CR.scope+' '+CR.method+' '+CR.transit_note;
-  $('dispatch-mode-note').textContent=CR.mode==='joint'?'各社の仮定台数を考慮して区域境界を調整し、近い作業へ直行する近似配車。仮定30台で比較します。':'会社所在地への道路上の近さで区域を作成し、近い作業へ直行します。会社内の台数を変更できます。';
+  $('dispatch-mode-note').textContent=CR.mode==='joint'?'各社の仮定台数を考慮して区域境界を調整し、近い作業へ直行する近似配車。仮定30台で比較します。':'比較用の基準線。会社所在地への道路上の近さだけで区域を作成し、台数を考慮しないため、台数の少ないKRS・サツイチに区間が集中します。会社内の台数を変更できます。';
   const old=a.previous;
   if(old){
     let note=$('route-improvement');if(!note){note=document.createElement('p');note.id='route-improvement';$('dispatch-mode-note').after(note);}
@@ -76,9 +77,9 @@ if(CR){
   $('dispatch-mode').onchange=async()=>{
     const el=$('dispatch-mode');el.disabled=true;
     try{
-      if(el.value==='joint'&&!window.JOINT_ROUTES){
-        $('dispatch-mode-note').textContent='全30台の配車データを読み込んでいます…';
-        await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='joint-dispatch-data.js';script.onload=resolve;script.onerror=()=>{script.remove();reject(new Error('配車データを読み込めませんでした'));};document.body.appendChild(script);});
+      if(el.value==='fixed'&&!window.CONTRACTOR_ROUTES){
+        $('dispatch-mode-note').textContent='会社担当固定の配車データを読み込んでいます…';
+        await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='dispatch-data.js';script.onload=resolve;script.onerror=()=>{script.remove();reject(new Error('配車データを読み込めませんでした'));};document.body.appendChild(script);});
       }
       CR=el.value==='joint'?window.JOINT_ROUTES:window.CONTRACTOR_ROUTES;
       missing.clearLayers();missing.addData(CR.unassigned_geometry);
