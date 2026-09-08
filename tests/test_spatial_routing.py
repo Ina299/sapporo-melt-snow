@@ -16,3 +16,21 @@ class SpatialRouting(unittest.TestCase):
         groups=contiguous_groups(jobs,3)
         self.assertEqual([[j['id'] for j in group] for group in groups],[[0,1,2,3],[4,5,6],[7,8,9]])
         self.assertEqual([j['id'] for group in groups for j in group],list(range(10)))
+
+
+class SectorGroups(unittest.TestCase):
+    def test_sectors_are_contiguous_wedges_and_keep_every_job(self):
+        from src.spatial_routing import sector_groups
+        import math
+        depot=(43.0,141.35)
+        jobs=[dict(id=i,hours=1.0,lat=43.0+0.02*math.sin(math.radians(a)),lon=141.35+0.02*math.cos(math.radians(a))/math.cos(math.radians(43.0))) for i,a in enumerate(range(0,360,10))]
+        groups=sector_groups(jobs,4,depot,lambda j:(j['lat'],j['lon']))
+        self.assertEqual(len(groups),4)
+        self.assertEqual(sorted(j['id'] for g in groups for j in g),list(range(36)))
+        self.assertEqual([len(g) for g in groups],[9,9,9,9])
+        for g in groups:
+            angles=sorted(math.degrees(math.atan2(j['lat']-depot[0],(j['lon']-depot[1])*math.cos(math.radians(43.0)))) for j in g)
+            span=[b-a for a,b in zip(angles,angles[1:])]
+            # a wedge: consecutive angles are adjacent except for one possible wrap gap
+            self.assertLessEqual(sum(1 for s in span if s>15),1)
+        self.assertEqual(len(sector_groups(jobs[:2],5,depot,lambda j:(j['lat'],j['lon']))),5)

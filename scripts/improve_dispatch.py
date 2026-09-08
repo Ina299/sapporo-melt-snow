@@ -5,7 +5,7 @@ from pathlib import Path
 import networkx as nx
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from src.routing import build_graph,travel_graph,distance,metrics,DRIVABLE
-from src.spatial_routing import nearest_target_path,contiguous_groups
+from src.spatial_routing import nearest_target_path,sector_groups
 from scripts.run_dispatch import LIMITS
 
 def main():
@@ -78,47 +78,57 @@ def main():
     for mode,owner in plans.items():
         results=[];covered=Counter();archive={'jobs':[],'scenarios':[]};prefix='joint_dispatch' if mode=='joint' else 'dispatch'
         for ci,c in enumerate(companies):
-            pending={j['id']:j for j,o in zip(valid,owner) if o==ci};targets=defaultdict(set)
-            for jid,j in pending.items():targets[j['steps'][0]['u']].add(jid)
-            current=c['depot_node'];ordered_jobs=[];full_steps={};next_access=[]
-            while pending:
-                target,path=nearest_target_path(d,current,targets)
-                jid=min(targets[target]);job=pending.pop(jid);targets[target].remove(jid)
-                if not targets[target]:del targets[target]
-                # Prefix is stored separately so a vehicle starting at this job
-                # can substitute its own depot access without inheriting a detour.
-                incoming=path_steps(path);body=job['steps']
-                for s in body:
+            company_jobs=[j for j,o in zip(valid,owner) if o==ci]
+            for j in company_jobs:
+                for s in j['steps']:
                     if s['service']:covered[s['task_id']]+=1
-                record=dict(id=jid,task_count=sum(s['service'] for s in body),start_node=body[0]['u'],end_node=body[-1]['v'],
-                            incoming_features=geometry(incoming,jid),features=geometry(body,jid),incoming_metrics=metrics(incoming),**metrics(body))
-                ordered_jobs.append(record);full_steps[jid]=(incoming,body);current=body[-1]['v']
-            print(mode,c['id'],'sequenced',len(ordered_jobs),'jobs',flush=True)
-            scenarios=[];f,b,fp,bp=trees[ci]
-            split_jobs=[dict(j,hours=j['hours']+j['incoming_metrics']['hours']) for j in ordered_jobs]
-            for count in ([c['fleet_limit']] if mode=='joint' else range(1,c['fleet_limit']+1)):
+            # Job bodies are shared by every scenario; only the inter-job connections differ.
+            records={j['id']:dict(id=j['id'],task_count=sum(s['service'] for s in j['steps']),start_node=j['steps'][0]['u'],end_node=j['steps'][-1]['v'],
+                                  incoming_features=[],features=geometry(j['steps'],j['id']),incoming_metrics=metrics([]),**metrics(j['steps'])) for j in company_jobs}
+            f,b,fp,bp=trees[ci];depot_pos=(c['depot']['lat'],c['depot']['lon'])
+            position=lambda j:(g.nodes[j['steps'][0]['u']]['lat'],g.nodes[j['steps'][0]['u']]['lon'])
+            def sequence(group):
+                # Nearest-job tour from the depot inside one vehicle's sector.
+                pending={j['id']:j for j in group};targets=defaultdict(set)
+                for jid,j in pending.items():targets[j['steps'][0]['u']].add(jid)
+                current=c['depot_node'];order=[];incomings=[]
+                while pending:
+                    target,path=nearest_target_path(d,current,targets)
+                    jid=min(targets[target]);job=pending.pop(jid);targets[target].remove(jid)
+                    if not targets[target]:del targets[target]
+                    order.append(jid);incomings.append(path_steps(path));current=job['steps'][-1]['v']
+                return order,incomings
+            scenarios=[];job_by_id={j['id']:j for j in company_jobs}
+            counts=[c['fleet_limit']] if mode=='joint' else list(range(1,c['fleet_limit']+1))
+            for count in counts:
                 routes=[];scenario_archive=[];used=[]
-                for vi,group in enumerate(contiguous_groups(split_jobs,count),1):
-                    ids=[j['id'] for j in group];used+=ids
+                for vi,group in enumerate(sector_groups(company_jobs,count,depot_pos,position),1):
                     if not group:
-                        routes.append(dict(vehicle_id=vi,trip_ids=[],head_features=[],tail_features=[],hours=0,service_km=0,deadhead_km=0,distance_km=0));continue
-                    head=access(group[0]['start_node'],fp);tail=access(group[-1]['end_node'],bp,True)
+                        routes.append(dict(vehicle_id=vi,trip_ids=[],head_features=[],tail_features=[],incoming_features=[],hours=0,service_km=0,deadhead_km=0,distance_km=0));continue
+                    ids,incomings=sequence(group);used+=ids
+                    head=access(job_by_id[ids[0]]['steps'][0]['u'],fp);tail=access(job_by_id[ids[-1]]['steps'][-1]['v'],bp,True)
                     steps=head[:]
-                    for k,j in enumerate(group):
-                        incoming,body=full_steps[j['id']]
-                        if k:steps.extend(incoming)
-                        steps.extend(body)
+                    for k,jid in enumerate(ids):
+                        if k:steps.extend(incomings[k])
+                        steps.extend(job_by_id[jid]['steps'])
                     steps.extend(tail)
                     if steps[0]['u']!=c['depot_node'] or steps[-1]['v']!=c['depot_node']:raise AssertionError('Not closed')
                     for k,s in enumerate(steps):
                         if not g.has_edge(s['u'],s['v'],s['original_key']):raise AssertionError('Illegal direction')
                         if k and steps[k-1]['v']!=s['u']:raise AssertionError('Disconnected route')
-                    routes.append(dict(vehicle_id=vi,trip_ids=ids,head_features=geometry(head,-1),tail_features=geometry(tail,-1),**metrics(steps)))
-                    scenario_archive.append(dict(vehicle=vi,trip_ids=ids,head=head,tail=tail))
-                if len(set(used))!=len(used) or set(used)!=set(full_steps):raise AssertionError('Lost/duplicate jobs')
-                scenarios.append(dict(vehicles=count,routes=routes,validation=dict(valid=True,covered=sum(j['task_count'] for j in ordered_jobs),closed_at_depot=True)))
+                    routes.append(dict(vehicle_id=vi,trip_ids=ids,head_features=geometry(head,-1),tail_features=geometry(tail,-1),
+                                       incoming_features=[geometry(inc,jid) if k else [] for k,(jid,inc) in enumerate(zip(ids,incomings))],**metrics(steps)))
+                    scenario_archive.append(dict(vehicle=vi,trip_ids=ids,head=head,tail=tail,incomings=incomings))
+                    if count==counts[-1]:
+                        # Standard fleet: also store connections on the trips for older readers.
+                        for k,(jid,inc) in enumerate(zip(ids,incomings)):
+                            if k:records[jid]['incoming_features']=geometry(inc,jid);records[jid]['incoming_metrics']=metrics(inc)
+                if len(set(used))!=len(used) or set(used)!=set(records):raise AssertionError('Lost/duplicate jobs')
+                scenarios.append(dict(vehicles=count,routes=routes,validation=dict(valid=True,covered=sum(r['task_count'] for r in records.values()),closed_at_depot=True)))
                 archive['scenarios'].append(dict(company=c['id'],vehicles=count,routes=scenario_archive))
-            archive['jobs'].extend(dict(company=c['id'],id=jid,incoming=inc,body=body) for jid,(inc,body) in full_steps.items())
+                print(mode,c['id'],count,'vehicles sequenced',flush=True)
+            ordered_jobs=[records[jid] for r in scenarios[-1]['routes'] for jid in r['trip_ids']]
+            archive['jobs'].extend(dict(company=c['id'],id=j['id'],body=j['steps']) for j in company_jobs)
             results.append({k:c[k] for k in ['id','name','fleet_limit','fleet_basis','depot_node','depot','snap_distance_m']}|dict(trips=ordered_jobs,scenarios=scenarios))
         missing=required-set(covered)
         if set(covered)-required or any(n!=1 for n in covered.values()) or missing!={s['task_id'] for s in unassigned}:raise AssertionError('Global coverage mismatch')
@@ -132,7 +142,7 @@ def main():
         if {f['properties']['task_id'] for f in missing_geometry['features']}!=missing:raise AssertionError('Unassigned map differs from audit')
         data=dict(mode=mode,route_format='direct_jobs',companies=results,summary=summary,unassigned_geometry=missing_geometry,
                   scope='広域431,116方向区間の仮の割当。実契約地区ではない。',
-                  method='道路往復時間で区域を作成し、道路上の最寄り作業開始点を順に接続。連続する経路を車両へ分割し、最初に出発・最後に帰庫。'+('全社台数で区域境界を調整。' if mode=='joint' else '会社所在地への近さを優先。')+'近似解で最適性・区域の完全な連結性の保証なし。',
+                  method='道路往復時間で会社の区域を作成し、所在地を中心に方位で車両ごとの連続した担当区域（時間で均等化）に分割。各区域内で道路上の最寄り作業開始点を順に接続し、最初に出発・最後に帰庫。'+('全社台数で区域境界を調整。' if mode=='joint' else '会社所在地への近さを優先。')+'近似解で最適性・区域の完全な連結性の保証なし。',
                   transit_note='市外も含む。車種別通行・右左折制限・雪量・実稼働は未検証。',
                   fleet_note='固定区域方式のみ台数を変更可能。機種は公表主要機種の仮定。',origin_note='入口と道路の未確認接続は未算入。')
         with gzip.open(out/f'{prefix}_ordered_routes.json.gz','wt',encoding='utf-8') as file:json.dump(archive,file,ensure_ascii=False,separators=(',',':'))

@@ -52,10 +52,11 @@ if(CR){
     (r.head_features??[]).forEach(f=>push(f,0));
     r.trip_ids.forEach((id,k)=>{
       const t=trips.get(id);
-      if(k)t.incoming_features.forEach(f=>push(f,k+1));
+      const incoming=k?(r.incoming_features?.[k]??t.incoming_features):[];
+      const before=clock;incoming.forEach(f=>push(f,k+1));
       const start=clock;const first=t.features.find(f=>f.properties.service)??t.features[0];
       t.features.forEach(f=>push(f,k+1));
-      seq.push({seq:k+1,trip:t,start_h:start,end_h:clock,lat:first.geometry.coordinates[0][1],lon:first.geometry.coordinates[0][0]});
+      seq.push({seq:k+1,trip:t,start_h:start,end_h:clock,incoming_km:incoming.reduce((a,f)=>a+lengthKm(f),0),incoming_h:start-before,lat:first.geometry.coordinates[0][1],lon:first.geometry.coordinates[0][0]});
     });
     (r.tail_features??[]).forEach(f=>push(f,r.trip_ids.length+1));
     return {features:out,seq,hours:clock};
@@ -89,10 +90,18 @@ if(CR){
     // Start markers: one per vehicle (all vehicles) or one per job (focused vehicle).
     // Start markers for every vehicle (車N). In the focused view the other vehicles stay as faded,
     // clickable markers so the user can jump between vehicles without leaving the view.
-    for(const r of s.routes){
-      const start=vehicleStart(c,r);if(!start)continue;const v=r.vehicle_id,other=focus&&v!==focus;
-      L.marker(start,{icon:L.divIcon({className:'vehicle-start'+(other?' is-other':''),html:`<span style="background:${color(v)}">車${v}</span>`,iconSize:[30,20],iconAnchor:[15,10]}),title:`車両 ${v} の作業開始点。クリックで作業順序・方向を表示`,zIndexOffset:other?1800:2000})
+    // Vehicles that start at (almost) the same point are fanned out in a small ring so every tag stays clickable.
+    const starts=s.routes.map(r=>({r,start:vehicleStart(c,r)})).filter(x=>x.start);
+    // Cluster in screen space at the current zoom (tags closer than ~28px would overlap).
+    const groups=[];
+    starts.forEach(x=>{const pt=map.latLngToContainerPoint(x.start);const g=groups.find(g=>g.pt.distanceTo(pt)<28);if(g)g.items.push(x);else groups.push({pt,items:[x]});});
+    for(const group of groups.map(g=>g.items)){
+      group.forEach((x,i)=>{
+        const {r,start}=x;const v=r.vehicle_id,other=focus&&v!==focus;
+        const n=group.length,ang=n>1?(2*Math.PI*i)/n:0,rad=n>1?20:0;
+        L.marker(start,{icon:L.divIcon({className:'vehicle-start'+(other?' is-other':''),html:`<span style="background:${color(v)}">車${v}</span>`,iconSize:[30,20],iconAnchor:[15-Math.round(rad*Math.cos(ang)),10-Math.round(rad*Math.sin(ang))]}),title:`車両 ${v} の作業開始点。クリックで作業順序・方向を表示`,zIndexOffset:other?1800:2000})
         .addTo(layer).bindTooltip(`車両 ${v}：クリックで${other?'この車両に切替':'順序・方向・経過時間を表示'}`,{direction:'top',offset:[0,-12]}).on('click',()=>focusVehicle(v));
+      });
     }
     if(focus)drawDetail(c,built[0]);
     const source=D.contractors.find(x=>x.id===c.id);
@@ -135,7 +144,7 @@ if(CR){
         .on('click',()=>selectTrip(t.seq,false));
     });
   }
-  map.on('zoomend',()=>{if(mode==='company'&&+$('company-vehicle-focus').value)draw(false);});
+  map.on('zoomend',()=>{if(mode==='company')draw(false);});
   let popupWasOpen=false;
   map.on('preclick',()=>{popupWasOpen=!!map._popup;});
   map.on('click',()=>{if(popupWasOpen)return;if(mode==='company'&&+$('company-vehicle-focus').value)focusVehicle(0);});
@@ -167,7 +176,7 @@ if(CR){
     $('trip-nav').innerHTML=Array.from({length:+$('company-vehicles').value},(_,i)=>i+1).map(v=>`<button class="vehicle-chip${v===focus?' is-selected':''}" data-vehicle-chip="${v}"><i style="background:${color(v)}"></i>車${v}</button>`).join('');
     document.querySelectorAll('#trip-nav [data-vehicle-chip]').forEach(b2=>b2.onclick=()=>focusVehicle(+b2.dataset.vehicleChip));
     $('trip-summary').textContent=`車両 ${focus}：作業 ${b.seq.length} 件、行程 ${num(total,2)} 時間。${timeLimit==null?'':`${num(timeLimit,1)} 時間時点で完了 ${done} 件。`}6時間以内に完了する作業は ${b.seq.filter(t=>t.end_h<=SHIFT_HOURS).length} 件。`;
-    $('trip-table').innerHTML=b.seq.map(t=>`<tr data-seq="${t.seq}" class="${selectedTrip===t.seq?'selected-row':''}${timeLimit!=null&&t.start_h>timeLimit?' faded-row':''}"><td><i class="legend-dot" style="background:${bandColor(t.end_h)}"></i>${t.seq}</td><td>${num(t.start_h,2)} h</td><td>${num(t.end_h,2)} h</td><td>${num(t.trip.service_km,2)} km</td><td>${num(t.trip.deadhead_km+(t.seq>1?t.trip.incoming_metrics?.deadhead_km??0:0),2)} km</td><td class="${t.end_h<=SHIFT_HOURS?'ok':'bad'}">${t.end_h<=SHIFT_HOURS?'範囲内':'超過'}</td><td><button class="text-button" data-trip-go="${t.seq}">地図で見る</button></td></tr>`).join('');
+    $('trip-table').innerHTML=b.seq.map(t=>`<tr data-seq="${t.seq}" class="${selectedTrip===t.seq?'selected-row':''}${timeLimit!=null&&t.start_h>timeLimit?' faded-row':''}"><td><i class="legend-dot" style="background:${bandColor(t.end_h)}"></i>${t.seq}</td><td>${num(t.start_h,2)} h</td><td>${num(t.end_h,2)} h</td><td>${num(t.trip.service_km,2)} km</td><td>${num(t.trip.deadhead_km+t.incoming_km,2)} km</td><td class="${t.end_h<=SHIFT_HOURS?'ok':'bad'}">${t.end_h<=SHIFT_HOURS?'範囲内':'超過'}</td><td><button class="text-button" data-trip-go="${t.seq}">地図で見る</button></td></tr>`).join('');
     document.querySelectorAll('#trip-table tr[data-seq]').forEach(row=>row.onclick=e=>{if(e.target.closest('button'))return;selectTrip(+row.dataset.seq,false);});
     document.querySelectorAll('[data-trip-go]').forEach(b2=>b2.onclick=()=>{selectedTrip=null;selectTrip(+b2.dataset.tripGo,true);});
   }
