@@ -76,6 +76,8 @@ python scripts/build_snow_management.py  # 日別雪収支（docs/snow_managemen
 python scripts/build_grid_ix.py           # 変電所・送電線・IX・工業団地の一律評価（docs/dc_feasibility.md）
 ```
 
+重い再生成（`improve_dispatch.py`、`run_city.py`、雪収支）はローカルで実行するとメモリ不足になることがあるため、GitHub Actions で実行できます。Actions タブの **Regenerate dispatch data** → Run workflow で対象を選ぶと、ランナー上で計算し、テスト後に結果を `main` へコミットして Pages を再配信します（`.github/workflows/regenerate.yml`）。ログにピークメモリと所要時間が出ます。
+
 `build_inventory.py` は手動で検証した2026年9月8日時点の転記データを生成します。再実行すると座標が初期化されるため、続けて `geocode.py` を実行してください。住所検索はキャッシュを再利用します。
 
 公開サイトの再取得：`python scripts/fetch_sources.py`、道路の再取得：`python scripts/fetch_roads.py`。PDFは同じURLで内容が更新されるため、原本更新後には**転記内容と年度を再確認**してください。降雪原本の更新方法は設計書参照。公共APIの取得失敗時に架空道路へ置き換える処理はありません。

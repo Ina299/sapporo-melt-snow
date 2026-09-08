@@ -1,0 +1,107 @@
+name: Regenerate dispatch data
+
+# 重い再生成（区域別配車・市域閉路・雪収支）をローカルではなく GitHub のランナーで実行し、
+# 結果を main にコミットして Pages を再配信する。Actions タブの "Run workflow" から手動実行。
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 何を再生成するか
+        type: choice
+        default: dispatch
+        options:
+          - dispatch        # scripts/improve_dispatch.py（末尾で画面用データも再生成）
+          - city+dispatch   # scripts/run_city.py → improve_dispatch.py
+          - web-geometry    # scripts/build_web_geometry.py だけ
+          - snow            # scripts/build_snow_management.py
+      commit:
+        description: 結果を main にコミットして Pages を再配信する（オフなら成果物として保存のみ）
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: regenerate
+  cancel-in-progress: false
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Show runner resources
+        run: |
+          nproc
+          free -h
+          df -h .
+
+      - name: Regenerate (${{ inputs.target }})
+        env:
+          PYTHONUNBUFFERED: '1'
+        run: |
+          set -euo pipefail
+          run() { echo "::group::$*"; /usr/bin/time -v -o time.log "$@"; echo "::endgroup::"; grep -E 'Maximum resident|Elapsed' time.log; }
+          case "${{ inputs.target }}" in
+            dispatch)       run python scripts/improve_dispatch.py ;;
+            city+dispatch)  run python scripts/run_city.py; run python scripts/improve_dispatch.py ;;
+            web-geometry)   run python scripts/build_web_geometry.py ;;
+            snow)           run python scripts/build_snow_management.py ;;
+          esac
+
+      - name: Verify
+        run: |
+          python -m unittest discover -s tests -v
+          if [ "${{ inputs.target }}" = snow ]; then node --test tests/snow_model.test.cjs; fi
+
+      - name: Summarize changes
+        run: |
+          git status --short
+          git diff --stat | tail -n 20
+
+      - name: Upload results as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: regenerated-${{ inputs.target }}
+          retention-days: 14
+          if-no-files-found: ignore
+          path: |
+            data/processed/dispatch*.json
+            data/processed/dispatch*.json.gz
+            data/processed/dispatch*.geojson
+            data/processed/joint_dispatch*
+            data/processed/city_*
+            data/processed/snow_management.json
+            web/*-data.js
+
+      - name: Commit and push
+        if: ${{ inputs.commit }}
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A data/processed web
+          if git diff --cached --quiet; then echo 'No changes'; exit 0; fi
+          git commit -m "Regenerate ${{ inputs.target }} data on GitHub Actions" -m "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          git push origin HEAD:main
+
+      # GITHUB_TOKEN による push は他のワークフローを起動しないため、Pages を明示的に再配信する
+      - name: Redeploy GitHub Pages
+        if: ${{ inputs.commit }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main
