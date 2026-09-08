@@ -59,11 +59,11 @@ test('wide coverage and company-origin fleet routes are selectable',async({page}
   await expect(page.locator('#dispatch-audit')).toContainText('10,087');
   await expect(page.locator('#company-map-legend')).toContainText('仮定配備による割当');
   await expect(page.locator('#dispatch-mode')).toHaveValue('joint');
-  await expect(page.locator('#dispatch-audit')).toContainText('92.5');
+  await expect(page.locator('#dispatch-audit')).toContainText('91.4');
   await expect(page.locator('#company-vehicles')).toBeDisabled();
   await page.locator('#dispatch-mode').selectOption('fixed');
   await expect(page.locator('#dispatch-mode')).toBeEnabled();
-  await expect(page.locator('#dispatch-audit')).toContainText('300.3');
+  await expect(page.locator('#dispatch-audit')).toContainText('299.7');
   const assigned=await page.evaluate(()=>window.CONTRACTOR_ROUTES.companies.map(c=>({count:c.scenarios[0].validation.covered,other:c.scenarios.at(-1).validation.covered})));
   expect(assigned.reduce((n,c)=>n+c.count,0)).toBe(421029);
   expect(assigned.every(c=>c.count>1236&&c.count===c.other)).toBeTruthy();
@@ -154,7 +154,7 @@ test('numbered companies, facility toggle, reset, boundary and joint mode',async
   await page.locator('[data-site]').first().click();
   await expect(page.locator('#melt-layer')).toBeChecked();
   await expect(page.locator('.site-marker')).toHaveCount(7);
-  await expect(page.locator('#dispatch-comparison')).toContainText('92.50');
+  await expect(page.locator('#dispatch-comparison')).toContainText('91.41');
   await expect(page.locator('#dispatch-comparison')).toContainText('選択時に読込');
   await page.locator('#route-company').selectOption('kashima');
   await page.locator('#map').click({position:{x:25,y:100}});
@@ -169,7 +169,7 @@ test('numbered companies, facility toggle, reset, boundary and joint mode',async
   await expect(page.locator('#company-route-table tr')).toHaveCount(4);
   await page.locator('#dispatch-mode').selectOption('fixed');
   await expect(page.locator('#dispatch-mode')).toBeEnabled();
-  await expect(page.locator('#dispatch-comparison')).toContainText('300.26');
+  await expect(page.locator('#dispatch-comparison')).toContainText('299.67');
   await page.locator('#route-company').selectOption('kashima');
   await expect(page.locator('#company-vehicles')).toBeEnabled();
   await page.locator('#company-vehicles').selectOption('3');

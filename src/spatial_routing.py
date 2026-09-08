@@ -60,3 +60,94 @@ def sector_groups(jobs,count,depot,position):
         groups=min((split(s) for s in candidates),key=lambda gs:(max(sum(j['hours'] for j in g) for g in gs),len(gs)))
     while len(groups)<count:groups.append([])
     return groups
+
+
+def nearest_k_costs(graph,source,targets,k,cap=None):
+    """Dijkstra from `source` that stops after `k` distinct target nodes (or cost > cap).
+
+    Returns {target_node: cost}. Used to build a sparse job-to-job connection table:
+    only the nearest starts are candidates for re-sequencing, which keeps the
+    improvement step cheap on a city-scale directed road graph.
+    """
+    queue=[(0,source)];costs={source:0};found={}
+    while queue and len(found)<k:
+        cost,u=heapq.heappop(queue)
+        if cost!=costs[u]:continue
+        if cap is not None and cost>cap:break
+        if u in targets and u not in found:found[u]=cost
+        for v,a in graph[u].items():
+            candidate=cost+a['weight']
+            if candidate<costs.get(v,float('inf')):
+                costs[v]=candidate;heapq.heappush(queue,(candidate,v))
+    return found
+
+
+def improve_order(order,hop,start_cost,end_cost,max_segment=3,max_passes=12):
+    """Or-opt: relocate segments of 1..max_segment jobs (no reversal) while the total
+    connection cost decreases. `hop(a,b)` returns the directed cost from job a's end to
+    job b's start or None when unknown (then the move is skipped). `start_cost(j)` is
+    depot->job, `end_cost(j)` job->depot. Directions of jobs are never changed, so
+    every evaluated connection is a forward road path. Returns a new list with the
+    same jobs exactly once.
+    """
+    seq=list(order);n=len(seq)
+    if n<3:return seq
+    def link(a,b):
+        if a is None:return start_cost(b)
+        if b is None:return end_cost(a)
+        return hop(a,b)
+    for _ in range(max_passes):
+        improved=False
+        i=0
+        while i<n:
+            for length in range(1,max_segment+1):
+                if i+length>n:break
+                seg=seq[i:i+length];prev=seq[i-1] if i>0 else None;nxt=seq[i+length] if i+length<n else None
+                removed_gain=None
+                c1=link(prev,seg[0]);c2=link(seg[-1],nxt);c3=link(prev,nxt)
+                if None in (c1,c2,c3):continue
+                removed_gain=c1+c2-c3
+                rest=seq[:i]+seq[i+length:]
+                best=None
+                for pos in range(len(rest)+1):
+                    a=rest[pos-1] if pos>0 else None;b=rest[pos] if pos<len(rest) else None
+                    if a is seg[0] or b is seg[0]:pass
+                    d1=link(a,seg[0]);d2=link(seg[-1],b);d3=link(a,b)
+                    if None in (d1,d2,d3):continue
+                    added=d1+d2-d3
+                    if added<removed_gain-1e-9 and (best is None or added<best[0]):best=(added,pos)
+                if best is not None:
+                    pos=best[1];seq=rest[:pos]+seg+rest[pos:];improved=True
+                    break
+            i+=1
+        if not improved:break
+    assert sorted(map(id,seq))==sorted(map(id,order)) and len(seq)==n
+    return seq
+
+
+def bisect_groups(jobs,count,position):
+    """Recursive balanced bisection into `count` compact, contiguous cells.
+
+    At each step the job set is cut along its longer geographic axis at the point
+    where cumulative hours reach the share of vehicles on that side, so cells are
+    convex-like blocks with equal work instead of long thin wedges. `position(job)`
+    returns (lat, lon). Exactly `count` groups are returned (empty ones padded).
+    """
+    import math
+    def rec(items,k):
+        if k<=1 or len(items)<=1:return [list(items)]+[[] for _ in range(k-1)]
+        lats=[position(j)[0] for j in items];lons=[position(j)[1] for j in items]
+        lat0=sum(lats)/len(lats);scale=math.cos(math.radians(lat0))
+        span_lat=(max(lats)-min(lats))*110.57;span_lon=(max(lons)-min(lons))*111.32*scale
+        key=(lambda j:position(j)[0]) if span_lat>=span_lon else (lambda j:position(j)[1])
+        ordered=sorted(items,key=key)
+        k1=k//2;k2=k-k1;total=sum(j['hours'] for j in ordered);target=total*k1/k
+        acc=0;cut=0
+        for i,j in enumerate(ordered):
+            acc+=j['hours']
+            if acc>=target:
+                cut=i+1;break
+        cut=max(1,min(cut,len(ordered)-1))
+        return rec(ordered[:cut],k1)+rec(ordered[cut:],k2)
+    groups=rec(list(jobs),count)
+    return groups[:count] if len(groups)>count else groups+[[] for _ in range(count-len(groups))]

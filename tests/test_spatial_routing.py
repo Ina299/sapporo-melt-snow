@@ -34,3 +34,43 @@ class SectorGroups(unittest.TestCase):
             # a wedge: consecutive angles are adjacent except for one possible wrap gap
             self.assertLessEqual(sum(1 for s in span if s>15),1)
         self.assertEqual(len(sector_groups(jobs[:2],5,depot,lambda j:(j['lat'],j['lon']))),5)
+
+
+class OrOpt(unittest.TestCase):
+    def test_nearest_k_costs_stops_at_k_targets(self):
+        from src.spatial_routing import nearest_k_costs
+        g=nx.DiGraph();g.add_weighted_edges_from([(1,2,1),(2,3,1),(3,4,1),(4,5,1),(1,9,50)])
+        self.assertEqual(nearest_k_costs(g,1,{3,5,9},2),{3:2,5:4})
+        self.assertEqual(nearest_k_costs(g,1,{9},5,cap=10),{})
+
+    def test_improve_order_reduces_connection_cost_without_losing_jobs(self):
+        from src.spatial_routing import improve_order
+        # jobs on a line; the initial order jumps back and forth
+        jobs=[dict(id=i,x=i) for i in range(8)]
+        order=[jobs[0],jobs[5],jobs[1],jobs[6],jobs[2],jobs[7],jobs[3],jobs[4]]
+        hop=lambda a,b:abs(a['x']-b['x'])
+        start=lambda j:j['x'];end=lambda j:j['x']
+        def total(seq):return start(seq[0])+sum(hop(a,b) for a,b in zip(seq,seq[1:]))+end(seq[-1])
+        better=improve_order(order,hop,start,end)
+        self.assertEqual(sorted(j['id'] for j in better),list(range(8)))
+        self.assertLess(total(better),total(order))
+        self.assertEqual(total(better),total(jobs))  # reaches the optimal cost (ties in order allowed)
+        # unknown hops are never used
+        sparse=lambda a,b:abs(a['x']-b['x']) if abs(a['x']-b['x'])<=2 else None
+        again=improve_order(order,sparse,start,end)
+        self.assertEqual(sorted(j['id'] for j in again),list(range(8)))
+
+
+class BisectGroups(unittest.TestCase):
+    def test_bisection_balances_hours_and_keeps_every_job(self):
+        from src.spatial_routing import bisect_groups
+        jobs=[dict(id=i,hours=1.0,lat=43.0+0.01*(i//10),lon=141.3+0.01*(i%10)) for i in range(100)]
+        groups=bisect_groups(jobs,5,lambda j:(j['lat'],j['lon']))
+        self.assertEqual(len(groups),5)
+        self.assertEqual(sorted(j['id'] for g in groups for j in g),list(range(100)))
+        self.assertTrue(all(18<=len(g)<=22 for g in groups))
+        # cells are compact: each group's bounding box is well below the full extent
+        for g in groups:
+            lat=[j['lat'] for j in g];lon=[j['lon'] for j in g]
+            self.assertLess((max(lat)-min(lat))*(max(lon)-min(lon)),0.09*0.09*0.5)
+        self.assertEqual(len(bisect_groups(jobs[:1],4,lambda j:(j['lat'],j['lon']))),4)

@@ -5,8 +5,11 @@ from pathlib import Path
 import networkx as nx
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from src.routing import build_graph,travel_graph,distance,metrics,DRIVABLE
-from src.spatial_routing import nearest_target_path,sector_groups
+from src.spatial_routing import nearest_target_path,bisect_groups,nearest_k_costs,improve_order
 from scripts.run_dispatch import LIMITS
+
+NEAR_K=40          # candidate next jobs per job end in the connection table
+NEAR_CAP=20*60*1000  # ms of deadhead; hops beyond ~20 min are never candidates
 
 def main():
     out=ROOT/'data/processed';load=lambda p:json.loads((ROOT/p).read_text(encoding='utf-8'))
@@ -39,15 +42,17 @@ def main():
             features[-1]['geometry']['coordinates'].append([round(g.nodes[s['v']]['lon'],6),round(g.nodes[s['v']]['lat'],6)])
         return features
     jobs=[]
-    def add_job(steps):
-        if any(s['service'] for s in steps):jobs.append(dict(id=len(jobs),steps=steps,**metrics(steps)))
-    for tour in load('data/processed/city_routes.json'):
-        chunk=[];elapsed=0
+    def add_job(steps,tour=None,pos=None):
+        # tour/pos remember the Euler-circuit origin: consecutive chunks of one circuit join
+        # with zero deadhead, so sequencing keeps them together as fragments.
+        if any(s['service'] for s in steps):jobs.append(dict(id=len(jobs),steps=steps,tour=tour,pos=pos,**metrics(steps)))
+    for ti,tour in enumerate(load('data/processed/city_routes.json')):
+        chunk=[];elapsed=0;pos=0
         for s in tour['steps']:
             if chunk and (elapsed>=900 or distance(g.nodes[chunk[0]['u']],g.nodes[s['v']])>750):
-                add_job(chunk);chunk=[];elapsed=0
+                add_job(chunk,ti,pos);pos+=1;chunk=[];elapsed=0
             chunk.append(s);elapsed+=s['service_s'] if s['service'] else s['cost']/1000
-        add_job(chunk)
+        add_job(chunk,ti,pos)
     for e in load('data/processed/city_excluded_arcs.json'):
         a=work[e['u']][e['v']][e['task_id']]
         add_job([dict(u=e['u'],v=e['v'],task_id=e['task_id'],original_key=e['task_id'],service=True,length_m=a['length_m'],service_s=a['service_s'],cost=a['cost'])])
@@ -85,24 +90,56 @@ def main():
             # Job bodies are shared by every scenario; only the inter-job connections differ.
             records={j['id']:dict(id=j['id'],task_count=sum(s['service'] for s in j['steps']),start_node=j['steps'][0]['u'],end_node=j['steps'][-1]['v'],
                                   incoming_features=[],features=geometry(j['steps'],j['id']),incoming_metrics=metrics([]),**metrics(j['steps'])) for j in company_jobs}
-            f,b,fp,bp=trees[ci];depot_pos=(c['depot']['lat'],c['depot']['lon'])
+            f,b,fp,bp=trees[ci];depot_pos=(c['depot']['lat'],c['depot']['lon']);job_by_id={j['id']:j for j in company_jobs}
             position=lambda j:(g.nodes[j['steps'][0]['u']]['lat'],g.nodes[j['steps'][0]['u']]['lon'])
+            # Sparse connection table: from each job end to the K nearest job starts of the same
+            # company (directed road cost). Shared by every fleet scenario of this company/mode.
+            start_nodes=defaultdict(set)
+            for j in company_jobs:start_nodes[j['steps'][0]['u']].add(j['id'])
+            near={}
+            for j in company_jobs:
+                near[j['id']]=nearest_k_costs(d,j['steps'][-1]['v'],set(start_nodes),NEAR_K,cap=NEAR_CAP)
+            print(mode,c['id'],'connection table',sum(len(v) for v in near.values()),'pairs',flush=True)
+            def hop(a,b):
+                cost=near[a['id']].get(b['steps'][0]['u'])
+                return cost
+            def fragments(group):
+                # Maximal runs of consecutive Euler-circuit chunks inside this vehicle's sector.
+                # Inside a run the next chunk starts where the previous one ends: zero deadhead.
+                ordered=sorted(group,key=lambda j:(j['tour'] if j['tour'] is not None else -1,j['pos'] if j['pos'] is not None else j['id']))
+                out=[]
+                for j in ordered:
+                    last=out[-1][-1] if out else None
+                    if last is not None and j['tour'] is not None and last['tour']==j['tour'] and last['pos']+1==j['pos'] and last['steps'][-1]['v']==j['steps'][0]['u']:
+                        out[-1].append(j)
+                    else:out.append([j])
+                return [dict(id=k,jobs=run,steps=[dict(u=run[0]['steps'][0]['u']),dict(v=run[-1]['steps'][-1]['v'])],last=run[-1]) for k,run in enumerate(out)]
             def sequence(group):
-                # Nearest-job tour from the depot inside one vehicle's sector.
-                pending={j['id']:j for j in group};targets=defaultdict(set)
-                for jid,j in pending.items():targets[j['steps'][0]['u']].add(jid)
-                current=c['depot_node'];order=[];incomings=[]
+                # 1) keep circuit fragments intact, 2) nearest-fragment tour from the depot,
+                # 3) Or-opt relocation of 1-3 fragments using the sparse connection table.
+                frs=fragments(group)
+                pending={fr['id']:fr for fr in frs};targets=defaultdict(set)
+                for fid,fr in pending.items():targets[fr['steps'][0]['u']].add(fid)
+                current=c['depot_node'];order=[]
                 while pending:
                     target,path=nearest_target_path(d,current,targets)
-                    jid=min(targets[target]);job=pending.pop(jid);targets[target].remove(jid)
+                    fid=min(targets[target]);fr=pending.pop(fid);targets[target].remove(fid)
                     if not targets[target]:del targets[target]
-                    order.append(jid);incomings.append(path_steps(path));current=job['steps'][-1]['v']
+                    order.append(fr);current=fr['steps'][-1]['v']
+                fhop=lambda a,b:near[a['last']['id']].get(b['steps'][0]['u'])
+                improved=improve_order(order,fhop,lambda fr:f[fr['steps'][0]['u']],lambda fr:b[fr['steps'][-1]['v']])
+                seq=[j for fr in improved for j in fr['jobs']]
+                order=[j['id'] for j in seq];incomings=[[]]
+                for prev,nxt in zip(seq,seq[1:]):
+                    if prev['steps'][-1]['v']==nxt['steps'][0]['u']:incomings.append([]);continue
+                    path=nx.bidirectional_dijkstra(d,prev['steps'][-1]['v'],nxt['steps'][0]['u'],weight='weight')[1]
+                    incomings.append(path_steps(path))
                 return order,incomings
-            scenarios=[];job_by_id={j['id']:j for j in company_jobs}
+            scenarios=[]
             counts=[c['fleet_limit']] if mode=='joint' else list(range(1,c['fleet_limit']+1))
             for count in counts:
                 routes=[];scenario_archive=[];used=[]
-                for vi,group in enumerate(sector_groups(company_jobs,count,depot_pos,position),1):
+                for vi,group in enumerate(bisect_groups(company_jobs,count,position),1):
                     if not group:
                         routes.append(dict(vehicle_id=vi,trip_ids=[],head_features=[],tail_features=[],incoming_features=[],hours=0,service_km=0,deadhead_km=0,distance_km=0));continue
                     ids,incomings=sequence(group);used+=ids
@@ -142,7 +179,7 @@ def main():
         if {f['properties']['task_id'] for f in missing_geometry['features']}!=missing:raise AssertionError('Unassigned map differs from audit')
         data=dict(mode=mode,route_format='direct_jobs',companies=results,summary=summary,unassigned_geometry=missing_geometry,
                   scope='広域431,116方向区間の仮の割当。実契約地区ではない。',
-                  method='道路往復時間で会社の区域を作成し、所在地を中心に方位で車両ごとの連続した担当区域（時間で均等化）に分割。各区域内で道路上の最寄り作業開始点を順に接続し、最初に出発・最後に帰庫。'+('全社台数で区域境界を調整。' if mode=='joint' else '会社所在地への近さを優先。')+'近似解で最適性・区域の完全な連結性の保証なし。',
+                  method='道路往復時間で会社の区域を作成し、作業時間が均等になるよう地理的に二分割を繰り返して車両ごとの連続した担当区域に分割。区域内では市域閉路の連続部分を断片として崩さず、断片単位で道路上の最寄り順に接続した後、近傍40作業までの道路コスト表でOr-opt（1〜3断片の移動）により接続を短縮。最初に出発・最後に帰庫。'+('全社台数で区域境界を調整。' if mode=='joint' else '会社所在地への近さを優先。')+'近似解で最適性・区域の完全な連結性の保証なし。',
                   transit_note='市外も含む。車種別通行・右左折制限・雪量・実稼働は未検証。',
                   fleet_note='固定区域方式のみ台数を変更可能。機種は公表主要機種の仮定。',origin_note='入口と道路の未確認接続は未算入。')
         with gzip.open(out/f'{prefix}_ordered_routes.json.gz','wt',encoding='utf-8') as file:json.dump(archive,file,ensure_ascii=False,separators=(',',':'))
