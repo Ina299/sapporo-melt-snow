@@ -1,5 +1,5 @@
 """Spatial territories + direct inter-job routing. Builds fixed and joint modes."""
-import gzip,json,sys
+import gzip,json,math,sys
 from collections import Counter,defaultdict
 from pathlib import Path
 import networkx as nx
@@ -227,31 +227,34 @@ def main():
                 for vi,group in enumerate(bisect_groups(company_jobs,count,position),1):
                     if not group:
                         routes.append(dict(vehicle_id=vi,trip_ids=[],head_features=[],tail_features=[],incoming_features=[],hours=0,service_km=0,deadhead_km=0,distance_km=0));continue
-                    body=cell_walk(group)
-                    # body starts with the hop from the depot (head) and ends with the return (tail)
-                    first_service=next(i for i,st in enumerate(body) if st['service']);last_service=max(i for i,st in enumerate(body) if st['service'])
-                    head=body[:first_service];core=body[first_service:last_service+1];tail=body[last_service+1:]
-                    steps=head+core+tail
-                    if steps[0]['u']!=c['depot_node'] or steps[-1]['v']!=c['depot_node']:raise AssertionError('Not closed')
-                    for k,st in enumerate(steps):
-                        if not g.has_edge(st['u'],st['v'],st['original_key']):raise AssertionError('Illegal direction')
-                        if k and steps[k-1]['v']!=st['u']:raise AssertionError('Disconnected route')
+                    # Shift cells: split the vehicle's cell into compact sub-cells, one per shift, so that a
+                    # shift covers one block of streets instead of an 8-hour slice of an Euler circuit that
+                    # wanders across the whole cell. Each sub-cell is routed as its own rural postman tour
+                    # from the depot and back; the number of cells grows until every tour fits SHIFT_HOURS.
+                    work_hours=sum(j['hours'] for j in group)
+                    n_shifts=max(1,math.ceil(work_hours/(SHIFT_HOURS*0.85)))
+                    for _attempt in range(40):
+                        shifts=[]
+                        for cell in bisect_groups(group,n_shifts,position):
+                            if not cell:continue
+                            body=cell_walk(cell)
+                            # body starts with the hop from the depot (head) and ends with the return (tail)
+                            first_service=next(i for i,st in enumerate(body) if st['service']);last_service=max(i for i,st in enumerate(body) if st['service'])
+                            shifts.append(dict(steps=body,head=body[:first_service],core=body[first_service:last_service+1],tail=body[last_service+1:],hours=metrics(body)['hours'],jobs=cell))
+                        over=[sh for sh in shifts if sh['hours']>SHIFT_HOURS+1e-9]
+                        if not over or n_shifts>=len(group):break
+                        n_shifts+=len(over)
+                    if over:print(mode,c['id'],'vehicle',vi,'warning:',len(over),'shift(s) exceed',SHIFT_HOURS,'h',[round(sh['hours'],2) for sh in over],flush=True)
+                    # Shift order: nearest sub-cell first from the depot, then by increasing return cost.
+                    shifts.sort(key=lambda sh:(metrics(sh['head'])['hours'],metrics(sh['tail'])['hours']))
+                    core=[st for sh in shifts for st in sh['core']]
                     for st in core:
                         if st['service']:served[st['task_id']]+=1
-                    trips,trip_steps=chunk_trips(core,next_id,return_steps=True);next_id+=len(trips);scenario_trips.extend(trips)
-                    # Split into shifts: each shift leaves the depot, works at most SHIFT_HOURS including the
-                    # return trip, and the next shift starts again from the depot.
-                    shifts=[];cur=None;cur_end=None
-                    def close(cur,cur_end):
-                        tail_=access(cur_end,bp,True);cur['steps'].extend(tail_);cur['tail']=tail_;shifts.append(cur)
-                    for k,chunk in enumerate(trip_steps):
-                        body_=chunk
-                        if cur is None or cur['hours']+metrics(chunk)['hours']+b[chunk[-1]['v']]/1000/3600>SHIFT_HOURS and cur['trip_idx']:
-                            if cur is not None:close(cur,cur_end)
-                            while len(body_)>1 and not body_[0]['service']:body_=body_[1:]  # a new shift heads straight to the work
-                            head_=access(body_[0]['u'],fp);cur=dict(steps=head_[:],head=head_,trip_idx=[],hours=metrics(head_)['hours'])
-                        cur['steps'].extend(body_);cur['trip_idx'].append(k);cur['hours']+=metrics(body_)['hours'];cur_end=body_[-1]['v']
-                    close(cur,cur_end)
+                    trips=[];trip_steps=[]
+                    for sh in shifts:
+                        t_,ts_=chunk_trips(sh['core'],next_id,return_steps=True);next_id+=len(t_)
+                        sh['trip_idx']=list(range(len(trips),len(trips)+len(t_)));trips.extend(t_);trip_steps.extend(ts_)
+                    scenario_trips.extend(trips)
                     steps=[st for sh in shifts for st in sh['steps']]
                     for k,st in enumerate(steps):
                         if not g.has_edge(st['u'],st['v'],st['original_key']):raise AssertionError('Illegal direction')
@@ -287,7 +290,7 @@ def main():
         (out/f'{prefix}_unassigned.geojson').write_text(json.dumps(missing_geometry,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
         data=dict(mode=mode,route_format='direct_jobs',companies=results,summary=summary,unassigned_geometry=missing_geometry,
                   scope='札幌市内の方向区間の仮の割当（市外区間は対象外）。実契約地区ではない。',
-                  method='道路往復時間で会社の区域を作成し、作業時間が均等になるよう地理的に二分割を繰り返して車両ごとの連続した担当区域に分割。各区域では担当区間を郵便配達人問題として解き直し（不足する接続を道路最短経路で補い、成分ごとにEuler閉路）、成分の訪問順は帰庫コストを含めて最寄り順＋Or-optで決めて最初に出発・最後に帰庫。各車両の経路は8時間のシフトに分け、シフトごとに所在地から出発して帰庫する。'+('全社台数で区域境界を調整。' if mode=='joint' else '会社所在地への近さを優先。')+'近似解で最適性・区域の完全な連結性の保証なし。',
+                  method='道路往復時間で会社の区域を作成し、作業時間が均等になるよう地理的に二分割を繰り返して車両ごとの連続した担当区域に分割。各区域では担当区間を郵便配達人問題として解き直し（不足する接続を道路最短経路で補い、成分ごとにEuler閉路）、成分の訪問順は帰庫コストを含めて最寄り順＋Or-optで決めて最初に出発・最後に帰庫。各車両の区域はさらにシフト数ぶんの連続した小区域に二分割し、小区域ごとに所在地から出発して帰庫する郵便配達人経路を作る（1シフトは出庫から帰庫まで8時間以内。収まらなければ小区域を増やす）。'+('全社台数で区域境界を調整。' if mode=='joint' else '会社所在地への近さを優先。')+'近似解で最適性・区域の完全な連結性の保証なし。',
                   transit_note='回送は市外道路も通行可。車種別通行・右左折制限・雪量・実稼働は未検証。',
                   fleet_note='両方式とも台数は公表主要機種による標準台数で固定。機種は公表主要機種の仮定。',origin_note='入口と道路の未確認接続は未算入。')
         with gzip.open(out/f'{prefix}_ordered_routes.json.gz','wt',encoding='utf-8') as file:json.dump(archive,file,ensure_ascii=False,separators=(',',':'))
