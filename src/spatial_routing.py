@@ -152,3 +152,50 @@ def bisect_groups(jobs,count,position):
         return rec(ordered[:cut],k1)+rec(ordered[cut:],k2)
     groups=rec(list(jobs),count)
     return groups[:count] if len(groups)>count else groups+[[] for _ in range(count-len(groups))]
+
+def refine_groups(groups,position,hours_cap,passes=12,gain=0.9,tol=0.15):
+    """Remove islands left by the straight cuts of `bisect_groups`.
+
+    Two kinds of change, both only when they shorten centroid distances: a job moves to
+    the group whose centroid is clearly nearer (factor `gain`) if the receiving group stays
+    within `hours_cap`; otherwise it is swapped with a job of that group that is at least
+    as well placed on this side, so balanced groups can still exchange boundary jobs.
+    A swap may raise a group already at the cap by at most `tol` hours (the routed tour is
+    checked against the shift length afterwards). Centroids are recomputed each pass;
+    stops when a pass changes nothing. Group order
+    is irrelevant here (each group is routed afterwards), so groups are plain lists.
+    """
+    import math
+    groups=[list(g) for g in groups]
+    def centroid(g):
+        if not g:return None
+        lats=[position(j)[0] for j in g];lons=[position(j)[1] for j in g]
+        return (sum(lats)/len(lats),sum(lons)/len(lons))
+    def dist(a,b):
+        return math.hypot((a[0]-b[0])*110.57,(a[1]-b[1])*111.32*math.cos(math.radians((a[0]+b[0])/2)))
+    hours=[sum(j['hours'] for j in g) for g in groups]
+    for _ in range(passes):
+        cents=[centroid(g) for g in groups];changed=0
+        for gi,g in enumerate(groups):
+            for j in list(g):
+                if len(g)<=1 or j not in g:break
+                p=position(j);own=dist(p,cents[gi]);best=None
+                for k,c in enumerate(cents):
+                    if k==gi or c is None:continue
+                    d=dist(p,c)
+                    if d<own*gain and (best is None or d<best[0]):best=(d,k)
+                if not best:continue
+                d,k=best
+                if hours[k]+j['hours']<=hours_cap:
+                    g.remove(j);groups[k].append(j);hours[gi]-=j['hours'];hours[k]+=j['hours'];changed+=1;continue
+                # swap with the job of group k that gains most by coming to group gi
+                cand=None
+                for j2 in groups[k]:
+                    if len(groups[k])<=1:break
+                    q=position(j2);gain2=dist(q,cents[k])-dist(q,cents[gi])  # >0 means j2 is better placed in gi
+                    if hours[k]-j2['hours']+j['hours']<=max(hours_cap,hours[k]+tol) and hours[gi]-j['hours']+j2['hours']<=max(hours_cap,hours[gi]+tol) and (cand is None or gain2>cand[0]):cand=(gain2,j2)  # a swap may push a group over the cap by at most `tol`
+                if cand and (own-d)+cand[0]>0:
+                    j2=cand[1];g.remove(j);groups[k].remove(j2);groups[k].append(j);g.append(j2)
+                    hours[gi]+=j2['hours']-j['hours'];hours[k]+=j['hours']-j2['hours'];changed+=1
+        if not changed:break
+    return groups

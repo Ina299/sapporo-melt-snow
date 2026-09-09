@@ -18,6 +18,22 @@ class SpatialRouting(unittest.TestCase):
         self.assertEqual([j['id'] for group in groups for j in group],list(range(10)))
 
 
+class RefineGroups(unittest.TestCase):
+    def test_island_moves_to_nearest_cell_within_cap(self):
+        from src.spatial_routing import refine_groups
+        # Two cells split by a straight cut at lon 141.30; job 99 sits just east of the cut but
+        # is surrounded by the west cell's jobs, so it belongs west once hours allow.
+        west=[dict(id=i,hours=1.0,lat=43.0,lon=141.28+0.002*i) for i in range(8)]
+        east=[dict(id=20+i,hours=1.0,lat=43.0,lon=141.32+0.002*i) for i in range(8)]
+        island=dict(id=99,hours=1.0,lat=43.0,lon=141.301)
+        groups=refine_groups([west,east+[island]],lambda j:(j['lat'],j['lon']),hours_cap=12)
+        self.assertIn(99,[j['id'] for j in groups[0]])
+        self.assertEqual(sorted(j['id'] for g in groups for j in g),sorted([j['id'] for j in west+east]+[99]))
+        # With no room in the west cell the island stays where it is.
+        groups=refine_groups([west,east+[island]],lambda j:(j['lat'],j['lon']),hours_cap=8)
+        self.assertIn(99,[j['id'] for j in groups[1]])
+
+
 class SectorGroups(unittest.TestCase):
     def test_sectors_are_contiguous_wedges_and_keep_every_job(self):
         from src.spatial_routing import sector_groups

@@ -7,7 +7,7 @@ from shapely.geometry import shape,Point
 from shapely.prepared import prep
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from src.routing import build_graph,travel_graph,distance,metrics,DRIVABLE
-from src.spatial_routing import bisect_groups,improve_order
+from src.spatial_routing import bisect_groups,improve_order,refine_groups
 from scripts.run_dispatch import LIMITS
 
 SHIFT_HOURS=8  # one shift: leave the depot, work, return; the next shift restarts from the depot
@@ -224,7 +224,10 @@ def main():
             total_tasks=sum(sum(st['service'] for st in j['steps']) for j in company_jobs)
             for count in counts:
                 routes=[];scenario_archive=[];scenario_trips=[];served=Counter();next_id=0
-                for vi,group in enumerate(bisect_groups(company_jobs,count,position),1):
+                vehicle_cells=bisect_groups(company_jobs,count,position)
+                # Same island fix between vehicles: no cell may grow beyond the largest bisected cell.
+                vehicle_cells=refine_groups(vehicle_cells,position,max(sum(j['hours'] for j in g) for g in vehicle_cells))
+                for vi,group in enumerate(vehicle_cells,1):
                     if not group:
                         routes.append(dict(vehicle_id=vi,trip_ids=[],head_features=[],tail_features=[],incoming_features=[],hours=0,service_km=0,deadhead_km=0,distance_km=0));continue
                     # Shift cells: split the vehicle's cell into compact sub-cells, one per shift, so that a
@@ -235,7 +238,9 @@ def main():
                     n_shifts=max(1,math.ceil(work_hours/(SHIFT_HOURS*0.85)))
                     for _attempt in range(40):
                         shifts=[]
-                        for cell in bisect_groups(group,n_shifts,position):
+                        # Straight bisection cuts leave jobs stranded on the wrong side of a boundary;
+                        # move each job to the nearest cell centroid while the cell stays within the shift.
+                        for cell in refine_groups(bisect_groups(group,n_shifts,position),position,SHIFT_HOURS*0.85):
                             if not cell:continue
                             body=cell_walk(cell)
                             # body starts with the hop from the depot (head) and ends with the return (tail)
