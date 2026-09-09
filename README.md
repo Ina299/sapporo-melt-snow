@@ -10,6 +10,8 @@
 
 **更新：[南西・南東へのDC融雪拠点の分散案](docs/regional_melting.md)**。DC4・DC5の既存融雪機能との連携に加え、真駒内・石山方面と大谷地・北野方面の用地探索を比較。市の配置案と地図の収録範囲を区別し、同じ総IT容量で運搬と設備費を評価します。個別区画と実運搬効果は未確定です。[事業者所在地・台数の照合](docs/contractor_audit.md)では公表台数と拠点配備を分けています。
 
+**更新：[DC候補地の因子別スクリーニング](docs/dc_siting.md)**。市内の作業対象車道に13観測点の2025年度降雪を載せた1kmメッシュの雪量を作り、候補地の組合せを運搬トン·kmで比較。受電・IX・用地（建物種別・住宅街路密度・3ha以上の工業区画）を別々の列で並べ、点数化しません。雪の運搬だけなら最良2地点は大谷地・北野＋新川・発寒北で、3地点目に山鼻を加えると平均運搬距離は6.6kmまで下がりますが、山鼻は周辺建物の84%が住宅系で工業区画がありません。
+
 **更新：[新設DC候補地・IX・受電と融雪の検証](docs/dc_feasibility.md)**。DC建設を前提に、候補を札幌市内に限定し、一等地を避けた6地区（手稲山口・前田、真駒内・石山、大谷地流通業務団地・北野、新川・発寒北、東米里・米里、宮の沢・発寒木工団地南端）に参考地区として山鼻・南22条橋方面を加え、5/20/50MWの規模比較を掲載しています。全候補について最寄りの187kV・66kV変電所、送電線の公開区分、H-IXまでの距離、最寄り工業団地を同じ表で比較できます（`python scripts/build_grid_ix.py`）。札幌市の施策として検討するため、石狩・小樽の候補は対象外にしました。いずれも地区単位の探索段階で、個別敷地の取得・受電・排水・通信経路は未確定です。
 
 ## 起動
@@ -74,6 +76,7 @@ python scripts/improve_dispatch.py    # 区域別配車の現行データ（docs
 python scripts/build_web_geometry.py  # 画面用データだけを再生成（共有座標表＋頂点番号列）
 python scripts/build_snow_management.py  # 日別雪収支（docs/snow_management.md）
 python scripts/build_grid_ix.py           # 変電所・送電線・IX・工業団地の一律評価（docs/dc_feasibility.md）
+python scripts/build_dc_siting.py         # 路上降雪メッシュと候補地組合せのトン·km、因子表（docs/dc_siting.md）。OSM取得はキャッシュ再利用
 ```
 
 `main` への push で `.github/workflows/test.yml` が Actions 上で単体試験と Playwright を実行します。

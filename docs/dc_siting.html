@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DC候補地の因子別スクリーニング（2026-09-09）</title><style>
+:root{--ink:#1d2a2c;--muted:#5d6f6b;--green:#207f69;--line:#dfe6e0;--bg:#f6f8f4}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.9 "Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+main{max-width:960px;margin:0 auto;padding:32px 24px 64px;background:#fff;min-height:100vh}
+h1{font-size:24px;line-height:1.5;margin:0 0 20px}h2{font-size:18px;margin:36px 0 12px;padding-top:12px;border-top:1px solid var(--line)}h3{font-size:15px;margin:24px 0 8px}
+a{color:var(--green)}p,li{font-size:13px}code{background:#f0f4ee;padding:1px 5px;border-radius:3px;font-size:12px}
+pre{background:#f0f4ee;padding:12px 14px;border-radius:6px;overflow:auto;font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:12px;margin:12px 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:#f7f9f5;color:var(--muted);font-weight:500;white-space:nowrap}
+img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{margin-right:14px}
+</style></head>
+<body><main><nav class="docnav"><a href="../web/">画面へ戻る</a><a href="design.html">設計・調査結果</a><a href="dc_feasibility.html">DC候補地</a><a href="direct_routing.html">配車</a><a href="snow_management.html">雪収支</a><a href="../README.md">README</a></nav><h1 id="dc2026-09-09">DC候補地の因子別スクリーニング（2026-09-09）</h1>
+<p>候補地の選定を「工業・物流地区を人手で挙げて、受電・IXを後から一律評価する」段階から、<strong>雪の発生地からの運搬距離を定量化し、受電・IX・用地と混ぜずに並べる</strong>段階へ進めた。点数化して合計せず、因子ごとに列を分ける。用地・受電・IXの確認状況は<a href="dc_feasibility.html">立地検証</a>、地域配置の考え方は<a href="regional_melting.html">分散案</a>。再現：<code>python scripts/build_dc_siting.py</code>、成果物 <code>data/processed/dc_siting.json</code>・<code>dc_siting_cells.csv</code>、画面は「工業・物流用地にDCと融雪を併設する」節の因子表と地図の「路上降雪メッシュ」。</p>
+<h2 id="1km">雪の供給側：1kmメッシュの路上降雪</h2>
+<p>配車モデルの作業対象（札幌市内の車道、未舗装・私道等を除く）を1kmメッシュに集計し、道路種別ごとの仮定除雪幅を掛けて道路面積を出す。同じ道路の往復方向は二重計上しない。降雪は市内13観測点の2025年度（2025-11-01〜2026-04-10、161日）の季節合計と日量95パーセンタイルを、メッシュ中心から最寄りの観測点で与える。新雪密度100kg/m³。</p>
+<table>
+<thead>
+<tr>
+<th>入力</th>
+<th>値・扱い</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>対象車道</td>
+<td>6,435km、599メッシュ。道路面積4,382ha</td>
+</tr>
+<tr>
+<td>除雪幅の仮定</td>
+<td>primary 12m、secondary 11m、tertiary 9m、unclassified・residential 6m、living_street 5m</td>
+</tr>
+<tr>
+<td>排雪率</td>
+<td>50%。道路上の降雪のうちトラックで運び出す割合の仮定。候補地の順位には影響せず、トン数とMW換算だけに影響する</td>
+</tr>
+<tr>
+<td>距離</td>
+<td>直線×迂回係数1.3。道路距離・橋・冬季渋滞は未反映</td>
+</tr>
+<tr>
+<td>観測点の座標</td>
+<td>地名・区役所住所の国土地理院住所検索。センサー位置ではない。北区(太平)・あいの里は複数候補のうち先頭を採用</td>
+</tr>
+</tbody>
+</table>
+<p>結果は季節1,171万t（排雪率50%換算）、平均日量72,732t、95%日量418,380t。20MWのDC1か所（3,531t/日）は平均日量の4.9%。95%日量を当日中に全量融雪するには2,370MW相当が要るので、DC融雪は貯雪で平準化した一定量の処理と位置づける。トン数は仮定幅と排雪率に比例する近似で、実排雪量の推計ではない。</p>
+<h2 id="km">候補地の組合せ：季節トン·km</h2>
+<p>各メッシュを最寄り候補地に割り当て、候補7地区から1〜4地点を選ぶ全組合せを季節トン·kmで並べた。</p>
+<table>
+<thead>
+<tr>
+<th>拠点数</th>
+<th>最小トン·kmの組合せ</th>
+<th style="text-align: right;">平均運搬距離</th>
+<th>受持ち割合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>DC6 山鼻</td>
+<td style="text-align: right;">11.37km</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>DC3 大谷地・北野＋DC4 新川・発寒北</td>
+<td style="text-align: right;">7.98km</td>
+<td>53%／47%</td>
+</tr>
+<tr>
+<td>2（次点）</td>
+<td>DC3 大谷地・北野＋DC7 宮の沢</td>
+<td style="text-align: right;">8.02km</td>
+<td>49%／51%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>DC3＋DC4＋DC6 山鼻</td>
+<td style="text-align: right;">6.57km</td>
+<td>32%／38%／30%</td>
+</tr>
+<tr>
+<td>3（次点）</td>
+<td>DC2 真駒内・石山＋DC3＋DC4</td>
+<td style="text-align: right;">6.70km</td>
+<td>18%／38%／44%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>DC2＋DC3＋DC4＋DC6</td>
+<td style="text-align: right;">6.08km</td>
+<td>12%／31%／38%／19%</td>
+</tr>
+</tbody>
+</table>
+<p>読み方。2地点目までで平均運搬距離は11.4→8.0kmと大きく縮み、3地点目で6.6km、4地点目で6.1kmと効果は減る。DC1 手稲山口・前田は単独平均20.3km、10km圏の雪が12%で、運搬の面では最も不利。市外への搬出を市内処理に置き換える政策目的で残す場合は、この不利を明示した上で判断する。DC5 東米里は最良2地点に加えたときの削減が525万t·kmで、DC6 山鼻（1,655万）・DC2 真駒内（1,499万）より小さい。</p>
+<h2 id="_1">因子表</h2>
+<table>
+<thead>
+<tr>
+<th>候補</th>
+<th style="text-align: right;">雪：単独平均運搬／10km圏</th>
+<th style="text-align: right;">雪：最良2地点に加えた削減</th>
+<th>受電：187kV系送電線（区分）</th>
+<th style="text-align: right;">IX：H-IX</th>
+<th>用地：住宅系建物の割合・住宅街路密度</th>
+<th>用地：3ha以上の工業系区画</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DC1 手稲山口・前田</td>
+<td style="text-align: right;">20.3km／12%</td>
+<td style="text-align: right;">224万t·km</td>
+<td>室蘭西幹線 6.1km（50〜99MW）</td>
+<td style="text-align: right;">15.1km</td>
+<td>63%・1.4km/km²</td>
+<td>なし</td>
+</tr>
+<tr>
+<td>DC2 真駒内・石山</td>
+<td style="text-align: right;">15.4km／20%</td>
+<td style="text-align: right;">1,499万</td>
+<td>南九条線 6.9km（要照会）</td>
+<td style="text-align: right;">9.4km</td>
+<td>52%・3.8</td>
+<td>なし</td>
+</tr>
+<tr>
+<td>DC3 大谷地・北野</td>
+<td style="text-align: right;">13.1km／39%</td>
+<td style="text-align: right;">（最良2地点）</td>
+<td>南札幌幹線 0.2km（50〜99MW）</td>
+<td style="text-align: right;">7.0km</td>
+<td>52%・8.7</td>
+<td>1（札幌貨物ターミナル 60.6ha、鉄道用地）</td>
+</tr>
+<tr>
+<td>DC4 新川・発寒北</td>
+<td style="text-align: right;">13.7km／38%</td>
+<td style="text-align: right;">（最良2地点）</td>
+<td>室蘭西幹線 0.2km（50〜99MW）</td>
+<td style="text-align: right;">8.8km</td>
+<td>80%・12.7</td>
+<td>2（発寒鉄工団地 91.9ha 等）</td>
+</tr>
+<tr>
+<td>DC5 東米里・米里</td>
+<td style="text-align: right;">14.2km／27%</td>
+<td style="text-align: right;">525万</td>
+<td>南札幌幹線 2.4km（50〜99MW）</td>
+<td style="text-align: right;">7.9km</td>
+<td>18%・0.4</td>
+<td>なし</td>
+</tr>
+<tr>
+<td>DC6 山鼻（参考）</td>
+<td style="text-align: right;">11.4km／40%</td>
+<td style="text-align: right;">1,655万</td>
+<td>南九条線 1.9km（要照会）</td>
+<td style="text-align: right;">4.0km</td>
+<td>84%・6.2</td>
+<td>なし</td>
+</tr>
+<tr>
+<td>DC7 宮の沢</td>
+<td style="text-align: right;">12.9km／37%</td>
+<td style="text-align: right;">708万</td>
+<td>室蘭西幹線 1.7km（50〜99MW）</td>
+<td style="text-align: right;">7.6km</td>
+<td>68%・5.3</td>
+<td>1（発寒鉄工団地 27.8ha 分）</td>
+</tr>
+</tbody>
+</table>
+<p>用地の列は候補地代表点から半径1.5kmのOSMデータ。札幌のOSMは土地利用（landuse）がほとんど付いておらず、住宅比率は全候補で1%未満になるため使えない。代わりに建物種別（building タグのうち house・apartments 等を住宅系、industrial・warehouse 等を工業系とし、<code>yes</code> は除く）の割合と、住宅街路（highway=residential）の延長密度で住宅地かどうかを読む。工業系区画は landuse=industrial・railway 等のポリゴンで3ha以上のもの。用途地域（法的な立地可否）、売地の有無、所有者、ハザードは含まない。</p>
+<h2 id="_2">因子を混ぜずに読むと</h2>
+<ul>
+<li><strong>運搬だけなら</strong> DC3＋DC4 の2地点が最良で、3地点目は DC6 山鼻。ただし山鼻は住宅系建物84%で工業区画がなく、受電は要照会。運搬の利点は用地の制約と相殺されず、公共用地の転用を政策として扱うかどうかで決まる。</li>
+<li><strong>受電と用地が揃うのは</strong> DC3・DC4・DC7。187kV系送電線が2km以内で公開区分が50〜99MW、3ha以上の工業系区画がある。DC3の大区画は貨物ターミナルの鉄道用地で、工業団地ではない点に注意。</li>
+<li><strong>DC2 真駒内・石山</strong>は3地点目の次点（削減1,499万t·km）だが、工業区画がなく受電も要照会。南区の雪を受ける役割は運搬の数字で裏付けられたので、次は公共用地・既利用地の区画探索が課題になる。</li>
+<li><strong>DC5 東米里</strong>は運搬の削減が小さく、周辺建物は少ない（種別付き建物が少数）。既存の東部融雪機能との連携という別の役割で評価する。</li>
+<li><strong>DC1 手稲</strong>は運搬で最も不利。石狩新港西地区への市外搬出の置き換えという政策目的を数値化しないと残す理由が立たない。</li>
+</ul>
+<h2 id="_3">限界と次の段階</h2>
+<ul>
+<li>距離は直線×1.3。道路距離への置き換えは Actions 上で配車グラフを使えば可能。シフト小区域ごとの重心からの距離に置き換えると、実際の作業区域からの運搬になる。</li>
+<li>雪量は仮定幅×観測降雪の近似。市の実排雪量（区別の運搬量）が得られれば校正する。</li>
+<li>既存融雪施設（<code>candidates.json</code> の公表能力）を固定の受入先として置き、不足分だけを新設で受ける計算は未実施。</li>
+<li>用途地域（国土数値情報A29）、洪水浸水想定（A31）、土砂災害警戒区域（A33）は未取得。区画候補が出た段階で除外条件として使う。</li>
+</ul></main></body></html>

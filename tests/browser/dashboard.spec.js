@@ -12,6 +12,14 @@ test('data, controls, coverage and map work without external network',async({pag
   const js=await summary(page);
   await expect(page.locator('#top-stats')).toContainText(fmt(js.assigned_arcs));
   await expect(page.locator('#melt-tonnes')).toHaveText('201');
+  // DC siting panel: factor table for every candidate, best sets follow the k selector, mesh layer toggles.
+  await expect(page.locator('#siting-factors tr')).toHaveCount(7);
+  await expect(page.locator('#siting-sets tr')).toHaveCount(5);
+  await page.locator('#siting-k').selectOption('3');
+  await expect(page.locator('#siting-sets tr').first()).toContainText('DC');
+  await page.locator('#siting-sets [data-siting-set]').first().click();
+  await expect(page.locator('#mesh-layer')).toBeChecked();
+  expect(await page.evaluate(()=>window.DC_SITING.cells.length)).toBeGreaterThan(100);
   await page.locator('#recovery').fill('0');
   await page.locator('#recovery').dispatchEvent('input');
   await expect(page.locator('#melt-tonnes')).toHaveText('0');

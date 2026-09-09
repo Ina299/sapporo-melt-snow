@@ -115,6 +115,15 @@
       </div>
       <div id="dc-sites" class="site-grid"></div>
       <div class="panel" id="grid-panel"><div class="panel-heading"><div><span class="eyebrow">POWER / IX SCREENING</span><h3>受電・IXの一律評価（全候補、直線距離）</h3></div><button id="grid-view" class="text-button">変電所・送電線・IXを地図で見る ↑</button></div><p class="section-intro" id="grid-method"></p><div class="table-scroll"><table><thead><tr><th>候補</th><th>最寄り187kV変電所</th><th>最寄り66kV変電所</th><th>3km内の変電所</th><th>最寄り187kV系送電線（区分）</th><th>最寄り66kV送電線（区分）</th><th>H-IXまで</th><th>最寄り工業団地</th></tr></thead><tbody id="dc-grid-table"></tbody></table></div><p class="fineprint">距離は代表点からの直線距離で、ケーブル経路・引込み費・供給枠ではありません。区分はほくでんネットワーク公開マップの表示区分（要照会＝公開値なし）。公開マップ上の変電所は全て要照会表示で、ここに示す変電所区分はデータ内コードの参考値です。二次側6.6kVのみの配電用変電所から特高受電はできません。JPNAP札幌のPOP所在ビルは非公開のため距離を出していません。10MW超は需要側接続の事前相談が必要で、相談は未送信です。<a href="../data/processed/dc_grid_ix.json">評価データ</a> · <a href="../data/grid_ix_sources.json">出典とハッシュ</a></p></div>
+      <div class="panel" id="siting-panel"><div class="panel-heading"><div><span class="eyebrow">SNOW SUPPLY / FACTOR SCREENING</span><h3>雪の発生地からの運搬と、受電・IX・用地を別々の列で比べる</h3></div><button id="siting-view" class="text-button">路上降雪メッシュを地図で見る ↑</button></div>
+        <p class="section-intro" style="padding:0 24px">市内の作業対象車道に、最寄り観測点の2025年度降雪を仮定幅で載せた1kmメッシュの雪量です。各メッシュを最寄り候補地に割り当て、候補地の組合せをトン·kmで比べます。点数化して足し合わせず、因子ごとに並べます。</p>
+        <div class="stats" id="siting-totals" style="padding:0 24px"></div>
+        <div class="table-scroll"><table><thead><tr><th>候補</th><th>雪：単独なら平均運搬</th><th>雪：最良2地点に加えた削減</th><th>受電：最寄り187kV系送電線（区分）</th><th>IX：H-IX</th><th>用地：住宅系建物の割合（1.5km）</th><th>用地：3ha以上の工業区画（1.5km）</th></tr></thead><tbody id="siting-factors"></tbody></table></div>
+        <div class="panel-heading" style="padding-top:8px"><div><h3>候補地の組合せ（トン·km最小の上位5）</h3></div><label style="font-size:11px">拠点数 <select id="siting-k" style="width:auto;margin:0 0 0 6px"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option></select></label></div>
+        <div class="table-scroll"><table><thead><tr><th>#</th><th>候補地</th><th>平均運搬距離</th><th>季節トン·km</th><th>受け持つ雪の割合</th><th></th></tr></thead><tbody id="siting-sets"></tbody></table></div>
+        <p class="fineprint" id="siting-assumptions"></p>
+        <p class="fineprint">札幌のOSMは土地利用（landuse）がほとんど付いていないため、住宅地かどうかは建物種別（building タグ）の割合と住宅街路の密度で読みます。用途地域・売地・所有者・ハザードは含みません。<a href="../docs/dc_siting.html">計算方法と読み方 ↗</a></p>
+      </div>
       <div class="panel"><h3>DC規模別の融雪と搬入</h3><p id="dc-assumptions" class="fineprint"></p><div class="table-scroll"><table><thead><tr><th>IT容量</th><th>融雪 t/日</th><th>雪 m³/日</th><th>8t積み 便/日</th><th>投雪レーン数</th></tr></thead><tbody id="dc-scenarios"></tbody></table></div><p class="fineprint">レーン数：搬入16時間、1便8分、稼働率70%の仮定。融雪は24時間。敷地内の雪の一時貯留が必要です。</p><h3>IX・回線を立地条件にする</h3><p id="dc-network"></p><p><a href="../docs/dc_feasibility.html">候補地の検証・受電条件・IX誘致案を読む ↗</a></p></div>
       <h3>比較対象：既存の融雪施設</h3>
       <p class="section-intro">調査順は既存設備との接続を重視した設計判断です。全候補で、用地確保・受電余力・通信冗長性・敷地別浸水深は未確認です。建設適地の認定や経済性の順位ではありません。</p>
@@ -134,6 +143,6 @@
     </section>
     <footer>SAPPORO SNOW LAB <span>雪と暮らす都市のための、検討用ワークスペース。</span></footer>
   </main>
-  <script src="vendor/leaflet.js"></script><script src="data.js"></script><script src="nodes-data.js"></script><script src="city-data.js"></script><script src="boundary-data.js"></script><script src="grid-data.js"></script><script src="joint-dispatch-data.js"></script><script src="app.js"></script><script src="city.js"></script><script src="contractors.js"></script><script src="snow-data.js"></script><script src="snow-model.js"></script><script src="snow-ui.js"></script>
+  <script src="vendor/leaflet.js"></script><script src="data.js"></script><script src="nodes-data.js"></script><script src="city-data.js"></script><script src="boundary-data.js"></script><script src="grid-data.js"></script><script src="joint-dispatch-data.js"></script><script src="app.js"></script><script src="city.js"></script><script src="contractors.js"></script><script src="snow-data.js"></script><script src="snow-model.js"></script><script src="snow-ui.js"></script><script src="dc-siting-data.js"></script><script src="dc-siting.js"></script>
 </body>
 </html>

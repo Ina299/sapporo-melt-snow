@@ -229,5 +229,488 @@
     "query": "札幌市北区北7条西3丁目",
     "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8C%97%E5%8C%BA%E5%8C%977%E6%9D%A1%E8%A5%BF3%E4%B8%81%E7%9B%AE",
     "retrieved_at": "2026-09-08T02:18:41.586912+00:00"
+  },
+  "札幌市中央区南3条西11丁目": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.341202,
+            43.055237
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市中央区南三条西十一丁目"
+        }
+      }
+    ],
+    "query": "札幌市中央区南3条西11丁目",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%8D%973%E6%9D%A1%E8%A5%BF11%E4%B8%81%E7%9B%AE",
+    "retrieved_at": "2026-09-09T09:07:12.623790+00:00"
+  },
+  "札幌市北区太平": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.346329,
+            43.124027
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平一条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.348923,
+            43.137531
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平十条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.349167,
+            43.138626
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平十一条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.349411,
+            43.139767
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平十二条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.345734,
+            43.126823
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平二条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.346344,
+            43.128357
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平三条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.347321,
+            43.129475
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平四条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.347824,
+            43.131634
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平五条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.348206,
+            43.132988
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平六条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.347763,
+            43.134346
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平七条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.348328,
+            43.135273
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平八条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.348923,
+            43.136436
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区太平九条"
+        }
+      }
+    ],
+    "query": "札幌市北区太平",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8C%97%E5%8C%BA%E5%A4%AA%E5%B9%B3",
+    "retrieved_at": "2026-09-09T09:07:13.297544+00:00"
+  },
+  "札幌市北区あいの里": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.390182,
+            43.157078
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区あいの里一条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.38443,
+            43.161106
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区あいの里二条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.384964,
+            43.163795
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区あいの里三条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.386261,
+            43.165264
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区あいの里四条"
+        }
+      },
+      {
+        "geometry": {
+          "coordinates": [
+            141.393494,
+            43.1703
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市北区あいの里五条"
+        }
+      }
+    ],
+    "query": "札幌市北区あいの里",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8C%97%E5%8C%BA%E3%81%82%E3%81%84%E3%81%AE%E9%87%8C",
+    "retrieved_at": "2026-09-09T09:07:13.903618+00:00"
+  },
+  "札幌市東区北11条東7丁目": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.363708,
+            43.076195
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市東区北十一条東七丁目"
+        }
+      }
+    ],
+    "query": "札幌市東区北11条東7丁目",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E6%9D%B1%E5%8C%BA%E5%8C%9711%E6%9D%A1%E6%9D%B17%E4%B8%81%E7%9B%AE",
+    "retrieved_at": "2026-09-09T09:07:14.513461+00:00"
+  },
+  "札幌市白石区南郷通1丁目南": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.396484,
+            43.044655
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市白石区南郷通一丁目南"
+        }
+      }
+    ],
+    "query": "札幌市白石区南郷通1丁目南",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E7%99%BD%E7%9F%B3%E5%8C%BA%E5%8D%97%E9%83%B7%E9%80%9A1%E4%B8%81%E7%9B%AE%E5%8D%97",
+    "retrieved_at": "2026-09-09T09:07:15.125248+00:00"
+  },
+  "札幌市厚別区厚別中央1条5丁目": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.472946,
+            43.036041
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市厚別区厚別中央一条五丁目"
+        }
+      }
+    ],
+    "query": "札幌市厚別区厚別中央1条5丁目",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8E%9A%E5%88%A5%E5%8C%BA%E5%8E%9A%E5%88%A5%E4%B8%AD%E5%A4%AE1%E6%9D%A15%E4%B8%81%E7%9B%AE",
+    "retrieved_at": "2026-09-09T09:07:15.727385+00:00"
+  },
+  "札幌市豊平区平岸6条10丁目": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.380463,
+            43.030964
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市豊平区平岸六条十丁目"
+        }
+      }
+    ],
+    "query": "札幌市豊平区平岸6条10丁目",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E8%B1%8A%E5%B9%B3%E5%8C%BA%E5%B9%B3%E5%B2%B86%E6%9D%A110%E4%B8%81%E7%9B%AE",
+    "retrieved_at": "2026-09-09T09:07:16.432846+00:00"
+  },
+  "札幌市清田区平岡1条1丁目": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.443512,
+            42.998493
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市清田区平岡一条一丁目"
+        }
+      }
+    ],
+    "query": "札幌市清田区平岡1条1丁目",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E6%B8%85%E7%94%B0%E5%8C%BA%E5%B9%B3%E5%B2%A11%E6%9D%A11%E4%B8%81%E7%9B%AE",
+    "retrieved_at": "2026-09-09T09:07:17.133678+00:00"
+  },
+  "札幌市南区南31条西8丁目": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.350845,
+            43.017178
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市南区南三十一条西八丁目"
+        }
+      }
+    ],
+    "query": "札幌市南区南31条西8丁目",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8D%97%E5%8C%BA%E5%8D%9731%E6%9D%A1%E8%A5%BF8%E4%B8%81%E7%9B%AE",
+    "retrieved_at": "2026-09-09T09:07:17.857761+00:00"
+  },
+  "札幌市南区定山渓温泉東": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.177032,
+            42.970898
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市南区定山渓温泉東"
+        }
+      }
+    ],
+    "query": "札幌市南区定山渓温泉東",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E5%8D%97%E5%8C%BA%E5%AE%9A%E5%B1%B1%E6%B8%93%E6%B8%A9%E6%B3%89%E6%9D%B1",
+    "retrieved_at": "2026-09-09T09:07:18.601115+00:00"
+  },
+  "札幌市西区西野": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.239883,
+            43.075638
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市西区西野"
+        }
+      }
+    ],
+    "query": "札幌市西区西野",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E8%A5%BF%E5%8C%BA%E8%A5%BF%E9%87%8E",
+    "retrieved_at": "2026-09-09T09:07:19.217555+00:00"
+  },
+  "札幌市西区平和": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.217422,
+            43.050007
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市西区平和"
+        }
+      }
+    ],
+    "query": "札幌市西区平和",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E8%A5%BF%E5%8C%BA%E5%B9%B3%E5%92%8C",
+    "retrieved_at": "2026-09-09T09:07:19.905152+00:00"
+  },
+  "札幌市手稲区前田1条11丁目": {
+    "results": [
+      {
+        "geometry": {
+          "coordinates": [
+            141.244949,
+            43.120945
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "addressCode": "",
+          "title": "北海道札幌市手稲区前田一条十一丁目"
+        }
+      }
+    ],
+    "query": "札幌市手稲区前田1条11丁目",
+    "source_url": "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%AD%E5%B9%8C%E5%B8%82%E6%89%8B%E7%A8%B2%E5%8C%BA%E5%89%8D%E7%94%B01%E6%9D%A111%E4%B8%81%E7%9B%AE",
+    "retrieved_at": "2026-09-09T09:07:20.569696+00:00"
   }
 }

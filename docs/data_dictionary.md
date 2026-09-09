@@ -20,6 +20,9 @@
 | analysis | audit | 対象道路数、未計算数、道路種別除外数、境界除外数、未反映制約 |
 | routes.geojson | scenario, vehicle, depot | 台数別の仮定シナリオ。同一シナリオ内の車両ごとに順序付きLineString |
 | excluded_arcs | task_id, u,v | 強連結性のため計算しなかった有向辺。消去せず保存 |
+| dc_siting | cells[].season_t, peak_day_t, road_km, station | 1kmメッシュの路上降雪（排雪率換算のトン）。最寄り観測点の季節合計・95%日量×道路種別ごとの仮定幅。実排雪量ではない |
+| dc_siting | best_sets[k][].tonne_km, mean_km, sites[].share | 候補地k地点の組合せごとの季節トン·km（直線×迂回係数）と各地点の受持ち割合。上位5組 |
+| dc_siting | factors[].snow / grid / ix / land | 候補地ごとの因子。grid・ixは dc_grid_ix の転記。land はOSM landuse 面積比、building 種別数、住宅街路密度。点数化しない |
 
 `analysis.json` のサービス速度8km/h、回送速度20km/h、時間単価12,000円/台h、6時間上限、車両1/2/4/8台はすべて仮定です。時間単価には実際の見積根拠はありません。画面の速度・単価変更は固定経路に対する感度計算で、経路分担の再最適化ではありません。
 
