@@ -1,0 +1,564 @@
+{
+ "as_of": "2026-09-09",
+ "source": "https://disaportal.gsi.go.jp/",
+ "tile_url": "https://disaportaldata.gsi.go.jp/raster/{layer}/{z}/{x}/{y}.png",
+ "zoom": 15,
+ "radius_m": 1500,
+ "layers": {
+  "flood_max": {
+   "id": "01_flood_l2_shinsuishin_data",
+   "title": "洪水浸水想定区域（想定最大規模）"
+  },
+  "flood_plan": {
+   "id": "01_flood_l1_shinsuishin_newlegend_data",
+   "title": "洪水浸水想定区域（計画規模）"
+  },
+  "debris_flow": {
+   "id": "05_dosekiryukeikaikuiki",
+   "title": "土砂災害警戒区域（土石流）"
+  },
+  "steep_slope": {
+   "id": "05_kyukeishakeikaikuiki",
+   "title": "土砂災害警戒区域（急傾斜地の崩壊）"
+  },
+  "landslide": {
+   "id": "05_jisuberikeikaikuiki",
+   "title": "土砂災害警戒区域（地滑り）"
+  },
+  "tsunami": {
+   "id": "04_tsunami_newlegend_data",
+   "title": "津波浸水想定"
+  }
+ },
+ "legend_flood": {
+  "#F7F5A9": "0.5m未満",
+  "#FFD8C0": "0.5〜3m",
+  "#FFB7B7": "3〜5m",
+  "#FF9191": "5〜10m",
+  "#F285C9": "10〜20m",
+  "#DC7ADC": "20m以上"
+ },
+ "notes": [
+  "国土地理院「重ねるハザードマップ」の公開タイル（PNG）を凡例色で分類した参考値。原典は各河川管理者・都道府県の指定図で、タイルの解像度と色の丸めに依存する。",
+  "半径1.5kmの地区の面積割合であり、個別区画の浸水深ではない。区画候補が出たら原典図で確認する。",
+  "内水（下水・雨水）の浸水想定タイルは札幌市域で未提供のため、札幌市の内水ハザードマップは手作業で照合する。",
+  "面積割合は候補地の点数化に使わず、事業継続条件を満たせない区画を除外する判断材料とする。"
+ ],
+ "candidates": [
+  {
+   "id": "teine",
+   "name": "札幌市手稲区手稲山口・前田方面",
+   "radius_m": 1500,
+   "zoom": 15,
+   "layers": {
+    "flood_max": {
+     "layer": "01_flood_l2_shinsuishin_data",
+     "title": "洪水浸水想定区域（想定最大規模）",
+     "tiles": 16,
+     "area_share_mapped": 0.623,
+     "shares": {
+      "0.5m未満": 0.2882,
+      "0.5〜3m": 0.3126,
+      "3〜5m": 0.02,
+      "5〜10m": 0.0022
+     },
+     "at_point": "0.5〜3m"
+    },
+    "flood_plan": {
+     "layer": "01_flood_l1_shinsuishin_newlegend_data",
+     "title": "洪水浸水想定区域（計画規模）",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "debris_flow": {
+     "layer": "05_dosekiryukeikaikuiki",
+     "title": "土砂災害警戒区域（土石流）",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "steep_slope": {
+     "layer": "05_kyukeishakeikaikuiki",
+     "title": "土砂災害警戒区域（急傾斜地の崩壊）",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "landslide": {
+     "layer": "05_jisuberikeikaikuiki",
+     "title": "土砂災害警戒区域（地滑り）",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "tsunami": {
+     "layer": "04_tsunami_newlegend_data",
+     "title": "津波浸水想定",
+     "tiles": 16,
+     "area_share_mapped": 0.0203,
+     "shares": {
+      "区域内": 0.0203
+     },
+     "at_point": null
+    }
+   },
+   "summary": {
+    "flood_max_share": 0.623,
+    "flood_max_ge_3m_share": 0.0222,
+    "flood_max_at_point": "0.5〜3m",
+    "sediment_share": 0.0,
+    "tsunami_share": 0.0203
+   }
+  },
+  {
+   "id": "makomanai_ishiyama",
+   "name": "札幌市南区真駒内・石山方面",
+   "radius_m": 1500,
+   "zoom": 15,
+   "layers": {
+    "flood_max": {
+     "layer": "01_flood_l2_shinsuishin_data",
+     "title": "洪水浸水想定区域（想定最大規模）",
+     "tiles": 20,
+     "area_share_mapped": 0.294,
+     "shares": {
+      "0.5m未満": 0.159,
+      "0.5〜3m": 0.1214,
+      "3〜5m": 0.0126,
+      "5〜10m": 0.0011
+     },
+     "at_point": "0.5m未満"
+    },
+    "flood_plan": {
+     "layer": "01_flood_l1_shinsuishin_newlegend_data",
+     "title": "洪水浸水想定区域（計画規模）",
+     "tiles": 20,
+     "area_share_mapped": 0.0615,
+     "shares": {
+      "0.5m未満": 0.036,
+      "0.5〜3m": 0.0166,
+      "3〜5m": 0.0076,
+      "5〜10m": 0.0013
+     },
+     "at_point": "0.5m未満"
+    },
+    "debris_flow": {
+     "layer": "05_dosekiryukeikaikuiki",
+     "title": "土砂災害警戒区域（土石流）",
+     "tiles": 20,
+     "area_share_mapped": 0.0075,
+     "shares": {
+      "区域内": 0.0075
+     },
+     "at_point": null
+    },
+    "steep_slope": {
+     "layer": "05_kyukeishakeikaikuiki",
+     "title": "土砂災害警戒区域（急傾斜地の崩壊）",
+     "tiles": 20,
+     "area_share_mapped": 0.0473,
+     "shares": {
+      "区域内": 0.0473
+     },
+     "at_point": null
+    },
+    "landslide": {
+     "layer": "05_jisuberikeikaikuiki",
+     "title": "土砂災害警戒区域（地滑り）",
+     "tiles": 20,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "tsunami": {
+     "layer": "04_tsunami_newlegend_data",
+     "title": "津波浸水想定",
+     "tiles": 20,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    }
+   },
+   "summary": {
+    "flood_max_share": 0.294,
+    "flood_max_ge_3m_share": 0.0137,
+    "flood_max_at_point": "0.5m未満",
+    "sediment_share": 0.0548,
+    "tsunami_share": 0.0
+   }
+  },
+  {
+   "id": "oyachi_kitano",
+   "name": "札幌市大谷地流通業務団地・北野方面",
+   "radius_m": 1500,
+   "zoom": 15,
+   "layers": {
+    "flood_max": {
+     "layer": "01_flood_l2_shinsuishin_data",
+     "title": "洪水浸水想定区域（想定最大規模）",
+     "tiles": 16,
+     "area_share_mapped": 0.6042,
+     "shares": {
+      "0.5m未満": 0.2181,
+      "0.5〜3m": 0.3849,
+      "3〜5m": 0.0012
+     },
+     "at_point": "0.5m未満"
+    },
+    "flood_plan": {
+     "layer": "01_flood_l1_shinsuishin_newlegend_data",
+     "title": "洪水浸水想定区域（計画規模）",
+     "tiles": 16,
+     "area_share_mapped": 0.4385,
+     "shares": {
+      "0.5m未満": 0.2313,
+      "0.5〜3m": 0.2072
+     },
+     "at_point": null
+    },
+    "debris_flow": {
+     "layer": "05_dosekiryukeikaikuiki",
+     "title": "土砂災害警戒区域（土石流）",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "steep_slope": {
+     "layer": "05_kyukeishakeikaikuiki",
+     "title": "土砂災害警戒区域（急傾斜地の崩壊）",
+     "tiles": 16,
+     "area_share_mapped": 0.0005,
+     "shares": {
+      "区域内": 0.0005
+     },
+     "at_point": null
+    },
+    "landslide": {
+     "layer": "05_jisuberikeikaikuiki",
+     "title": "土砂災害警戒区域（地滑り）",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "tsunami": {
+     "layer": "04_tsunami_newlegend_data",
+     "title": "津波浸水想定",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    }
+   },
+   "summary": {
+    "flood_max_share": 0.6042,
+    "flood_max_ge_3m_share": 0.0012,
+    "flood_max_at_point": "0.5m未満",
+    "sediment_share": 0.0005,
+    "tsunami_share": 0.0
+   }
+  },
+  {
+   "id": "shinkawa",
+   "name": "札幌市新川・発寒北の工業地区",
+   "radius_m": 1500,
+   "zoom": 15,
+   "layers": {
+    "flood_max": {
+     "layer": "01_flood_l2_shinsuishin_data",
+     "title": "洪水浸水想定区域（想定最大規模）",
+     "tiles": 16,
+     "area_share_mapped": 0.9512,
+     "shares": {
+      "3〜5m": 0.2399,
+      "0.5〜3m": 0.6509,
+      "5〜10m": 0.0393,
+      "0.5m未満": 0.0207,
+      "10〜20m": 0.0003
+     },
+     "at_point": "3〜5m"
+    },
+    "flood_plan": {
+     "layer": "01_flood_l1_shinsuishin_newlegend_data",
+     "title": "洪水浸水想定区域（計画規模）",
+     "tiles": 16,
+     "area_share_mapped": 0.4985,
+     "shares": {
+      "0.5m未満": 0.1794,
+      "0.5〜3m": 0.3172,
+      "3〜5m": 0.0019,
+      "5〜10m": 0.0
+     },
+     "at_point": "0.5m未満"
+    },
+    "debris_flow": {
+     "layer": "05_dosekiryukeikaikuiki",
+     "title": "土砂災害警戒区域（土石流）",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "steep_slope": {
+     "layer": "05_kyukeishakeikaikuiki",
+     "title": "土砂災害警戒区域（急傾斜地の崩壊）",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "landslide": {
+     "layer": "05_jisuberikeikaikuiki",
+     "title": "土砂災害警戒区域（地滑り）",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "tsunami": {
+     "layer": "04_tsunami_newlegend_data",
+     "title": "津波浸水想定",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    }
+   },
+   "summary": {
+    "flood_max_share": 0.9512,
+    "flood_max_ge_3m_share": 0.2795,
+    "flood_max_at_point": "3〜5m",
+    "sediment_share": 0.0,
+    "tsunami_share": 0.0
+   }
+  },
+  {
+   "id": "yonesato",
+   "name": "札幌市東米里・米里の物流地区",
+   "radius_m": 1500,
+   "zoom": 15,
+   "layers": {
+    "flood_max": {
+     "layer": "01_flood_l2_shinsuishin_data",
+     "title": "洪水浸水想定区域（想定最大規模）",
+     "tiles": 20,
+     "area_share_mapped": 0.779,
+     "shares": {
+      "0.5〜3m": 0.3265,
+      "0.5m未満": 0.0381,
+      "3〜5m": 0.4035,
+      "5〜10m": 0.011
+     },
+     "at_point": "3〜5m"
+    },
+    "flood_plan": {
+     "layer": "01_flood_l1_shinsuishin_newlegend_data",
+     "title": "洪水浸水想定区域（計画規模）",
+     "tiles": 20,
+     "area_share_mapped": 0.7292,
+     "shares": {
+      "0.5〜3m": 0.4054,
+      "0.5m未満": 0.0291,
+      "3〜5m": 0.2872,
+      "5〜10m": 0.0076
+     },
+     "at_point": "0.5〜3m"
+    },
+    "debris_flow": {
+     "layer": "05_dosekiryukeikaikuiki",
+     "title": "土砂災害警戒区域（土石流）",
+     "tiles": 20,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "steep_slope": {
+     "layer": "05_kyukeishakeikaikuiki",
+     "title": "土砂災害警戒区域（急傾斜地の崩壊）",
+     "tiles": 20,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "landslide": {
+     "layer": "05_jisuberikeikaikuiki",
+     "title": "土砂災害警戒区域（地滑り）",
+     "tiles": 20,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "tsunami": {
+     "layer": "04_tsunami_newlegend_data",
+     "title": "津波浸水想定",
+     "tiles": 20,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    }
+   },
+   "summary": {
+    "flood_max_share": 0.779,
+    "flood_max_ge_3m_share": 0.4145,
+    "flood_max_at_point": "3〜5m",
+    "sediment_share": 0.0,
+    "tsunami_share": 0.0
+   }
+  },
+  {
+   "id": "yamahana",
+   "name": "札幌市中央区 山鼻・南22条橋方面（参考）",
+   "radius_m": 1500,
+   "zoom": 15,
+   "layers": {
+    "flood_max": {
+     "layer": "01_flood_l2_shinsuishin_data",
+     "title": "洪水浸水想定区域（想定最大規模）",
+     "tiles": 16,
+     "area_share_mapped": 0.3976,
+     "shares": {
+      "0.5m未満": 0.2744,
+      "0.5〜3m": 0.1229,
+      "3〜5m": 0.0003
+     },
+     "at_point": "0.5m未満"
+    },
+    "flood_plan": {
+     "layer": "01_flood_l1_shinsuishin_newlegend_data",
+     "title": "洪水浸水想定区域（計画規模）",
+     "tiles": 16,
+     "area_share_mapped": 0.0907,
+     "shares": {
+      "0.5m未満": 0.0774,
+      "0.5〜3m": 0.0133,
+      "3〜5m": 0.0
+     },
+     "at_point": null
+    },
+    "debris_flow": {
+     "layer": "05_dosekiryukeikaikuiki",
+     "title": "土砂災害警戒区域（土石流）",
+     "tiles": 16,
+     "area_share_mapped": 0.06,
+     "shares": {
+      "区域内": 0.06
+     },
+     "at_point": null
+    },
+    "steep_slope": {
+     "layer": "05_kyukeishakeikaikuiki",
+     "title": "土砂災害警戒区域（急傾斜地の崩壊）",
+     "tiles": 16,
+     "area_share_mapped": 0.0378,
+     "shares": {
+      "区域内": 0.0378
+     },
+     "at_point": null
+    },
+    "landslide": {
+     "layer": "05_jisuberikeikaikuiki",
+     "title": "土砂災害警戒区域（地滑り）",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "tsunami": {
+     "layer": "04_tsunami_newlegend_data",
+     "title": "津波浸水想定",
+     "tiles": 16,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    }
+   },
+   "summary": {
+    "flood_max_share": 0.3976,
+    "flood_max_ge_3m_share": 0.0003,
+    "flood_max_at_point": "0.5m未満",
+    "sediment_share": 0.0978,
+    "tsunami_share": 0.0
+   }
+  },
+  {
+   "id": "miyanosawa",
+   "name": "札幌市西区 宮の沢・発寒木工団地南端",
+   "radius_m": 1500,
+   "zoom": 15,
+   "layers": {
+    "flood_max": {
+     "layer": "01_flood_l2_shinsuishin_data",
+     "title": "洪水浸水想定区域（想定最大規模）",
+     "tiles": 20,
+     "area_share_mapped": 0.6,
+     "shares": {
+      "0.5m未満": 0.4973,
+      "0.5〜3m": 0.1026,
+      "3〜5m": 0.0001
+     },
+     "at_point": "0.5m未満"
+    },
+    "flood_plan": {
+     "layer": "01_flood_l1_shinsuishin_newlegend_data",
+     "title": "洪水浸水想定区域（計画規模）",
+     "tiles": 20,
+     "area_share_mapped": 0.0036,
+     "shares": {
+      "0.5m未満": 0.0035,
+      "0.5〜3m": 0.0001
+     },
+     "at_point": null
+    },
+    "debris_flow": {
+     "layer": "05_dosekiryukeikaikuiki",
+     "title": "土砂災害警戒区域（土石流）",
+     "tiles": 20,
+     "area_share_mapped": 0.0366,
+     "shares": {
+      "区域内": 0.0366
+     },
+     "at_point": null
+    },
+    "steep_slope": {
+     "layer": "05_kyukeishakeikaikuiki",
+     "title": "土砂災害警戒区域（急傾斜地の崩壊）",
+     "tiles": 20,
+     "area_share_mapped": 0.0103,
+     "shares": {
+      "区域内": 0.0103
+     },
+     "at_point": null
+    },
+    "landslide": {
+     "layer": "05_jisuberikeikaikuiki",
+     "title": "土砂災害警戒区域（地滑り）",
+     "tiles": 20,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    },
+    "tsunami": {
+     "layer": "04_tsunami_newlegend_data",
+     "title": "津波浸水想定",
+     "tiles": 20,
+     "area_share_mapped": 0.0,
+     "shares": {},
+     "at_point": null
+    }
+   },
+   "summary": {
+    "flood_max_share": 0.6,
+    "flood_max_ge_3m_share": 0.0001,
+    "flood_max_at_point": "0.5m未満",
+    "sediment_share": 0.0469,
+    "tsunami_share": 0.0
+   }
+  }
+ ]
+}

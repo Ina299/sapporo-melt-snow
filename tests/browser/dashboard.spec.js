@@ -20,6 +20,9 @@ test('data, controls, coverage and map work without external network',async({pag
   await page.locator('#siting-sets [data-siting-set]').first().click();
   await expect(page.locator('#mesh-layer')).toBeChecked();
   expect(await page.evaluate(()=>window.DC_SITING.cells.length)).toBeGreaterThan(100);
+  await expect(page.locator('#siting-factors td:nth-child(8)').first()).toContainText('%');
+  await page.locator('#hazard-flood').check();
+  await expect(page.locator('#hazard-flood')).toBeChecked();
   await page.locator('#recovery').fill('0');
   await page.locator('#recovery').dispatchEvent('input');
   await expect(page.locator('#melt-tonnes')).toHaveText('0');

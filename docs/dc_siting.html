@@ -177,18 +177,92 @@ nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{mar
 </tbody>
 </table>
 <p>用地の列は候補地代表点から半径1.5kmのOSMデータ。札幌のOSMは土地利用（landuse）がほとんど付いておらず、住宅比率は全候補で1%未満になるため使えない。代わりに建物種別（building タグのうち house・apartments 等を住宅系、industrial・warehouse 等を工業系とし、<code>yes</code> は除く）の割合と、住宅街路（highway=residential）の延長密度で住宅地かどうかを読む。工業系区画は landuse=industrial・railway 等のポリゴンで3ha以上のもの。用途地域（法的な立地可否）、売地の有無、所有者、ハザードは含まない。</p>
-<h2 id="_2">因子を混ぜずに読むと</h2>
+<h2 id="_2">ハザード：重ねるハザードマップのタイルを読む</h2>
+<p>国土地理院「重ねるハザードマップ」の公開タイル（ズーム15）を候補地周辺1.5kmの範囲で取得し、凡例色で分類して面積割合を出した（<code>scripts/build_hazard.py</code>、<code>data/processed/dc_hazard.json</code>）。洪水は想定最大規模の浸水深区分、土砂災害は警戒区域（土石流・急傾斜地・地滑り）、津波は浸水想定。内水（下水・雨水）の想定タイルは札幌市域で提供されていないため、大雨時の道路陥没や内水氾濫は札幌市の内水ハザードマップ・下水道台帳との照合が別途必要である。地図の「ハザード」チェックで同じタイルを重ねられる。</p>
+<table>
+<thead>
+<tr>
+<th>候補</th>
+<th style="text-align: right;">洪水浸水想定（想定最大）が占める面積</th>
+<th style="text-align: right;">うち3m以上</th>
+<th>代表点の区分</th>
+<th style="text-align: right;">土砂災害警戒区域</th>
+<th style="text-align: right;">津波</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DC1 手稲山口・前田</td>
+<td style="text-align: right;">62%</td>
+<td style="text-align: right;">2%</td>
+<td>0.5〜3m</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">2%</td>
+</tr>
+<tr>
+<td>DC2 真駒内・石山</td>
+<td style="text-align: right;">29%</td>
+<td style="text-align: right;">1%</td>
+<td>0.5m未満</td>
+<td style="text-align: right;">5%</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr>
+<td>DC3 大谷地・北野</td>
+<td style="text-align: right;">60%</td>
+<td style="text-align: right;">0%</td>
+<td>0.5m未満</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr>
+<td>DC4 新川・発寒北</td>
+<td style="text-align: right;">95%</td>
+<td style="text-align: right;">28%</td>
+<td>3〜5m</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr>
+<td>DC5 東米里・米里</td>
+<td style="text-align: right;">78%</td>
+<td style="text-align: right;">41%</td>
+<td>3〜5m</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr>
+<td>DC6 山鼻（参考）</td>
+<td style="text-align: right;">40%</td>
+<td style="text-align: right;">0%</td>
+<td>0.5m未満</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr>
+<td>DC7 宮の沢</td>
+<td style="text-align: right;">60%</td>
+<td style="text-align: right;">0%</td>
+<td>0.5m未満</td>
+<td style="text-align: right;">5%</td>
+<td style="text-align: right;">0%</td>
+</tr>
+</tbody>
+</table>
+<p>読み方。面積割合は地区の傾向で、個別区画の浸水深ではない。運搬・受電・用地で有利だった DC4 新川・発寒北は、周辺のほぼ全域が洪水浸水想定区域で、3m以上の区分が4分の1を占める。DC5 東米里も同様に低地で、3m以上が4割。DC3 大谷地・北野は6割が区域内だが深さは0.5〜3mが中心で、代表点は0.5m未満。ただし大谷地は大雨時の道路陥没が報告される地区で、内水・下水の条件はこのタイルには含まれない。DC2 真駒内・石山と DC6 山鼻、DC7 宮の沢は洪水の割合が小さい代わりに斜面（土砂災害警戒区域）を含む。DC1 手稲は津波浸水想定が一部に掛かる。</p>
+<p>タイルは各河川管理者・都道府県の指定図を国土地理院が重ね表示用に変換したもので、解像度と色の丸めに依存する。区画候補が出た段階で原典図と浸水継続時間を確認し、必要な事業継続条件を満たせない区画を外す。点数で相殺しない。</p>
+<h2 id="_3">因子を混ぜずに読むと</h2>
 <ul>
 <li><strong>運搬だけなら</strong> DC3＋DC4 の2地点が最良で、3地点目は DC6 山鼻。ただし山鼻は住宅系建物84%で工業区画がなく、受電は要照会。運搬の利点は用地の制約と相殺されず、公共用地の転用を政策として扱うかどうかで決まる。</li>
-<li><strong>受電と用地が揃うのは</strong> DC3・DC4・DC7。187kV系送電線が2km以内で公開区分が50〜99MW、3ha以上の工業系区画がある。DC3の大区画は貨物ターミナルの鉄道用地で、工業団地ではない点に注意。</li>
+<li><strong>受電と用地が揃うのは</strong> DC3・DC4・DC7。187kV系送電線が2km以内で公開区分が50〜99MW、3ha以上の工業系区画がある。DC3の大区画は貨物ターミナルの鉄道用地で、工業団地ではない点に注意。ただし DC4 は周辺の95%が洪水浸水想定区域（3m以上が28%）で、DC3 も60%が区域内かつ内水の条件が未確認。ハザードは点数で相殺できないので、DC3・DC4 では敷地の盛土・機器配置・搬入路の浸水深を区画単位で確認しないと候補として残せない。DC7 宮の沢は洪水の深い区分がなく、斜面の警戒区域が5%。</li>
 <li><strong>DC2 真駒内・石山</strong>は3地点目の次点（削減1,499万t·km）だが、工業区画がなく受電も要照会。南区の雪を受ける役割は運搬の数字で裏付けられたので、次は公共用地・既利用地の区画探索が課題になる。</li>
 <li><strong>DC5 東米里</strong>は運搬の削減が小さく、周辺建物は少ない（種別付き建物が少数）。既存の東部融雪機能との連携という別の役割で評価する。</li>
 <li><strong>DC1 手稲</strong>は運搬で最も不利。石狩新港西地区への市外搬出の置き換えという政策目的を数値化しないと残す理由が立たない。</li>
 </ul>
-<h2 id="_3">限界と次の段階</h2>
+<h2 id="_4">限界と次の段階</h2>
 <ul>
 <li>距離は直線×1.3。道路距離への置き換えは Actions 上で配車グラフを使えば可能。シフト小区域ごとの重心からの距離に置き換えると、実際の作業区域からの運搬になる。</li>
 <li>雪量は仮定幅×観測降雪の近似。市の実排雪量（区別の運搬量）が得られれば校正する。</li>
 <li>既存融雪施設（<code>candidates.json</code> の公表能力）を固定の受入先として置き、不足分だけを新設で受ける計算は未実施。</li>
-<li>用途地域（国土数値情報A29）、洪水浸水想定（A31）、土砂災害警戒区域（A33）は未取得。区画候補が出た段階で除外条件として使う。</li>
+<li>用途地域（国土数値情報A29）は未取得。洪水・土砂・津波は重ねるハザードマップのタイルで地区の傾向を読んだ段階で、区画候補が出たら原典図（A31・A33 または道・市の指定図）と内水ハザードマップで除外条件として使う。</li>
 </ul></main></body></html>

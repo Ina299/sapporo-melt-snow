@@ -22,7 +22,8 @@
 | excluded_arcs | task_id, u,v | 強連結性のため計算しなかった有向辺。消去せず保存 |
 | dc_siting | cells[].season_t, peak_day_t, road_km, station | 1kmメッシュの路上降雪（排雪率換算のトン）。最寄り観測点の季節合計・95%日量×道路種別ごとの仮定幅。実排雪量ではない |
 | dc_siting | best_sets[k][].tonne_km, mean_km, sites[].share | 候補地k地点の組合せごとの季節トン·km（直線×迂回係数）と各地点の受持ち割合。上位5組 |
-| dc_siting | factors[].snow / grid / ix / land | 候補地ごとの因子。grid・ixは dc_grid_ix の転記。land はOSM landuse 面積比、building 種別数、住宅街路密度。点数化しない |
+| dc_hazard | candidates[].layers[].shares, summary.flood_max_share, flood_max_ge_3m_share, sediment_share, tsunami_share | 重ねるハザードマップ公開タイルを凡例色で分類した半径1.5kmの面積割合。at_point は代表点の区分。個別区画の浸水深ではない |
+| dc_siting | factors[].snow / grid / ix / land / hazard | 候補地ごとの因子。grid・ixは dc_grid_ix の転記。land はOSM landuse 面積比、building 種別数、住宅街路密度。点数化しない |
 
 `analysis.json` のサービス速度8km/h、回送速度20km/h、時間単価12,000円/台h、6時間上限、車両1/2/4/8台はすべて仮定です。時間単価には実際の見積根拠はありません。画面の速度・単価変更は固定経路に対する感度計算で、経路分担の再最適化ではありません。
 

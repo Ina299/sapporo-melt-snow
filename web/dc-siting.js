@@ -27,7 +27,13 @@
     }
     S.candidates.filter(c=>chosen.includes(c.id)).forEach(c=>L.circleMarker([c.lat,c.lon],{radius:9,color:'#fff',weight:2,fillColor:colorOf[c.id],fillOpacity:1}).bindTooltip(`${label(c.id)} ${esc(c.name)}`).addTo(meshLayer));
   }
+  // Hazard overlays: the same public tiles the factor table was read from (needs network).
+  const hazardTiles={flood:['01_flood_l2_shinsuishin_data'],sediment:['05_dosekiryukeikaikuiki','05_kyukeishakeikaikuiki','05_jisuberikeikaikuiki'],tsunami:['04_tsunami_newlegend_data']};
+  const hazardLayers={};
+  for(const [k,ids] of Object.entries(hazardTiles)){const g=L.layerGroup();ids.forEach(id=>L.tileLayer(`https://disaportaldata.gsi.go.jp/raster/${id}/{z}/{x}/{y}.png`,{maxNativeZoom:17,opacity:.55,attribution:'ハザード：<a href="https://disaportal.gsi.go.jp/">国土地理院 重ねるハザードマップ</a>'}).addTo(g));hazardLayers[k]=g;}
   const controls=document.querySelector('.dc-map-controls');
+  const hz=document.createElement('label');hz.innerHTML='ハザード：<input id="hazard-flood" type="checkbox"> <i class="legend-dot" style="background:#ffd8c0;border:1px solid #c9a"></i>洪水（想定最大） <input id="hazard-sediment" type="checkbox"> <i class="legend-dot" style="background:#e5c04a"></i>土砂災害 <input id="hazard-tsunami" type="checkbox"> <i class="legend-dot" style="background:#7fb2ff"></i>津波';controls.appendChild(hz);
+  for(const k of Object.keys(hazardTiles))$(`hazard-${k}`).onchange=e=>e.target.checked?hazardLayers[k].addTo(map):map.removeLayer(hazardLayers[k]);
   const lbl=document.createElement('label');lbl.innerHTML='<input id="mesh-layer" type="checkbox"> <i class="legend-dot" style="background:#1f7a4d"></i>路上降雪メッシュ（最寄り候補で色分け）';controls.appendChild(lbl);
   $('mesh-layer').onchange=e=>e.target.checked?meshLayer.addTo(map):map.removeLayer(meshLayer);
   function showMesh(){$('mesh-layer').checked=true;meshLayer.addTo(map);}
@@ -35,14 +41,16 @@
   $('siting-totals').innerHTML=stat('市内の対象車道',num(t.road_km),'km','未舗装・私道等を除く作業対象。往復を二重計上しない')+stat('季節の路上降雪',num(Math.round(t.season_t/1e4)/100,2),'百万t',`排雪率${Math.round(S.assumptions.haul_fraction*100)}%換算。13観測点の2025年度合計`)+stat('平均日量',num(t.avg_day_t),'t/日',`${S.assumptions.season_days}日で均した値。20MW DC 1か所で${num(t.share_of_avg_day_per_20mw*100,1)}%`)+stat('95%日量',num(t.peak_day_t),'t/日','全量を当日に融雪するには非現実的なMWが要る。貯雪で平準化する前提');
   const pct=v=>v==null?'—':`${num(v*100,0)}%`;
   function renderFactors(){
-    $('siting-factors').innerHTML=S.factors.map(f=>{const sn=f.snow,g=f.grid,x=f.ix,l=f.land,b=l.buildings;
+    $('siting-factors').innerHTML=S.factors.map(f=>{const sn=f.snow,g=f.grid,x=f.ix,l=f.land,b=l.buildings,h=f.hazard;
       return `<tr class="${chosen.includes(f.id)?'selected-row':''}"><td><b>${label(f.id)}</b> ${esc(f.name)}<br><small>${esc(f.verdict)}</small></td>
         <td>${num(sn.mean_km,1)} km<br><small>10km圏 ${pct(sn.share_within_10km)}</small></td>
         <td>${sn.tonne_km_saved_vs_best2==null?'<small>最良2地点に含む</small>':`${num(Math.round(sn.tonne_km_saved_vs_best2/1e3))} 千t·km`}</td>
         <td>${esc(g.line_187kv||'—')} ${g.line_187kv_km==null?'':num(g.line_187kv_km,1)+' km'}<br><small>${esc(g.line_187kv_rank||'')}／187kV変電所 ${esc(g.substation_187kv)} ${num(g.substation_187kv_km,1)} km</small></td>
         <td>${x.hix_km==null?'—':num(x.hix_km,1)+' km'}</td>
         <td>${b?`${pct(b.residential_share_of_typed)}<br><small>種別付き${num(b.buildings-b.unspecified)}棟中。住宅街路 ${num(l.residential_street_km_per_km2,1)} km/km²</small>`:'—'}</td>
-        <td>${l.industrial_parcels_ge_3ha}区画<br><small>最大 ${num(l.largest_industrial_ha,1)} ha／工業 ${pct(l.industrial_share)}／団地 ${esc(x.industrial_park)} ${num(x.industrial_park_km,1)} km</small></td></tr>`;}).join('');
+        <td>${l.industrial_parcels_ge_3ha}区画<br><small>最大 ${num(l.largest_industrial_ha,1)} ha／工業 ${pct(l.industrial_share)}／団地 ${esc(x.industrial_park)} ${num(x.industrial_park_km,1)} km</small></td>
+        <td>${h?`${pct(h.flood_max_share)}<br><small>3m以上 ${pct(h.flood_max_ge_3m_share)}／代表点 ${esc(h.flood_max_at_point||'区域外')}</small>`:'—'}</td>
+        <td>${h?`土砂 ${pct(h.sediment_share)}／津波 ${pct(h.tsunami_share)}`:'—'}</td></tr>`;}).join('');
   }
   function renderSets(){
     const k=$('siting-k').value;const sets=S.best_sets[k];

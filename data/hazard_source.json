@@ -1,0 +1,14 @@
+{
+  "source": "https://disaportal.gsi.go.jp/",
+  "tile_url": "https://disaportaldata.gsi.go.jp/raster/{layer}/{z}/{x}/{y}.png",
+  "layers": {
+    "flood_max": "01_flood_l2_shinsuishin_data",
+    "flood_plan": "01_flood_l1_shinsuishin_newlegend_data",
+    "debris_flow": "05_dosekiryukeikaikuiki",
+    "steep_slope": "05_kyukeishakeikaikuiki",
+    "landslide": "05_jisuberikeikaikuiki",
+    "tsunami": "04_tsunami_newlegend_data"
+  },
+  "retrieved_at": "2026-09-09T13:19:58.732480+00:00",
+  "license": "国土地理院コンテンツ利用規約（出典明記）"
+}

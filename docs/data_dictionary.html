@@ -113,8 +113,13 @@ nav.docnav{font-size:12px;color:var(--muted);margin-bottom:18px}nav.docnav a{mar
 <td>候補地k地点の組合せごとの季節トン·km（直線×迂回係数）と各地点の受持ち割合。上位5組</td>
 </tr>
 <tr>
+<td>dc_hazard</td>
+<td>candidates[].layers[].shares, summary.flood_max_share, flood_max_ge_3m_share, sediment_share, tsunami_share</td>
+<td>重ねるハザードマップ公開タイルを凡例色で分類した半径1.5kmの面積割合。at_point は代表点の区分。個別区画の浸水深ではない</td>
+</tr>
+<tr>
 <td>dc_siting</td>
-<td>factors[].snow / grid / ix / land</td>
+<td>factors[].snow / grid / ix / land / hazard</td>
 <td>候補地ごとの因子。grid・ixは dc_grid_ix の転記。land はOSM landuse 面積比、building 種別数、住宅街路密度。点数化しない</td>
 </tr>
 </tbody>

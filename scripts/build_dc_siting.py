@@ -40,6 +40,7 @@ ASSUMPTIONS=dict(
            '降雪は最寄り観測点（13地点、2025年度）の季節合計と日量95パーセンタイル。観測点の座標は地名・区役所住所の代表点。',
            '排雪率は道路上の降雪のうちトラックで運び出す割合の仮定。候補地の順位には影響せず、トン数とMW換算だけに影響する。',
            '距離は直線×迂回係数で、道路距離・橋・冬季渋滞を含まない。候補地の代表点は売地区画ではない。',
+           'ハザードの因子は国土地理院「重ねるハザードマップ」公開タイルを凡例色で読んだ半径1.5kmの面積割合（scripts/build_hazard.py）。内水は未提供。区画の浸水深ではない。',
            '用地の因子は候補地代表点から半径1.5kmのOSM土地利用（landuse）の面積比、3ha以上の工業系区画の数、建物種別の数（building タグ）、住宅街路（highway=residential）の密度。札幌のOSMは landuse がほとんど付いていないため、住宅地かどうかは建物種別と住宅街路の密度で読む。用途地域（法的な立地可否）・売地の有無・所有者は含まない。'])
 
 def hav(a,b):
@@ -168,6 +169,7 @@ def main():
         evals.sort(key=lambda e:e['tonne_km'])
         best_sets[str(k)]=evals[:5]
     grid={e['id']:e for e in load('data/processed/dc_grid_ix.json')['evaluations']}
+    hz_path=OUT/'dc_hazard.json';hazard={r['id']:r for r in (json.loads(hz_path.read_text(encoding='utf-8'))['candidates'] if hz_path.exists() else [])}
     verdict={r['id']:r['verdict'] for r in csv.DictReader(open(OUT/'dc_candidates.csv',encoding='utf-8-sig'))}
     best2=best_sets['2'][0]['ids']
     factors=[]
@@ -184,7 +186,7 @@ def main():
                       line_187kv=ge['nearest_lines'].get('187',{}).get('name'),line_187kv_km=ge['nearest_lines'].get('187',{}).get('distance_km'),line_187kv_rank=ge['nearest_lines'].get('187',{}).get('capacity_label'),
                       substations_66kv_within_3km=len(ge['substations_within_3km'])),
             ix=dict(hix_km=hix,industrial_park=ge['nearest_industrial_park']['name'],industrial_park_km=ge['nearest_industrial_park']['distance_km']),
-            land=land))
+            land=land,hazard=(lambda h:dict(flood_max_share=h['summary']['flood_max_share'],flood_max_ge_3m_share=h['summary']['flood_max_ge_3m_share'],flood_max_at_point=h['summary']['flood_max_at_point'],flood_max_classes=h['layers']['flood_max']['shares'],sediment_share=h['summary']['sediment_share'],tsunami_share=h['summary']['tsunami_share']))(hazard[c['id']]) if c['id'] in hazard else None))
     # marginal value of each candidate: best k=3 set with and without it
     data=dict(as_of=datetime.now(timezone.utc).date().isoformat(),assumptions=ASSUMPTIONS,stations=stations,candidates=cands,
               totals=dict(cells=len(rows),road_km=round(sum(r['road_km'] for r in rows)),road_area_ha=round(sum(r['road_area_ha'] for r in rows)),
